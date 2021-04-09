@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+  <tabs>
+    <Tab text="Panier">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="6.0" layoutY="2.0" mnemonicParsing="false" text="Filtre" />
+                  <Button layoutX="51.0" layoutY="2.0" mnemonicParsing="false" text="Arranger" />
+                  <Text layoutX="15.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agencement de la pièce">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                  </Text>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Catalogue">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+   <contextMenu>
+      <ContextMenu>
+        <items>
+          <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+        </items>
+      </ContextMenu>
+   </contextMenu>
+</TabPane>
