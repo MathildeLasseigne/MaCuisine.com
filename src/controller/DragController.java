@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Encapsulate the drag responsibility of a node in a class.
@@ -25,7 +26,7 @@ public class DragController {
     /**The target node to drag**/
     private final Node target;
 
-    /**The orginal position of the node in the scene**/
+    /**The original position of mouse in the scene when grabbing the target node**/
     private double anchorX, anchorY;
 
     /**The distance between the position of the mouse and the position of the node when the node is catched**/
@@ -125,10 +126,11 @@ public class DragController {
     }
 
     /**
-     * Handler when grabbing the target node
+     * Handler when grabbing the target node. Init the anchor and the mouseOffset
+     * <br/>Check boundaries but not conditions
      * @param event mouseEvent
      */
-    private void grabHandler(MouseEvent event){
+    public void grabHandler(MouseEvent event){
         if (event.isPrimaryButtonDown()) {
             cycleStatus = ACTIVE;
             anchorX = event.getSceneX();
@@ -152,10 +154,11 @@ public class DragController {
     }
 
     /**
-     * Handler when dragging the target node
+     * Handler when dragging the target node. Modify translateX & Y of the node
+     * <br/>Check boundaries but not conditions
      * @param event mouseEvent
      */
-    private void dragHandler(MouseEvent event){
+    public void dragHandler(MouseEvent event){
         if (cycleStatus != INACTIVE) {
             if(this.dragBoundary != null){
                 double oldTranslateX = target.getTranslateX();
@@ -175,10 +178,11 @@ public class DragController {
     }
 
     /**
-     * Handler when releasing the target node
+     * Handler when releasing the target node. Commit position of the node to LayoutX & Y
+     * <br/>Check boundaries but not conditions
      * @param event mouseEvent
      */
-    private void releaseHandler(MouseEvent event){
+    public void releaseHandler(MouseEvent event){
         if (cycleStatus != INACTIVE) {
             //commit changes to LayoutX and LayoutY
 
@@ -311,7 +315,8 @@ public class DragController {
     /*--------------------------Position------------------------*/
 
     /**
-     * Calculate the coordinate in the layout where the node is drawn
+     * Calculate the coordinate in the layout where the node is drawn in its parent,
+     * with layoutX & Y and translateX & Y
      * <br/><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#translateXProperty--">Source of calculation</a>
      * @param node the node which position is calculated
      * @return the position of the node in the layout
@@ -321,13 +326,75 @@ public class DragController {
     }
 
     /**
-     * Snap the target node back to its last position
+     * Snap the target node back to its last position by setting translateX & Y to 0
      */
     public void snapToOrigin(){
         this.target.setTranslateX(0);
         this.target.setTranslateY(0);
     }
 
+
+    /**
+     * Set the original position of mouse <b>in the scene</b> when grabbing the target node.
+     * Used to translate the node.<hr>
+     * <p>Nodes layoutX & Y must correspond.
+     * If there is the need to place the node at position parentX,parentY in its parent, and the anchor at position anchorInParentX, anchorInParentY in its parents use :
+     * <pre>
+     * node.relocate(parentX,parentY);
+     * Parent parent = node.getParent();
+     * Point2D anchorInScene = parent.localToScene(anchorInParentX, anchorInParentY);
+     * </pre>
+     * </p>
+     * <p>
+     *     <br/>Carefull management is needed to avoid breaking the class. Use with MouseOffsetFromNode
+     *     <br/><i><b>Do not use while the dragging propertie is activated</b></i>
+     * </p>
+     * @param anchor the anchor point. Ideally inside the node since grabbing motion is done from within the node
+     * @see DragController#setMouseOffsetFromNode(Point2D)
+     * @see DragController#grabHandler(MouseEvent)
+     * @see DragController#dragHandler(MouseEvent)
+     * @see DragController#releaseHandler(MouseEvent)
+     */
+    public void setAnchors(@NotNull Point2D anchor){
+        this.anchorX = anchor.getX();
+        this.anchorY = anchor.getY();
+        target.getLayoutY();
+    }
+
+    /**
+     * The distance between the position of the mouse and the position of the node
+     * when the node is grabbed
+     * <br/>Must be the same as distance between the position of the node and the anchor.
+     * <hr><b>If node is already positionned in its parent with relocate():</b>
+     * <br/>If anchor is at point anchorParentX, anchorParentY in the nodes parent,
+     * use offset calculated with
+     * <pre>
+     *     Point2D posInParent = dragController.getCurrentPos(node);
+     *     offsetX = anchorParentX - posInParent.getX();
+     *     offsetY = anchorParentY - posInParent.getY();
+     * </pre>To find anchorInScene from offset use
+     * <pre>
+     *     Point2D posInParent = dragController.getCurrentPos(node);
+     *     anchorParentX = posInParent.getX() + offset.getX();
+     *     anchorParentY = posInParent.getY() + offset.getY();
+     *     Parent parent = node.getParent();
+     *     Point2D anchorInScene = parent.localToScene(anchorInParentX, anchorInParentY);
+     * </pre>
+     * <p>
+     *     <br/>Carefull management is needed to avoid breaking the class. Use with setAnchors
+     *     <br/><i><b>Do not use while the dragging propertie is activated</b></i>
+     * </p>
+     * @param mouseOffsetFromNode distance between the mouse and the node
+     * @see DragController#setAnchors(Point2D)
+     * @see DragController#getCurrentPos(Node)
+     * @see DragController#grabHandler(MouseEvent)
+     * @see DragController#dragHandler(MouseEvent)
+     * @see DragController#releaseHandler(MouseEvent)
+     */
+    public void setMouseOffsetFromNode(Point2D mouseOffsetFromNode) {
+        this.mouseOffsetFromNodeZeroX = mouseOffsetFromNode.getX();
+        this.mouseOffsetFromNodeZeroY = mouseOffsetFromNode.getY();
+    }
 
     /*------------------Checker-------------------------*/
 
