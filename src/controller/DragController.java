@@ -406,6 +406,50 @@ public class DragController {
         this.mouseOffsetFromNodeZeroY = mouseOffsetFromNode.getY();
     }
 
+
+    /**
+     * Set the translate parameter of the node to the position indicated <b>in the scene</b> (with offset respected).
+     * <br/>Doesnt take boundaries or checkers into consideration.
+     * @param posInScene does the drag movement respect the dragBoundary ?
+     */
+    public boolean dragNodeToPos(Point2D posInScene){
+        return dragNodeToPos(posInScene, false);
+    }
+
+    /**
+     * Set the translate parameter of the node to the position indicated <b>in the scene</b> (with offset respected).
+     * @param posInScene the position of the mouse in the scene
+     * @param respectBoundary does the drag movement respect the dragBoundary ?
+     * @see DragController#getDragBoundary()
+     */
+    public boolean dragNodeToPos(Point2D posInScene, boolean respectBoundary){
+        boolean succes = false;
+        if (respectBoundary) {
+            if(this.dragBoundary != null){
+                double oldTranslateX = target.getTranslateX();
+                double oldTranslateY = target.getTranslateY();
+                target.setTranslateX(posInScene.getX() - anchorX);
+                target.setTranslateY(posInScene.getY() - anchorY);
+                Bounds bounds = target.getBoundsInParent();
+                if(! this.dragBoundary.contains(bounds)){
+                    target.setTranslateX(oldTranslateX);
+                    target.setTranslateY(oldTranslateY);
+                } else {
+                    succes = true;
+                }
+            } else {
+                target.setTranslateX(posInScene.getX() - anchorX);
+                target.setTranslateY(posInScene.getY() - anchorY);
+                succes = true;
+            }
+        } else {
+            target.setTranslateX(posInScene.getX() - anchorX);
+            target.setTranslateY(posInScene.getY() - anchorY);
+            succes = true;
+        }
+        return succes;
+    }
+
     /*------------------Checker-------------------------*/
 
     /**
