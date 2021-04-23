@@ -14,9 +14,11 @@ import javafx.scene.shape.Circle;
 /**
  * Encapsulate the drag responsibility of a node in a class.
  * <br/> Only move the node within its parent
- * <br/>Dragging movement can be canceled by pressing secondary button/
- * <br/>This is a javaFX class ! <a href="https://openjfx.io/">Download javaFX here</a>
- * <br/><a href="https://edencoding.com/drag-shapes-javafx/">Source</a>
+ * <br/>Dragging movement can be canceled by pressing secondary button
+ * <br/>This is a javaFX class !
+ * @see <a href="https://openjfx.io/">Download javaFX here</a>
+ * @see <a href="https://edencoding.com/drag-shapes-javafx/">Original class</a>
+ * @author mathilde
  */
 public class DragController {
 
@@ -363,6 +365,33 @@ public class DragController {
         this.grabChecker = grabChecker;
         this.dragChecker = dragChecker;
         this.releaseChecker = releaseChecker;
+    }
+
+    /**
+     * Return the condition of the grab action on the target node
+     * @return condition as a SimpleChecker
+     * @see SimpleChecker
+     */
+    public SimpleChecker getGrabChecker() {
+        return grabChecker;
+    }
+
+    /**
+     * Return the condition of the drag action on the target node
+     * @return condition as a SimpleChecker
+     * @see SimpleChecker
+     */
+    public SimpleChecker getDragChecker() {
+        return dragChecker;
+    }
+
+    /**
+     * Return the condition of the release action on the target node
+     * @return condition as a SimpleChecker
+     * @see SimpleChecker
+     */
+    public SimpleChecker getReleaseChecker() {
+        return releaseChecker;
     }
 
     /**
