@@ -347,7 +347,7 @@ public class DragController {
      * </p>
      * <p>
      *     <br/>Carefull management is needed to avoid breaking the class. Use with MouseOffsetFromNode
-     *     <br/><i><b>Do not use while the dragging propertie is activated</b></i>
+     *     <br/><i><b>Do not use while the dragging property is activated</b></i>
      * </p>
      * @param anchor the anchor point. Ideally inside the node since grabbing motion is done from within the node
      * @see DragController#setMouseOffsetFromNode(Point2D)
@@ -382,7 +382,7 @@ public class DragController {
      * </pre>
      * <p>
      *     <br/>Carefull management is needed to avoid breaking the class. Use with setAnchors
-     *     <br/><i><b>Do not use while the dragging propertie is activated</b></i>
+     *     <br/><i><b>Do not use while the dragging property is activated</b></i>
      * </p>
      * @param mouseOffsetFromNode distance between the mouse and the node
      * @see DragController#setAnchors(Point2D)
