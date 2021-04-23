@@ -158,7 +158,8 @@ public class DragController {
      * <br/>Check boundaries but not conditions
      * @param event mouseEvent
      */
-    public void dragHandler(MouseEvent event){
+    public boolean dragHandler(MouseEvent event){
+        boolean succes = false;
         if (cycleStatus != INACTIVE) {
             if(this.dragBoundary != null){
                 double oldTranslateX = target.getTranslateX();
@@ -169,12 +170,16 @@ public class DragController {
                 if(! this.dragBoundary.contains(bounds)){
                     target.setTranslateX(oldTranslateX);
                     target.setTranslateY(oldTranslateY);
+                } else {
+                    succes = true;
                 }
             } else {
                 target.setTranslateX(event.getSceneX() - anchorX);
                 target.setTranslateY(event.getSceneY() - anchorY);
+                succes = true;
             }
         }
+        return succes;
     }
 
     /**
@@ -182,7 +187,8 @@ public class DragController {
      * <br/>Check boundaries but not conditions
      * @param event mouseEvent
      */
-    public void releaseHandler(MouseEvent event){
+    public boolean releaseHandler(MouseEvent event){
+        boolean succes = false;
         if (cycleStatus != INACTIVE) {
             //commit changes to LayoutX and LayoutY
 
@@ -197,12 +203,15 @@ public class DragController {
                     Bounds newBounds = target.getBoundsInParent();
                     if( ! this.releaseBoundary.contains(newBounds)){
                         target.relocate(oldPos.getX(), oldPos.getY());
+                    } else {
+                        succes = true;
                     }
                 }
             } else {
                 Parent parent = this.target.getParent();
                 Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
                 target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+                succes = true;
             }
 
             //target.relocate(event.getSceneX() - mouseOffsetFromNodeZeroX,event.getSceneY() - mouseOffsetFromNodeZeroY);
@@ -211,6 +220,7 @@ public class DragController {
             target.setTranslateY(0);
             cycleStatus = INACTIVE;
         }
+        return succes;
     }
 
     /*---------------------------Draggable property-----------------------*/
