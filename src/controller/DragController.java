@@ -2,8 +2,12 @@ package controller;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
@@ -37,7 +41,14 @@ public class DragController {
     private final int INACTIVE = 0;
     private int cycleStatus = INACTIVE;
 
+    /**Define if the target node can be dragged**/
     private BooleanProperty isDraggable;
+
+    /**Define the boundaries where the node can be dragged to and released into.**/
+    private Bounds dragBoundary, releaseBoundary = null;
+
+    /**Check conditions for grab, drag and release action on the target node**/
+    private SimpleChecker grabChecker, dragChecker, releaseChecker = null;
 
     /**
      * Encapsulate the drag responsibility of a node in a class.
@@ -74,54 +85,129 @@ public class DragController {
         this.isDraggable.set(isDraggable);
     }
 
+    /*---------------------Events-----------------------*/
 
     /**
      * Initialise the 3 eventHandlers.
      */
     private void createHandlers() {
         setAnchor = event -> {
-            if (event.isPrimaryButtonDown()) {
-                cycleStatus = ACTIVE;
-                anchorX = event.getSceneX();
-                anchorY = event.getSceneY();
-                if(target instanceof Circle){//Use upper left corner coordonate. Circle use center coordonates
-                    Circle c = (Circle) target;
-                    mouseOffsetFromNodeZeroX = event.getX()+c.getRadius();
-                    mouseOffsetFromNodeZeroY = event.getY()+c.getRadius();
-                } else {
-                    mouseOffsetFromNodeZeroX = event.getX(); //Distance to the coordinate of the node (inside the node)
-                    mouseOffsetFromNodeZeroY = event.getY();
+            if(this.grabChecker != null){
+                if(this.grabChecker.check()){
+                    grabHandler(event);
                 }
-
-            }
-
-            if (event.isSecondaryButtonDown()) {
-                cycleStatus = INACTIVE;
-                target.setTranslateX(0);
-                target.setTranslateY(0);
+            } else {
+                grabHandler(event);
             }
         };
 
         updatePositionOnDrag = event -> {
-            if (cycleStatus != INACTIVE) {
-                target.setTranslateX(event.getSceneX() - anchorX);
-                target.setTranslateY(event.getSceneY() - anchorY);
+            if(this.dragChecker != null){
+                if(this.dragChecker.check()){
+                    dragHandler(event);
+                }
+            } else {
+                dragHandler(event);
             }
         };
 
         commitPositionOnRelease = event -> {
-            if (cycleStatus != INACTIVE) {
-                //commit changes to LayoutX and LayoutY
-
-                target.relocate(event.getSceneX() - mouseOffsetFromNodeZeroX,event.getSceneY() - mouseOffsetFromNodeZeroY);
-
-                //clear changes from TranslateX and TranslateY
-                target.setTranslateX(0);
-                target.setTranslateY(0);
-                cycleStatus = INACTIVE;
+            if(this.releaseChecker != null){
+                if(this.releaseChecker.check()){
+                    releaseHandler(event);
+                }
+            } else {
+                releaseHandler(event);
             }
         };
     }
+
+    /**
+     * Handler when grabbing the target node
+     * @param event mouseEvent
+     */
+    private void grabHandler(MouseEvent event){
+        if (event.isPrimaryButtonDown()) {
+            cycleStatus = ACTIVE;
+            anchorX = event.getSceneX();
+            anchorY = event.getSceneY();
+            if(target instanceof Circle){//Use upper left corner coordonate. Circle use center coordonates
+                Circle c = (Circle) target;
+                mouseOffsetFromNodeZeroX = event.getX()+c.getRadius();
+                mouseOffsetFromNodeZeroY = event.getY()+c.getRadius();
+            } else {
+                mouseOffsetFromNodeZeroX = event.getX(); //Distance to the coordinate of the node (inside the node)
+                mouseOffsetFromNodeZeroY = event.getY();
+            }
+
+        }
+
+        if (event.isSecondaryButtonDown()) {
+            cycleStatus = INACTIVE;
+            target.setTranslateX(0);
+            target.setTranslateY(0);
+        }
+    }
+
+    /**
+     * Handler when dragging the target node
+     * @param event mouseEvent
+     */
+    private void dragHandler(MouseEvent event){
+        if (cycleStatus != INACTIVE) {
+            if(this.dragBoundary != null){
+                double oldTranslateX = target.getTranslateX();
+                double oldTranslateY = target.getTranslateY();
+                target.setTranslateX(event.getSceneX() - anchorX);
+                target.setTranslateY(event.getSceneY() - anchorY);
+                Bounds bounds = target.getBoundsInParent();
+                if(! this.dragBoundary.contains(bounds)){
+                    target.setTranslateX(oldTranslateX);
+                    target.setTranslateY(oldTranslateY);
+                }
+            } else {
+                target.setTranslateX(event.getSceneX() - anchorX);
+                target.setTranslateY(event.getSceneY() - anchorY);
+            }
+        }
+    }
+
+    /**
+     * Handler when releasing the target node
+     * @param event mouseEvent
+     */
+    private void releaseHandler(MouseEvent event){
+        if (cycleStatus != INACTIVE) {
+            //commit changes to LayoutX and LayoutY
+
+            if(this.releaseBoundary != null){
+                Bounds bounds = target.getBoundsInParent();
+                if(this.releaseBoundary.contains(bounds)){
+                    Parent parent = this.target.getParent();
+                    Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
+                    Point2D oldPos = getCurrentPos(target);
+
+                    target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+                    Bounds newBounds = target.getBoundsInParent();
+                    if( ! this.releaseBoundary.contains(newBounds)){
+                        target.relocate(oldPos.getX(), oldPos.getY());
+                    }
+                }
+            } else {
+                Parent parent = this.target.getParent();
+                Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
+                target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+            }
+
+            //target.relocate(event.getSceneX() - mouseOffsetFromNodeZeroX,event.getSceneY() - mouseOffsetFromNodeZeroY);
+            //clear changes from TranslateX and TranslateY
+            target.setTranslateX(0);
+            target.setTranslateY(0);
+            cycleStatus = INACTIVE;
+        }
+    }
+
+    /*---------------------------Draggable property-----------------------*/
 
     /**
      * Bind and unbind the eventHandlers depending on the state of the draggable propertie.
@@ -159,5 +245,142 @@ public class DragController {
      */
     public BooleanProperty getDraggableProperty() {
         return isDraggable;
+    }
+
+    /**
+     * Return the node managed by the DragController
+     * @return the target node
+     */
+    public Node getManagedNode(){
+        return this.target;
+    }
+
+    /*----------------------------------Boundaries----------------------*/
+
+    /**
+     * Define the boundaries where the node can be dragged to and released into.
+     * The nodes bounds must be contained entirely by the boundaries to do the action
+     * (If outsite of parent bounds, no change will be seen)
+     * <br/>If only dragBoundary is defined, releaseBoundary will be considered to be equal to dragBoundary
+     * <br/>All boundaries must be from the target node s parent coordinate system.
+     * <br/><i>Help : Boundaries inside a layout will only be computed after the scene was shown.</i>
+     * @param dragBoundary Clip the position of the node inside the boundary
+     * @param releaseBoundary Allow release of the node only inside boundary
+     */
+    public void setBoundaries(Bounds dragBoundary, Bounds releaseBoundary){
+        this.dragBoundary = dragBoundary;
+        this.releaseBoundary = releaseBoundary;
+        if(this.releaseBoundary == null){
+            this.releaseBoundary = this.dragBoundary;
+        }
+    }
+
+    /**
+     * Define the boundaries where the node can be dragged to and released into.
+     * The nodes bounds must be contained entirely by the boundaries to do the action
+     * (If outsite of parent bounds, no change will be seen)
+     * <br/>All boundaries must be from the target node s parent coordinate system.
+     * <br/><i>Help : Boundaries inside a layout will only be computed after the scene was shown.</i>
+     * @param moveBoundary Clip the position of the node inside the boundary
+     */
+    public void setBoundaries(Bounds moveBoundary){
+        setBoundaries(moveBoundary, null);
+    }
+
+    /**
+     * Get the boundary where the node can be dragged to.
+     * <br/>null by default
+     * @return the Bounds
+     */
+    public Bounds getDragBoundary(){
+        return this.dragBoundary;
+    }
+
+    /**
+     * Get the boundary where the node can be released into.
+     * <br/>null by default
+     * @return the Bounds
+     */
+    public Bounds getReleaseBoundary() {
+        return releaseBoundary;
+    }
+
+
+    /*--------------------------Position------------------------*/
+
+    /**
+     * Calculate the coordinate in the layout where the node is drawn
+     * <br/><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#translateXProperty--">Source of calculation</a>
+     * @param node the node which position is calculated
+     * @return the position of the node in the layout
+     */
+    public Point2D getCurrentPos(Node node){
+        return new Point2D(node.getLayoutX()+node.getTranslateX(), node.getLayoutY()+node.getTranslateY());
+    }
+
+    /**
+     * Snap the target node back to its last position
+     */
+    public void snapToOrigin(){
+        this.target.setTranslateX(0);
+        this.target.setTranslateY(0);
+    }
+
+
+    /*------------------Checker-------------------------*/
+
+    /**
+     * Check condition of grab action on the target node
+     * @param grabChecker the condition
+     */
+    public void setGrabChecker(SimpleChecker grabChecker){
+        this.grabChecker = grabChecker;
+    }
+
+    /**
+     * Check condition of drag action on the target node
+     * @param dragChecker the condition
+     */
+    public void setDragChecker(SimpleChecker dragChecker) {
+        this.dragChecker = dragChecker;
+    }
+
+    /**
+     * Check condition of release action on the target node
+     * @param releaseChecker the condition
+     */
+    public void setReleaseChecker(SimpleChecker releaseChecker) {
+        this.releaseChecker = releaseChecker;
+    }
+
+    /**
+     * Check conditions of grab, drag and release actions on the target node
+     * @param grabChecker condition in the check method. Can be null
+     * @param dragChecker condition in the check method. Can be null
+     * @param releaseChecker condition in the check method. Can be null
+     */
+    public void setCheckers(SimpleChecker grabChecker, SimpleChecker dragChecker, SimpleChecker releaseChecker){
+        this.grabChecker = grabChecker;
+        this.dragChecker = dragChecker;
+        this.releaseChecker = releaseChecker;
+    }
+
+    /**
+     * A class to do a check on a condition.
+     * <br/>Useful to give a check order from an external class
+     */
+    public abstract class SimpleChecker{
+
+        /**Create a simple checker to do a check on a condition.**/
+        public SimpleChecker(){
+
+        }
+
+        /**
+         * Check the condition of the SimpleChecker.
+         * <br/>The condition must be defined in this function
+         * @return the result of the check
+         */
+        public abstract boolean check();
     }
 }
