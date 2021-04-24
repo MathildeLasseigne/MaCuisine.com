@@ -107,9 +107,11 @@ public class DragController {
         updatePositionOnDrag = event -> {
             if(this.dragChecker != null){
                 if(this.dragChecker.check()){
+                    if (cycleStatus != INACTIVE)
                     dragHandler(event);
                 }
             } else {
+                if (cycleStatus != INACTIVE)
                 dragHandler(event);
             }
         };
@@ -117,6 +119,7 @@ public class DragController {
         commitPositionOnRelease = event -> {
             if(this.releaseChecker != null){
                 if(this.releaseChecker.check()){
+                    if (cycleStatus != INACTIVE)
                     releaseHandler(event);
                 } else {
                     target.setTranslateX(0);
@@ -124,6 +127,7 @@ public class DragController {
                     cycleStatus = INACTIVE;
                 }
             } else {
+                if (cycleStatus != INACTIVE)
                 releaseHandler(event);
             }
         };
@@ -164,25 +168,24 @@ public class DragController {
      */
     public boolean dragHandler(MouseEvent event){
         boolean succes = false;
-        if (cycleStatus != INACTIVE) {
-            if(this.dragBoundary != null){
-                double oldTranslateX = target.getTranslateX();
-                double oldTranslateY = target.getTranslateY();
-                target.setTranslateX(event.getSceneX() - anchorX);
-                target.setTranslateY(event.getSceneY() - anchorY);
-                Bounds bounds = target.getBoundsInParent();
-                if(! this.dragBoundary.contains(bounds)){
-                    target.setTranslateX(oldTranslateX);
-                    target.setTranslateY(oldTranslateY);
-                } else {
-                    succes = true;
-                }
+        if(this.dragBoundary != null){
+            double oldTranslateX = target.getTranslateX();
+            double oldTranslateY = target.getTranslateY();
+            target.setTranslateX(event.getSceneX() - anchorX);
+            target.setTranslateY(event.getSceneY() - anchorY);
+            Bounds bounds = target.getBoundsInParent();
+            if(! this.dragBoundary.contains(bounds)){
+                target.setTranslateX(oldTranslateX);
+                target.setTranslateY(oldTranslateY);
             } else {
-                target.setTranslateX(event.getSceneX() - anchorX);
-                target.setTranslateY(event.getSceneY() - anchorY);
                 succes = true;
             }
+        } else {
+            target.setTranslateX(event.getSceneX() - anchorX);
+            target.setTranslateY(event.getSceneY() - anchorY);
+            succes = true;
         }
+
         return succes;
     }
 
@@ -193,37 +196,35 @@ public class DragController {
      */
     public boolean releaseHandler(MouseEvent event){
         boolean succes = false;
-        if (cycleStatus != INACTIVE) {
             //commit changes to LayoutX and LayoutY
-
-            if(this.releaseBoundary != null){
-                Bounds bounds = target.getBoundsInParent();
-                if(this.releaseBoundary.contains(bounds)){
-                    Parent parent = this.target.getParent();
-                    Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
-                    Point2D oldPos = getCurrentPos(target);
-
-                    target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
-                    Bounds newBounds = target.getBoundsInParent();
-                    if( ! this.releaseBoundary.contains(newBounds)){
-                        target.relocate(oldPos.getX(), oldPos.getY());
-                    } else {
-                        succes = true;
-                    }
-                }
-            } else {
+        if(this.releaseBoundary != null){
+            Bounds bounds = target.getBoundsInParent();
+            if(this.releaseBoundary.contains(bounds)){
                 Parent parent = this.target.getParent();
                 Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
-                target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
-                succes = true;
-            }
+                Point2D oldPos = getCurrentPos(target);
 
-            //target.relocate(event.getSceneX() - mouseOffsetFromNodeZeroX,event.getSceneY() - mouseOffsetFromNodeZeroY);
-            //clear changes from TranslateX and TranslateY
-            target.setTranslateX(0);
-            target.setTranslateY(0);
-            cycleStatus = INACTIVE;
+                target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+                Bounds newBounds = target.getBoundsInParent();
+                if( ! this.releaseBoundary.contains(newBounds)){
+                    target.relocate(oldPos.getX(), oldPos.getY());
+                } else {
+                    succes = true;
+                }
+            }
+        } else {
+            Parent parent = this.target.getParent();
+            Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
+            target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+            succes = true;
         }
+
+        //target.relocate(event.getSceneX() - mouseOffsetFromNodeZeroX,event.getSceneY() - mouseOffsetFromNodeZeroY);
+        //clear changes from TranslateX and TranslateY
+        target.setTranslateX(0);
+        target.setTranslateY(0);
+        cycleStatus = INACTIVE;
+
         return succes;
     }
 
