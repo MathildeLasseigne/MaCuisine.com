@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Abstract class containing methods for FXML controllers
@@ -12,7 +13,7 @@ public abstract class Controller {
 
     /**
      * The FXMLLoader used if Controller linked to fxml file with <i>loadFXMLWithController</i>
-     * @see Controller#loadFXMLWithController(String)
+     * @see Controller#loadFXMLWithController(URL)
      */
     protected FXMLLoader fxmlLoader;
 
@@ -22,11 +23,12 @@ public abstract class Controller {
      * @param fxmlPath path to fxml file
      * @return the fxml file content as Parent
      * @throws IOException
-     * @see Controller#loadFXMLWithController(String, Controller)
+     * @see Controller#loadFXMLWithController(URL, Controller)
      * @see Controller#fxmlLoader
      */
-    public Parent loadFXMLWithController(String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(fxmlPath));
+    public Parent loadFXMLWithController(URL fxmlPath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(fxmlPath);
+        System.out.println(fxmlPath);
         loader.setController(this);
         Parent fxmlContent = null;
         fxmlContent = loader.load();
@@ -40,10 +42,10 @@ public abstract class Controller {
      * @param controller the instanciated Controller
      * @return the fxml file content as Parent
      * @throws IOException
-     * @see Controller#loadFXMLWithController(String)
+     * @see Controller#loadFXMLWithController(URL)
      */
-    public static Parent loadFXMLWithController(String fxmlPath, Controller controller) throws IOException {
-        FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
+    public static Parent loadFXMLWithController(URL fxmlPath, Controller controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(fxmlPath);
         loader.setController(controller);
         Parent fxmlContent = null;
         fxmlContent = loader.load();
