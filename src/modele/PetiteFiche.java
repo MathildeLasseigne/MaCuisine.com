@@ -20,7 +20,7 @@ public class PetiteFiche extends Pane {
         Parent ficheContent = null;
         try{
             //ficheContent = this.controller.loadFXMLWithController("PetiteFicheMeuble.fxml");//Changer nom
-            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("PetiteFicheMeuble.fxml"));
+            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("../vue/PetiteFicheMeuble.fxml"));
 
         } catch (IOException e){
             e.printStackTrace();

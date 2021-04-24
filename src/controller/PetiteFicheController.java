@@ -1,10 +1,13 @@
 package controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import modele.GestionaireMeubles;
 import modele.Meuble;
 import modele.PetiteFiche;
 
@@ -36,8 +39,18 @@ public class PetiteFicheController extends Controller {
     public PetiteFicheController(PetiteFiche petiteFiche){
         this.petiteFiche = petiteFiche;
         this.meuble = this.petiteFiche.getMeuble();
+        setHandlers();
     }
 
+
+    private void setHandlers(){
+        this.petiteFiche.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                GestionaireMeubles.select(meuble);
+            }
+        });
+    }
 
     @FXML
     public void initialize(){ //Les link des variables vers fxml se font apres le constructeur & avant initialize

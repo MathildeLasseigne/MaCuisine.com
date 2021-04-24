@@ -24,7 +24,7 @@
             </AnchorPane>
             <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="113.0" spacing="5.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-width: 2px;">
                <children>
-                  <Label fx:id="nameLabel" text="Nom">
+                  <Label fx:id="nameLabel" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Nom">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
