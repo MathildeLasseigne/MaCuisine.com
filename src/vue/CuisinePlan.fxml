@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+
+<BorderPane fx:id="contentContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <Pane BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <AnchorPane>
+         <children>
+            <HBox spacing="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0">
+               <children>
+                  <CheckBox fx:id="grilleBox" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="100.0" text="Affiche grille" />
+                  <CheckBox fx:id="moveBox" mnemonicParsing="false" text="Deplace Objets" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <Canvas fx:id="plan" height="300.0" width="300.0" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <Pane BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
