@@ -390,8 +390,8 @@ public class DragController {
      * </pre>To find anchorInScene from offset use
      * <pre>
      *     Point2D posInParent = dragController.getCurrentPos(node);
-     *     anchorParentX = posInParent.getX() + offset.getX();
-     *     anchorParentY = posInParent.getY() + offset.getY();
+     *     anchorInParentX = posInParent.getX() + offset.getX();
+     *     anchorInParentY = posInParent.getY() + offset.getY();
      *     Parent parent = node.getParent();
      *     Point2D anchorInScene = parent.localToScene(anchorInParentX, anchorInParentY);
      * </pre>
