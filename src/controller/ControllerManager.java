@@ -5,8 +5,8 @@ package controller;
  */
 public class ControllerManager {
 
-    /**Le controller de la cuisine**/
-    public static Controller cuisineController;
+    /**Le controller de la cuisine, sous forme de CuisineController**/
+    public static CuisineController cuisineController;
 
 
 

@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import modele.GestionaireMeubles;
 import vue.Cuisine;
 
 public class TestCuisine extends Application {
@@ -18,11 +19,12 @@ public class TestCuisine extends Application {
 
         primaryStage.setTitle("Test Cuisine");
 
-        Parent root = new Cuisine(300,300);
+        Cuisine cuisine = new Cuisine(300,300);
 
-
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(cuisine));
         primaryStage.show();
+        GestionaireMeubles meubles = new GestionaireMeubles(cuisine);
+        meubles.initPanierTest(4);
     }
 
 

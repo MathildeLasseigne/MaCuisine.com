@@ -3,6 +3,7 @@ package controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
@@ -56,6 +57,8 @@ public class CuisineController extends Controller{
         setCanvasSize();
         this.gc = this.plan.getGraphicsContext2D();
         initCheckBox();
+        ToolsBarBanque.isGrilleVisible = this.grilleBox;
+        ToolsBarBanque.isMeubleMovable = this.moveBox;
         //Listeners
         setChangeGrille();
         //Dessin
@@ -113,9 +116,15 @@ public class CuisineController extends Controller{
     }
 
 
-
-
-
+    /**
+     * Renvoie les bounds du plan dans la cuisine
+     * @return les bounds du plan
+     */
+    public Bounds getPlanBoundsInCuisine(){
+        Bounds planInScene = plan.localToScene(plan.getBoundsInLocal());
+        Bounds planInCuisine = this.cuisine.sceneToLocal(planInScene);
+        return planInCuisine;
+    }
 
 
     /*--------------------------------Meubles------------------------*/
