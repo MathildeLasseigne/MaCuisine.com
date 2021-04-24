@@ -28,6 +28,7 @@ public class PetiteFiche extends Pane {
         if(ficheContent != null){
             this.getChildren().add(ficheContent);
         }
+        this.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
     }
 
 
