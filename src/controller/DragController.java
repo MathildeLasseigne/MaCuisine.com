@@ -118,6 +118,10 @@ public class DragController {
             if(this.releaseChecker != null){
                 if(this.releaseChecker.check()){
                     releaseHandler(event);
+                } else {
+                    target.setTranslateX(0);
+                    target.setTranslateY(0);
+                    cycleStatus = INACTIVE;
                 }
             } else {
                 releaseHandler(event);
