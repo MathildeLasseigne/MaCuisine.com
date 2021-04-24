@@ -519,7 +519,7 @@ public class DragController {
      * A class to do a check on a condition.
      * <br/>Useful to give a check order from an external class
      */
-    public abstract class SimpleChecker{
+    public abstract static class SimpleChecker{
 
         /**Create a simple checker to do a check on a condition.**/
         public SimpleChecker(){
