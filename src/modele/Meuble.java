@@ -5,6 +5,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -34,13 +36,14 @@ public class Meuble {
     /**Les dimentions du meuble**/
     protected double LARGEUR, HAUTEUR;
 
-    private BufferedImage img = null;
+    private Image img = null;
 
     private String nom;
     private String constructeur;
     private String prix;
     private String description;
 
+/*-----------Forme---------------*/
 
     /**La forme du meuble dans la cuisine**/
     private Shape forme;
@@ -51,6 +54,24 @@ public class Meuble {
 
     private DragController dragController;
 
+
+    /*-----------------Fiche-------------------*/
+    /**La petite fiche utilisee dans le catalogue**/
+    private PetiteFiche ficheCatalogue;
+    /**La petite fiche utilisee dans le panier**/
+    private PetiteFiche fichePanier;
+
+
+    /**
+     * Cree un meuble possedant une forme et des fiches. Possede un controlleur integre
+     * <br/>Il est possible d ajouter une image a la description du meuble
+     * @param nom Le nom du meuble
+     * @param constructeur Le constructeur du meuble
+     * @param prix le prix du meuble en euros
+     * @param largeur la largeur du meuble en cm
+     * @param hauteur la hauteur du meuble en cm
+     * @param description la description du meuble
+     */
     public Meuble(String nom, String constructeur, double prix, double largeur, double hauteur, String description){
         identify();
 
@@ -67,6 +88,15 @@ public class Meuble {
         setHandlers();
     }
 
+    /**
+     * Cree un meuble possedant une forme et des fiches. Possede un controlleur integre
+     * <br/>Il est possible d ajouter une image a la description du meuble
+     * @param nom Le nom du meuble
+     * @param constructeur Le constructeur du meuble
+     * @param prix le prix du meuble en euros
+     * @param largeur la largeur du meuble en cm
+     * @param hauteur la hauteur du meuble en cm
+     */
     public Meuble(String nom, String constructeur, double prix, double largeur, double hauteur){
         this(nom, constructeur, prix,largeur,hauteur, "Ce meuble n a pas de description.");
     }
@@ -95,9 +125,15 @@ public class Meuble {
      * Defini une image pour le meuble
      * @param img
      */
-    public void setImg(BufferedImage img){
+    public void setImg(Image img){
         this.img = img;
     }
+
+    /**
+     * Renvoie l image du meuble. Peu etre null
+     * @return l image du meuble
+     */
+    public Image getImg(){return this.img;}
 
     /**
      * Deplace le point vers celui donne
@@ -107,9 +143,14 @@ public class Meuble {
         //TODO move ? Check its use
     }
 
+    /**Renvoie la position du meuble
+     * @see DragController#getCurrentPos(Node) **/
     public Point2D getPos(){
         return this.dragController.getCurrentPos(this.forme);
     }
+
+    /**Renvoie les dimensions du meuble**/
+    public Point2D getSize(){return new Point2D(this.LARGEUR, this.HAUTEUR);}
 
     /**
      * Verifie si un meuble est egal a un autre par leur id
@@ -243,14 +284,22 @@ public class Meuble {
      * Construit les 2 fiches du meuble
      */
     public void contructFiches(){
-        //TODO construire les 2 fiches avec element javafx. Construit dans var globale. Petite & grande fiche
+        this.fichePanier = new PetiteFiche(this);
+        this.ficheCatalogue = new PetiteFiche(this);
     }
 
     /**
-     * Renvoie la fiche du meuble //Pas void !!
+     * Renvoie la fiche du meuble pour le panier
      */
-    public void getLittleFiche(){
-        //TODO renvoie la variable globale
+    public PetiteFiche getLittleFichePanier(){
+        return this.fichePanier;
+    }
+
+    /**
+     * Renvoie la fiche du meuble pour le catalogue
+     */
+    public PetiteFiche getLittleFicheCatalogue(){
+        return this.ficheCatalogue;
     }
 
     /**
@@ -260,4 +309,46 @@ public class Meuble {
         //TODO renvoie variable globale
     }
 
+
+    /*-----------------------Informations meuble-------------------*/
+
+    /**
+     * Renvoie le nom du meuble
+     * @return
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * Renvoie le prix du meuble en euros
+     * @return information en tant que String
+     */
+    public String getPrix() {
+        return prix;
+    }
+
+    /**
+     * Renvoie les dimensions du meuble
+     * @return information en tant que String sous forme 0 x 0
+     */
+    public String getDimensions(){
+        return this.LARGEUR + " x " + this.HAUTEUR;
+    }
+
+    /**
+     * Renvoie le constructeur du meuble
+     * @return information en tant que String
+     */
+    public String getConstructeur() {
+        return constructeur;
+    }
+
+    /**
+     * Renvoie la description du meuble
+     * @param description information en tant que String
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
