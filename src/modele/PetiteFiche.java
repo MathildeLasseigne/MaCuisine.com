@@ -13,6 +13,9 @@ public class PetiteFiche extends Pane {
 
     private PetiteFicheController controller;
 
+    Parent content;
+    String originalContentStyle;
+
     public PetiteFiche(Meuble meuble) {
         this.meuble = meuble;
         this.controller = new PetiteFicheController(this);
@@ -28,11 +31,22 @@ public class PetiteFiche extends Pane {
         if(ficheContent != null){
             this.getChildren().add(ficheContent);
         }
-        this.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
+        //this.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
+        this.content = ficheContent;
+        originalContentStyle = content.getStyle();
+        content.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;"+originalContentStyle);
+        this.setPrefHeight(USE_COMPUTED_SIZE);
+        this.setPrefWidth(USE_COMPUTED_SIZE);
     }
 
 
-
+    /**
+     * Change le style de la fiche tout en gardant son style original
+     * @param style
+     */
+    public void setContentStyle(String style){
+        content.setStyle(style + originalContentStyle);
+    }
 
     /**
      * Renvoie le meuble lie a la fiche
@@ -42,5 +56,4 @@ public class PetiteFiche extends Pane {
         return meuble;
     }
 
-    //TODO les listeners
 }

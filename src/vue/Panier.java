@@ -2,6 +2,7 @@ package vue;
 
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 import modele.Meuble;
 
 public class Panier {
@@ -10,9 +11,9 @@ public class Panier {
     /**
      * Le panier dans l application
      */
-    private Group container;
+    private VBox container;
 
-    public Panier(Group container){
+    public Panier(VBox container){
         this.container = container;
     }
 

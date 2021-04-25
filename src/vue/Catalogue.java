@@ -1,13 +1,14 @@
 package vue;
 
 import javafx.scene.Group;
+import javafx.scene.layout.VBox;
 import modele.Meuble;
 
 public class Catalogue {
 
-    private Group container;
+    private VBox container;
 
-    public Catalogue(Group container){
+    public Catalogue(VBox container){
         this.container = container;
     }
 
@@ -17,7 +18,7 @@ public class Catalogue {
      * @param m
      */
     public void initCommit(Meuble m){
-        m.getLittleFichePanier().setVisible(true);
+        m.getLittleFicheCatalogue().setVisible(true);
         container.getChildren().add(m.getLittleFichePanier());
     }
 

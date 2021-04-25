@@ -47,7 +47,10 @@ public class PetiteFicheController extends Controller {
         this.petiteFiche.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                GestionaireMeubles.getSelection().getIsClickedMoveProperty().set(false);
+                Meuble oldSelection = GestionaireMeubles.getSelection();
+                if(oldSelection != null){
+                    oldSelection.getIsClickedMoveProperty().set(false);
+                }
                 GestionaireMeubles.select(meuble);
                 meuble.getIsClickedMoveProperty().set(true);
             }
@@ -56,9 +59,9 @@ public class PetiteFicheController extends Controller {
         //Change la bordure de la fiche si le meuble est selectionne
         this.petiteFiche.getMeuble().isSelectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                this.petiteFiche.setStyle("-fx-border-color: red ; -fx-border-width: 3px ;");
+                this.petiteFiche.setContentStyle("-fx-border-color: red ; -fx-border-width: 3px ;");
             } else {
-                this.petiteFiche.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
+                this.petiteFiche.setContentStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
             }
         });
     }

@@ -16,9 +16,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane fx:id="cuisinePlan" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: AliceBlue;" BorderPane.alignment="CENTER" />
+      <Pane fx:id="cuisinePlan" minHeight="200.0" minWidth="200.0" style="-fx-background-color: AliceBlue;" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <AnchorPane style="-fx-background-color: BurlyWood;">
@@ -51,7 +51,7 @@
                   </Label>
                   <ButtonBar fx:id="toolsBar" prefHeight="25.0" prefWidth="200.0" style="-fx-border-color: black;">
                     <buttons>
-                      <Button fx:id="cancelSelection" cancelButton="true" mnemonicParsing="false" text="Cancel selection" />
+                      <Button fx:id="cancelSelection" cancelButton="true" mnemonicParsing="false" onAction="#cancelSelectionHandler" text="Cancel selection" />
                     </buttons>
                   </ButtonBar>
                </children>
@@ -73,9 +73,12 @@
                            <children>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                  <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="194.0">
                                        <children>
-                                          <VBox fx:id="panier" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <VBox fx:id="panier" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                             </padding></VBox>
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -86,13 +89,13 @@
                 </Tab>
                 <Tab text="Catalogue">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="384.0" prefWidth="197.0">
                            <children>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                  <AnchorPane prefWidth="200.0">
                                        <children>
-                                          <VBox fx:id="catalogue" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <VBox fx:id="catalogue" minHeight="350.0" prefWidth="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -122,7 +125,7 @@
                            <content>
                               <StackPane fx:id="infoPane" maxHeight="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-color: gray;">
                                  <children>
-                                    <TextFlow fx:id="baseText" maxHeight="1.7976931348623157E308" prefHeight="350.0" prefWidth="198.0">
+                                    <TextFlow fx:id="baseInfoText" maxHeight="1.7976931348623157E308" prefHeight="350.0" prefWidth="198.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ceci est la description d'un meuble." />
                                        </children>
