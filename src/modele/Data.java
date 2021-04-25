@@ -9,20 +9,18 @@ import javafx.scene.control.CheckBox;
  */
 public class Data {
 
-    /**
-     * Defini si la grille est visible.
-     * <br/>Initialise par le CuisineController
-     */
-    public static CheckBox isGrilleVisible;
-
-    /**
-     * Defini si il est possible de deplacer les meubles dans le plan.
-     * <br/>Initialise par le CuisineController
-     */
-    public static CheckBox isMeubleMovable;
 
     /**La liste des properties, notament celles utilisees par la tools Bar**/
     public static Properties properties = new Properties();
+
+    /**
+     * La liste de tous les panes de l appli utilisables
+     */
+    public static Panneaux panneaux = new Panneaux();
+
+
+
+
 
     public static class Properties {
 
@@ -45,5 +43,19 @@ public class Data {
 
     }
 
+    public static class Panneaux {
+
+        public Panneaux(){
+
+        }
+
+        //TODO mettre panier
+
+        //TODO mettre catalogue
+
+        //TODO mettre infoPane
+
+
+    }
 
 }
