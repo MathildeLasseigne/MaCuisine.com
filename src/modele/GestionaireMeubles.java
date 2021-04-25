@@ -2,11 +2,9 @@ package modele;
 
 import controller.ControllerManager;
 import controller.DragController;
-import controller.ToolsBarBanque;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
 import vue.Cuisine;
 
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class GestionaireMeubles {
     public GestionaireMeubles(Cuisine cuisine){
         this.cuisine = cuisine;
         initCatalogue();
-        this.isMovable.bind(ToolsBarBanque.isMeubleMovable.selectedProperty());
+        this.isMovable.bind(Data.properties.isMeubleMovable);
     }
 
 

@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeType;
+import modele.Data;
 
 import java.io.IOException;
 
@@ -74,7 +75,7 @@ public class Cuisine extends Pane {
      * @see CuisineController#isGrilleProperty()
      */
     public void drawGrille(GraphicsContext gc){
-        if(this.controller.isGrilleProperty().getValue()){
+        if(Data.properties.isGrilleVisible.get()){
             //TODO grilles with grilleInsets
             gc.setLineWidth(1);
             gc.setStroke(Color.BURLYWOOD);

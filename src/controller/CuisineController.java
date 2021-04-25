@@ -7,9 +7,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import modele.Data;
 import modele.GestionaireMeubles;
-import modele.Meuble;
 import vue.Cuisine;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -24,8 +23,6 @@ public class CuisineController extends Controller{
     /**Les dimensions du plan de la cuisine**/
     private Point2D size;
 
-    /**Decide si la grille est affichee**/
-    private BooleanProperty isGrille;
 
 
     /**Le graphical context de la cuisine dans la vue**/
@@ -43,8 +40,6 @@ public class CuisineController extends Controller{
     public CuisineController(Cuisine cuisine){
         this.cuisine = cuisine;
         this.size = this.cuisine.size;
-        this.isGrille = new SimpleBooleanProperty();
-        this.isGrille.set(false);
     }
 
 
@@ -56,9 +51,8 @@ public class CuisineController extends Controller{
         //Data
         setCanvasSize();
         this.gc = this.plan.getGraphicsContext2D();
-        initCheckBox();
-        ToolsBarBanque.isGrilleVisible = this.grilleBox;
-        ToolsBarBanque.isMeubleMovable = this.moveBox;
+        Data.properties.isGrilleVisible.bind(this.grilleBox.selectedProperty());
+        Data.properties.isMeubleMovable.bind(this.moveBox.selectedProperty());
         //Listeners
         setChangeGrille();
         //Dessin
@@ -78,7 +72,7 @@ public class CuisineController extends Controller{
      * Rend le dessin de la grille automatique
      */
     private void setChangeGrille(){
-        this.isGrille.addListener((observable, oldValue, newValue) -> {
+        Data.properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
             this.cuisine.draw(this.gc);
         });
     }
@@ -92,22 +86,6 @@ public class CuisineController extends Controller{
     @FXML
     public CheckBox moveBox;
 
-    private void initCheckBox(){
-        this.isGrille.bind(grilleBox.selectedProperty());
-    }
-
-
-
-
-    /*---------------------Grille-----------------------*/
-
-    /**
-     * Renvoie la property qui defini si une grille est affichee
-     * @return
-     */
-    public BooleanProperty isGrilleProperty(){
-        return this.isGrille;
-    }
 
 
 
