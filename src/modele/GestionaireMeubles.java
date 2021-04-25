@@ -6,6 +6,7 @@ import controller.ToolsBarBanque;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import vue.Cuisine;
 
 import java.util.ArrayList;
@@ -90,10 +91,12 @@ public class GestionaireMeubles {
 
 
     /**
-     * Ajoute un meuble au panier
-     * @param meuble
+     * Ajoute un meuble au panier.
+     * <br/>Tout ajout dans le panier doit se faire a partir du meuble
+     * @param meuble meuble a placer
+     * @see Meuble#isInPanier()
      */
-    public void addToPanier(Meuble meuble){
+    private void addToPanier(Meuble meuble){
         this.panier.add(meuble);
         meuble.getForme().setVisible(true);
     }
@@ -109,11 +112,14 @@ public class GestionaireMeubles {
 
     /**
      * Enleve un meuble du panier
-     * @param meuble
+     * <br/>Tout retrait du le panier doit se faire a partir du meuble
+     * @param meuble meuble a enlever
+     * @see Meuble#isInPanier()
      */
-    public void removeFromPanier(Meuble meuble){
+    private void removeFromPanier(Meuble meuble){
         this.panier.remove(meuble);
         meuble.getForme().setVisible(false);
+        meuble.reset();
     }
 
 
@@ -143,14 +149,21 @@ public class GestionaireMeubles {
     /*--------------Catalogue----------------*/
 
     /**
-     * Ajoute un meuble au catalogue et l'initialise
+     * Ajoute un meuble au catalogue et <b>l'initialise</b>
      * @param m le meuble a ajouter
      */
     public void addCatalogue(Meuble m){
         this.catalogue.add(m);
         this.cuisine.getChildren().add(m.getForme());
         m.getDragController().setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
-        m.getDragController().getDraggableProperty().bind(this.isMovable);
+        m.bindIsDraggedPropertyTo(this.isMovable);
+        m.isInPanier().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                addToPanier(m);
+            } else {
+                removeFromPanier(m);
+            }
+        });
         m.getForme().setVisible(false);
         setChecker(m);
     }
@@ -167,7 +180,7 @@ public class GestionaireMeubles {
         addCatalogue(m2);
         Meuble m3 = new Meuble("Meuble3", "MaCuisine.com", 100,30,60);
         addCatalogue(m3);
-        Meuble m4 = new Meuble("Meuble3", "MaCuisine.com", 100,20,50);
+        Meuble m4 = new Meuble("Meuble4", "MaCuisine.com", 100,20,50);
         addCatalogue(m4);
         //Location pour tests
         m1.relocate(50, 50);
@@ -187,7 +200,7 @@ public class GestionaireMeubles {
             itMax = this.catalogue.size()-1;
         }
         for(int i = 0; i<= itMax; i++){
-            this.addToPanier(this.catalogue.get(i));
+            this.catalogue.get(i).isInPanier().set(true);
         }
     }
 
