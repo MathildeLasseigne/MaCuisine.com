@@ -132,7 +132,7 @@ public class Meuble {
      * @see Meuble#nbMeubles
      * @see Meuble#id**/
     private void identify(){
-        this.id = nbMeubles; nbMeubles++;
+        this.id = nbMeubles++;
     }
 
     /**Renvoie le nombre total de meubles crees**/
