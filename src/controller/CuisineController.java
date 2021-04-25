@@ -127,39 +127,5 @@ public class CuisineController extends Controller{
     }
 
 
-    /*--------------------------------Meubles------------------------*/
-    /**
-     * Selectionne le meuble sous la souris
-     * @param e
-     */
-    public void selectMeuble(MouseEvent e){
-        meubles.select(getPosMouse(e));
-    }
-
-    /**
-     * Deplace le meuble selectionne
-     * @param e
-     */
-    public void dragMeuble(MouseEvent e){
-        Meuble m = meubles.selection;
-        if(m != null){
-            m.move(getPosMouse(e));
-        }
-    }
-
-    /**
-     * Lache le meuble selectionne
-     * @param e
-     */
-    public boolean lacheMeuble(MouseEvent e){
-        Meuble m = meubles.selection;
-        if(m != null){
-            m.move(getPosMouse(e));
-            meubles.unselect();
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 }

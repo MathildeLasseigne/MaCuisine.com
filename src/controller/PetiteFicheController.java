@@ -47,7 +47,7 @@ public class PetiteFicheController extends Controller {
         this.petiteFiche.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                GestionaireMeubles.selection.getIsClickedMoveProperty().set(false);
+                GestionaireMeubles.getSelection().getIsClickedMoveProperty().set(false);
                 GestionaireMeubles.select(meuble);
                 meuble.getIsClickedMoveProperty().set(true);
             }

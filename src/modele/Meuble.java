@@ -42,7 +42,7 @@ public class Meuble {
 
     private String nom;
     private String constructeur;
-    private String prix;
+    private double prix;
     private String description;
 
 /*-----------Forme---------------*/
@@ -69,6 +69,7 @@ public class Meuble {
 
     /**La sauvegarde de la property a laquelle est liee le dragController**/
     private BooleanProperty savedDragBind;
+
     /**Defini si le mouvement de la forme se fait a partir de la fiche / avec un clic et pas un drag
      * <br/> -> Est ce que le meuble est deplace sans press&drag&drop (depuis catalogue ou panier)
      * <li>
@@ -100,7 +101,7 @@ public class Meuble {
         this.HAUTEUR = hauteur;
         this.nom = nom;
         this.constructeur = constructeur;
-        this.prix = Double.toString(prix) + "€";
+        this.prix = prix;
         this.description = description;
         contructFiches();
         buildForme();
@@ -460,7 +461,7 @@ public class Meuble {
      * @return information en tant que String
      */
     public String getPrix() {
-        return prix;
+        return Double.toString(prix) + "€";
     }
 
     /**

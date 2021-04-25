@@ -17,7 +17,7 @@ public class GestionaireMeubles {
     private Cuisine cuisine;
 
 
-    public static Meuble selection = null;
+    private static Meuble selection = null;
 
     public BooleanProperty isMovable = new SimpleBooleanProperty();
 
@@ -39,7 +39,19 @@ public class GestionaireMeubles {
 
 
     /**
+     * Renvoie le meuble actuellement selectionne
+     * @return le meuble selectionne
+     * @see GestionaireMeubles#select(Meuble)
+     * @see GestionaireMeubles#unselect()
+     */
+    public static Meuble getSelection() {
+        return selection;
+    }
+
+    /**
      * Enleve tout meuble de la selection
+     * @see GestionaireMeubles#getSelection()
+     * @see GestionaireMeubles#select(Meuble)
      */
     public static void unselect(){
         if(selection != null){
@@ -48,23 +60,12 @@ public class GestionaireMeubles {
         }
     }
 
-    /**
-     * Selectionne le meuble situe a la position donnee
-     * @param posMeuble la position du meuble a selectionner
-     */
-    public void select(Point2D posMeuble){
-        Meuble m = getMeuble(posMeuble);
-        if(m != null){
-            unselect();
-            this.selection = m;
-            m.select();
-            m.getForme().toFront();
-        }
-    }
 
     /**
      * Selectionne le meuble
      * @param meuble le meuble a selectionner la selection
+     * @see GestionaireMeubles#getSelection()
+     * @see GestionaireMeubles#unselect()
      */
     public static void select(Meuble meuble){
         if(meuble != null){
