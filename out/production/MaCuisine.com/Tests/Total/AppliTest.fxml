@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +17,7 @@
 
 <BorderPane minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane fx:id="cuisinePlan" minHeight="200.0" minWidth="200.0" style="-fx-background-color: AliceBlue;" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="cuisinePlan" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: AliceBlue;" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <AnchorPane style="-fx-background-color: BurlyWood;">
@@ -40,7 +39,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane maxWidth="1.7976931348623157E308" prefWidth="600.0">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>

@@ -53,6 +53,7 @@ public class PetiteFicheController extends Controller {
                 }
                 GestionaireMeubles.select(meuble);
                 meuble.getIsClickedMoveProperty().set(true);
+                meuble.getForme().getParent().requestFocus();
             }
         });
 

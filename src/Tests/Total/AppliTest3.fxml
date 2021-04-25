@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="container" minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane fx:id="cuisinePlan" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: AliceBlue;" BorderPane.alignment="CENTER" />
    </center>
@@ -48,15 +49,26 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ButtonBar fx:id="toolsBar" prefHeight="25.0" prefWidth="200.0" style="-fx-border-color: black;">
+                  <ButtonBar fx:id="toolsBar" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: black;">
                     <buttons>
+                        <CheckBox fx:id="grilleBox" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="100.0" text="Affiche grille" />
+                        <CheckBox fx:id="moveBox" mnemonicParsing="false" text="Deplace Objets" />
                       <Button fx:id="cancelSelection" cancelButton="true" mnemonicParsing="false" onAction="#cancelSelectionHandler" text="Cancel selection" />
                     </buttons>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
                   </ButtonBar>
                </children>
                <opaqueInsets>
                   <Insets left="50.0" right="10.0" />
                </opaqueInsets>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </VBox>
          </children>
       </AnchorPane>
@@ -64,7 +76,7 @@
    <left>
       <AnchorPane>
          <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: gray;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane minHeight="230.0" minWidth="230.0" style="-fx-border-color: gray;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="Panier">
                   <content>
@@ -74,7 +86,7 @@
                                 <content>
                                   <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="194.0">
                                        <children>
-                                          <VBox fx:id="panier" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <VBox fx:id="panier" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                                              </padding></VBox>
@@ -111,7 +123,7 @@
    <right>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-border-color: gray; -fx-background-color: GainsBoro;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label text="Informations" textAlignment="CENTER">
                      <font>

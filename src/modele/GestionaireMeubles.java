@@ -155,7 +155,7 @@ public class GestionaireMeubles {
      */
     public void addCatalogue(Meuble m){
         this.catalogue.add(m);
-        this.cuisine.getChildren().add(m.getForme());
+        this.cuisine.add(m);
         m.getDragController().setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
         m.bindIsDraggedPropertyTo(this.isMovable);
         m.isInPanier().addListener((observable, oldValue, newValue) -> {

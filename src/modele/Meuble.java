@@ -304,7 +304,15 @@ public class Meuble {
                     if(this.dragController.releaseHandler(event)){
                         isClickedMove.set(false);
                         isInPanier().set(true);
+                    } else {
+                        this.forme.setTranslateX(0);
+                        this.forme.setTranslateY(0);
+                        grabFormeByFiche();
                     }
+                } else {
+                    this.forme.setTranslateX(0);
+                    this.forme.setTranslateY(0);
+                    grabFormeByFiche();
                 }
             } else {
                 if(this.dragController.releaseHandler(event)){

@@ -2,9 +2,8 @@ package Tests.Total;
 
 import controller.Controller;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
 import modele.Data;
 import modele.GestionaireMeubles;
@@ -31,7 +30,16 @@ public class AppliTestController extends Controller {
     private TextFlow baseInfoText;
 
     @FXML
-    private Pane cuisinePlan;
+    private AnchorPane cuisinePlan;
+
+    @FXML
+    private BorderPane container;
+
+    @FXML
+    private CheckBox grilleBox;
+
+    @FXML
+    public CheckBox moveBox;
 
     public AppliTestController(Cuisine cuisine){
         this.cuisine = cuisine;
@@ -39,10 +47,13 @@ public class AppliTestController extends Controller {
 
     @FXML
     public void initialize(){
-        cuisinePlan.getChildren().add(cuisine);
+        container.setCenter(cuisine);
 
         Data.panneaux.panier = new Panier(panier);
         Data.panneaux.catalogue = new Catalogue(catalogue);
+
+        Data.properties.isGrilleVisible.bind(this.grilleBox.selectedProperty());
+        Data.properties.isMeubleMovable.bind(this.moveBox.selectedProperty());
     }
 
     @FXML
