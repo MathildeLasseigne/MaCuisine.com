@@ -224,6 +224,14 @@ public class Meuble {
     }
 
     /**
+     * Renvoie la propriete verifiant si le meuble est selectionne
+     * @return
+     */
+    public BooleanProperty isSelectedProperty(){
+        return this.selected;
+    }
+
+    /**
      * Reset la position initiale sur le point a gauche-milieu du parent
      */
     public void reset(){

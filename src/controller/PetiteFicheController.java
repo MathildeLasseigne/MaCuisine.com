@@ -52,6 +52,15 @@ public class PetiteFicheController extends Controller {
                 meuble.getIsClickedMoveProperty().set(true);
             }
         });
+
+        //Change la bordure de la fiche si le meuble est selectionne
+        this.petiteFiche.getMeuble().isSelectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                this.petiteFiche.setStyle("-fx-border-color: red ; -fx-border-width: 3px ;");
+            } else {
+                this.petiteFiche.setStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
+            }
+        });
     }
 
     @FXML
