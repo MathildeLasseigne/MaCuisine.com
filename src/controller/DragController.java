@@ -204,10 +204,10 @@ public class DragController {
                 Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
                 Point2D oldPos = getCurrentPos(target);
 
-                target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+                target.relocate(p.getX() - mouseOffsetFromNodeZeroX-1,p.getY() - mouseOffsetFromNodeZeroY-1);
                 Bounds newBounds = target.getBoundsInParent();
                 if( ! this.releaseBoundary.contains(newBounds)){
-                    target.relocate(oldPos.getX(), oldPos.getY());
+                    target.relocate(oldPos.getX()-1, oldPos.getY()-1);
                 } else {
                     succes = true;
                 }
@@ -215,7 +215,7 @@ public class DragController {
         } else {
             Parent parent = this.target.getParent();
             Point2D p = parent.sceneToLocal(event.getSceneX(), event.getSceneY());
-            target.relocate(p.getX() - mouseOffsetFromNodeZeroX,p.getY() - mouseOffsetFromNodeZeroY);
+            target.relocate(p.getX() - mouseOffsetFromNodeZeroX-1,p.getY() - mouseOffsetFromNodeZeroY-1);
             succes = true;
         }
 
