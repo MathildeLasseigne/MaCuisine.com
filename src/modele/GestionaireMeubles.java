@@ -98,6 +98,7 @@ public class GestionaireMeubles {
     private void addToPanier(Meuble meuble){
         this.panier.add(meuble);
         meuble.getForme().setVisible(true);
+        //TODO Data.panneaux.panier.add(meuble);
     }
 
     /**
@@ -119,6 +120,7 @@ public class GestionaireMeubles {
         this.panier.remove(meuble);
         meuble.getForme().setVisible(false);
         meuble.reset();
+        //TODO Data.panneaux.panier.remove(meuble);
     }
 
 
@@ -165,6 +167,8 @@ public class GestionaireMeubles {
         });
         m.getForme().setVisible(false);
         setChecker(m);
+        // TODO : Data.panneaux.catalogue.initCommit(m);
+        // TODO : Data.panneaux.panier.initCommit(m);
     }
 
 

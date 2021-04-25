@@ -3,6 +3,8 @@ package modele;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.CheckBox;
+import vue.Catalogue;
+import vue.Panier;
 
 /**
  * Reuni la liste des booleans representant les options que l utilisateur peut afficher
@@ -50,8 +52,10 @@ public class Data {
         }
 
         //TODO mettre panier
+        public Panier panier;
 
         //TODO mettre catalogue
+        public Catalogue catalogue;
 
         //TODO mettre infoPane
 

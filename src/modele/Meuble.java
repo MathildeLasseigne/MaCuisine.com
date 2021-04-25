@@ -430,6 +430,9 @@ public class Meuble {
     public void contructFiches(){
         this.fichePanier = new PetiteFiche(this);
         this.ficheCatalogue = new PetiteFiche(this);
+        //Si il est visible = false, le parent va se reorganiser
+        this.fichePanier.managedProperty().bind(this.fichePanier.visibleProperty());
+        this.ficheCatalogue.managedProperty().bind(this.ficheCatalogue.visibleProperty());
     }
 
     /**
