@@ -106,26 +106,6 @@
          <children>
             <TabPane minHeight="230.0" minWidth="230.0" style="-fx-border-color: gray;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
-                <Tab text="Panier">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0">
-                           <children>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <content>
-                                  <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="194.0">
-                                       <children>
-                                          <VBox fx:id="panier" maxHeight="1.7976931348623157E308" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                                             </padding></VBox>
-                                       </children>
-                                    </AnchorPane>
-                                </content>
-                              </ScrollPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
                 <Tab text="Catalogue">
                   <content>
                     <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="384.0" prefWidth="197.0">
@@ -138,6 +118,39 @@
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                                              </padding></VBox>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Panier">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0">
+                           <children>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                  <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="194.0">
+                                       <children>
+                                          <StackPane maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <TextFlow maxHeight="1.7976931348623157E308" maxWidth="194.0" prefWidth="194.0" textAlignment="CENTER">
+                                                   <children>
+                                                      <Text fill="#b79d9d" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Pour remplir votre panier, allez voir le catalogue et placez les meubles voulus dans la cuisine." textAlignment="CENTER" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" top="50.0" />
+                                                   </padding>
+                                                </TextFlow>
+                                                <VBox fx:id="panier" maxHeight="1.7976931348623157E308" minHeight="350.0" prefWidth="100.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                                   </padding>
+                                                </VBox>
+                                             </children>
+                                          </StackPane>
                                        </children>
                                     </AnchorPane>
                                 </content>
