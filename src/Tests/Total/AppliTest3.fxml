@@ -8,6 +8,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -50,11 +52,36 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ButtonBar fx:id="toolsBar" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: black;">
+                  <ButtonBar fx:id="toolsBar" buttonMinWidth="20.0" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: black;">
                     <buttons>
                         <CheckBox fx:id="grilleBox" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="100.0" text="Affiche grille" />
-                        <CheckBox fx:id="moveBox" mnemonicParsing="false" text="Deplace Objets" />
-                      <Button fx:id="cancelSelection" cancelButton="true" mnemonicParsing="false" onAction="#cancelSelectionHandler" text="Cancel selection" />
+                        <Button maxWidth="30.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#moveHandler" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fx:id="moveImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Sprites/move.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="suppr" maxWidth="30.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#supprHandler" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Sprites/poubelle.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                      <Button fx:id="cancelSelection" cancelButton="true" maxWidth="30.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#cancelSelectionHandler" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Sprites/icons8-cancel-384.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                     </buttons>
                      <VBox.margin>
                         <Insets />

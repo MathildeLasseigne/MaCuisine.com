@@ -22,7 +22,8 @@ public class TestAppli extends Application {
 
         Cuisine cuisine = new Cuisine(300,400);
 
-        BorderPane root = (BorderPane) Controller.loadFXMLWithController(getClass().getResource("AppliTest3.fxml"), new AppliTestController(cuisine));
+        AppliTestController globalController = new AppliTestController(cuisine);
+        BorderPane root = (BorderPane) globalController.loadFXMLWithController(getClass().getResource("AppliTest3.fxml"));
 
         Rectangle dimEcran = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
@@ -31,8 +32,10 @@ public class TestAppli extends Application {
         root.setMinSize(width,height);
         root.setMaxSize(width,height);
 
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
+        globalController.setGlobalEventHandler(root);
         GestionaireMeubles meubles = new GestionaireMeubles(cuisine);
         meubles.initPanierTest(4);
     }

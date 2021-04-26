@@ -1,6 +1,7 @@
 package modele;
 
 import controller.DragController;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -34,6 +35,7 @@ public class Meuble {
      * <br/>Le gestionnaire de meuble y attache un change listener qui l ajoute ou l enleve du panier automatiquement**/
     private BooleanProperty inPanier = new SimpleBooleanProperty(false);
 
+    private BooleanProperty inPlan = new SimpleBooleanProperty(false);
 
     /**Les dimentions du meuble**/
     protected double LARGEUR, HAUTEUR;
@@ -236,12 +238,21 @@ public class Meuble {
     }
 
     /**
-     * Reset la position initiale sur le point a gauche-milieu du parent
+     * Reset la position initiale sur le point a gauche-milieu du parent et retire du plan en le rendant invisible
      */
     public void reset(){
         this.forme.setTranslateX(0);
         this.forme.setTranslateY(0);
         this.forme.relocate(0, this.forme.getParent().getBoundsInLocal().getHeight()/2);
+        this.inPlan.set(false);
+    }
+
+    /**
+     * Verifie que le meuble est visible dans le plan
+     * @return
+     */
+    public BooleanProperty isInPlanProperty(){
+        return this.inPlan;
     }
 
 
@@ -284,6 +295,13 @@ public class Meuble {
                 forme.setTranslateY(0);
                 dragController.getDraggableProperty().bind(savedDragBind);
             }
+        });
+
+        inPlan.addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(()->{
+                this.forme.getParent().requestFocus();
+                this.forme.requestFocus();
+            });
         });
 
     }
@@ -386,6 +404,7 @@ public class Meuble {
         this.forme.setFill(paintUsual);
         this.forme.setStroke(Color.BLACK);
         this.forme.setStrokeWidth(2);
+        this.forme.visibleProperty().bindBidirectional(this.inPlan);
     }
 
 

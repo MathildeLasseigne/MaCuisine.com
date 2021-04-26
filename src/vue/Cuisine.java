@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
@@ -63,7 +64,11 @@ public class Cuisine extends ScrollPane {
         this.content = (Pane) contentContainer;
         this.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         this.setMinSize(USE_COMPUTED_SIZE,USE_COMPUTED_SIZE);
+        Data.panneaux.cuisine = this;
 
+        this.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            this.content.requestFocus();
+        });
     }
 
     /**

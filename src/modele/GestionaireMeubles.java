@@ -106,7 +106,7 @@ public class GestionaireMeubles {
      */
     private void addToPanier(Meuble meuble){
         this.panier.add(meuble);
-        meuble.getForme().setVisible(true);
+        meuble.isInPlanProperty().set(true);
         Data.panneaux.panier.add(meuble);
     }
 
@@ -127,7 +127,7 @@ public class GestionaireMeubles {
      */
     private void removeFromPanier(Meuble meuble){
         this.panier.remove(meuble);
-        meuble.getForme().setVisible(false);
+        meuble.isInPlanProperty().set(false);
         meuble.reset();
         Data.panneaux.panier.remove(meuble);
     }
@@ -177,6 +177,7 @@ public class GestionaireMeubles {
         m.getForme().setVisible(false);
         setChecker(m);
         Data.panneaux.initCommit(m);
+        m.reset();
     }
 
 

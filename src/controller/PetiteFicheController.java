@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import modele.Data;
 import modele.GestionaireMeubles;
 import modele.Meuble;
 import modele.PetiteFiche;
@@ -51,9 +52,12 @@ public class PetiteFicheController extends Controller {
                 if(oldSelection != null){
                     oldSelection.getIsClickedMoveProperty().set(false);
                 }
-                GestionaireMeubles.select(meuble);
                 meuble.getIsClickedMoveProperty().set(true);
+                Data.panneaux.cuisine.requestFocus();
                 meuble.getForme().getParent().requestFocus();
+                meuble.getForme().requestFocus();
+                GestionaireMeubles.select(meuble);
+                meuble.isInPlanProperty().set(true);
             }
         });
 

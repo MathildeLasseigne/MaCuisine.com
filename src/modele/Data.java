@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.CheckBox;
 import vue.Catalogue;
+import vue.Cuisine;
 import vue.InfoPane;
 import vue.Panier;
 
@@ -44,7 +45,7 @@ public class Data {
          * Defini si il est possible de deplacer les meubles dans le plan.
          * <br/>Initialise par le CuisineController
          */
-        public BooleanProperty isMeubleMovable = new SimpleBooleanProperty(false);
+        public BooleanProperty isMeubleMovable = new SimpleBooleanProperty(true);
 
 
     }
@@ -79,6 +80,11 @@ public class Data {
         /**La gestion de la vue du panneau information
          * <br/>Initialise par le controlleur de l appli**/
         public InfoPane infoPane;
+
+        /**
+         * La cuisine au milieu de l appli
+         */
+        public Cuisine cuisine;
 
     }
 
