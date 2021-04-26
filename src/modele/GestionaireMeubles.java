@@ -167,8 +167,7 @@ public class GestionaireMeubles {
         });
         m.getForme().setVisible(false);
         setChecker(m);
-        Data.panneaux.catalogue.initCommit(m);
-        Data.panneaux.panier.initCommit(m);
+        Data.panneaux.initCommit(m);
     }
 
 
@@ -185,6 +184,8 @@ public class GestionaireMeubles {
         addCatalogue(m3);
         Meuble m4 = new Meuble("Meuble4", "MaCuisine.com", 100,20,50);
         addCatalogue(m4);
+        Meuble m5 = new Meuble("Meuble5", "MaCuisine.com", 30,30,30);
+        addCatalogue(m5);
         //Location pour tests
         m1.relocate(50, 50);
         m2.relocate(300,200);

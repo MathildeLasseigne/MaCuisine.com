@@ -62,6 +62,8 @@ public class Meuble {
     private PetiteFiche ficheCatalogue;
     /**La petite fiche utilisee dans le panier**/
     private PetiteFiche fichePanier;
+    /**La fiche ou est inscrite toutes les infos**/
+    private BigFiche infoFiche;
 
 
 
@@ -122,7 +124,7 @@ public class Meuble {
      * @see GestionaireMeubles#addCatalogue(Meuble) 
      */
     public Meuble(String nom, String constructeur, double prix, double largeur, double hauteur){
-        this(nom, constructeur, prix,largeur,hauteur, "Ce meuble n a pas de description.");
+        this(nom, constructeur, prix,largeur,hauteur, "Ce meuble n a pas de description."+Data.LoremIpsum);
     }
 
 
@@ -213,6 +215,7 @@ public class Meuble {
      */
     public void unselect(){
         this.selected.set(false);
+        //this.isClickedMove.set(false);
     }
 
     /**
@@ -265,7 +268,7 @@ public class Meuble {
         // Cas clic to move
 
         isClickedMove.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if (newValue && ! oldValue) {
                 dragController.getDraggableProperty().unbind();
                 dragController.getDraggableProperty().set(false);
                 forme.setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
@@ -273,7 +276,7 @@ public class Meuble {
                 grabFormeByFiche();
                 forme.getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
                 forme.getParent().addEventFilter(MouseEvent.MOUSE_CLICKED, releaseByClic);
-            } else {
+            } else if(! newValue && oldValue) {
                 forme.getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
                 forme.getParent().removeEventFilter(MouseEvent.MOUSE_CLICKED, releaseByClic);
                 forme.setTranslateX(0); //Reset au cas ou annule
@@ -441,6 +444,9 @@ public class Meuble {
         //Si il est visible = false, le parent va se reorganiser
         this.fichePanier.managedProperty().bind(this.fichePanier.visibleProperty());
         this.ficheCatalogue.managedProperty().bind(this.ficheCatalogue.visibleProperty());
+
+        //Big fiche/info fiche
+        this.infoFiche = new BigFiche(this);
     }
 
     /**
@@ -460,8 +466,8 @@ public class Meuble {
     /**
      * Renvoie la grande fiche du meuble avec sa description
      */
-    public  void getBigFiche(){
-        //TODO renvoie variable globale
+    public  BigFiche getBigFiche(){
+        return this.infoFiche;
     }
 
 
@@ -500,10 +506,18 @@ public class Meuble {
     }
 
     /**
-     * Renvoie la description du meuble
-     * @param description information en tant que String
+     * Defini la description du meuble
+     * @param description la description du meuble. Sans retour a la ligne
      */
-    public void getDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Renvoie la description du meuble
+     * @return la description du meuble en tant que String
+     */
+    public String getDescription() {
+        return description;
     }
 }

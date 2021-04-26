@@ -19,7 +19,7 @@ public class Catalogue {
      */
     public void initCommit(Meuble m){
         m.getLittleFicheCatalogue().setVisible(true);
-        container.getChildren().add(m.getLittleFichePanier());
+        container.getChildren().add(m.getLittleFicheCatalogue());
     }
 
 }

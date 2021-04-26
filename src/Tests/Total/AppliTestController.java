@@ -9,6 +9,7 @@ import modele.Data;
 import modele.GestionaireMeubles;
 import vue.Catalogue;
 import vue.Cuisine;
+import vue.InfoPane;
 import vue.Panier;
 
 public class AppliTestController extends Controller {
@@ -27,7 +28,7 @@ public class AppliTestController extends Controller {
     private StackPane infoPane;
 
     @FXML
-    private TextFlow baseInfoText;
+    private Pane baseInfoText;
 
     @FXML
     private AnchorPane cuisinePlan;
@@ -51,6 +52,7 @@ public class AppliTestController extends Controller {
 
         Data.panneaux.panier = new Panier(panier);
         Data.panneaux.catalogue = new Catalogue(catalogue);
+        Data.panneaux.infoPane = new InfoPane(infoPane, baseInfoText);
 
         Data.properties.isGrilleVisible.bind(this.grilleBox.selectedProperty());
         Data.properties.isMeubleMovable.bind(this.moveBox.selectedProperty());

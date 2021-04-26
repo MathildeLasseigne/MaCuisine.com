@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -86,7 +87,7 @@
                                 <content>
                                   <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="194.0">
                                        <children>
-                                          <VBox fx:id="panier" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <VBox fx:id="panier" maxHeight="1.7976931348623157E308" minHeight="350.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                                              </padding></VBox>
@@ -106,7 +107,10 @@
                                 <content>
                                   <AnchorPane prefWidth="200.0">
                                        <children>
-                                          <VBox fx:id="catalogue" minHeight="350.0" prefWidth="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <VBox fx:id="catalogue" maxHeight="1.7976931348623157E308" minHeight="350.0" prefWidth="194.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                             </padding></VBox>
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -134,15 +138,23 @@
                      <children>
                         <ScrollPane hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <StackPane fx:id="infoPane" maxHeight="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-color: gray;">
+                              <AnchorPane>
                                  <children>
-                                    <TextFlow fx:id="baseInfoText" maxHeight="1.7976931348623157E308" prefHeight="350.0" prefWidth="198.0">
+                                    <StackPane fx:id="infoPane" maxHeight="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-color: gray;">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ceci est la description d'un meuble." />
+                                          <Pane fx:id="baseInfoText" maxHeight="1.7976931348623157E308" style="-fx-background-color: WhiteSmoke;">
+                                             <children>
+                                                <TextFlow maxHeight="1.7976931348623157E308" prefHeight="350.0" prefWidth="198.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ceci est la description d'un meuble." />
+                                                   </children>
+                                                </TextFlow>
+                                             </children>
+                                          </Pane>
                                        </children>
-                                    </TextFlow>
+                                    </StackPane>
                                  </children>
-                              </StackPane>
+                              </AnchorPane>
                            </content>
                         </ScrollPane>
                      </children>
