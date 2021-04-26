@@ -214,8 +214,8 @@ public class Meuble {
      * Deselectionne le meuble
      */
     public void unselect(){
+        this.isClickedMove.set(false);
         this.selected.set(false);
-        //this.isClickedMove.set(false);
     }
 
     /**

@@ -67,10 +67,19 @@ public class GestionaireMeubles {
      */
     public static void select(Meuble meuble){
         if(meuble != null){
-            unselect();
-            selection = meuble;
-            meuble.select();
-            meuble.getForme().toFront();
+            if(selection != null){
+                if(! selection.equals(meuble)){
+                    unselect();
+                    selection = meuble;
+                    meuble.select();
+                    meuble.getForme().toFront();
+                }
+            } else {
+                unselect();
+                selection = meuble;
+                meuble.select();
+                meuble.getForme().toFront();
+            }
         } else {
             throw new IllegalStateException("Meuble selected must not be null");
         }
