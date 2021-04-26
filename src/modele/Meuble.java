@@ -214,6 +214,7 @@ public class Meuble {
      * Deselectionne le meuble
      */
     public void unselect(){
+        this.dragController.resetDrag();
         this.isClickedMove.set(false);
         this.selected.set(false);
     }
