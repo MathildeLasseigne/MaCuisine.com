@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
 import modele.Data;
 import modele.GestionaireMeubles;
+import modele.Meuble;
 import vue.Catalogue;
 import vue.Cuisine;
 import vue.InfoPane;
@@ -106,7 +107,10 @@ public class AppliTestController extends Controller {
 
     @FXML
     public void supprHandler(){
-        GestionaireMeubles.getSelection().isInPanier().set(false);
+        Meuble selection = GestionaireMeubles.getSelection();
+        if(selection != null){
+            selection.isInPanier().set(false);
+        }
     }
 
     @FXML
