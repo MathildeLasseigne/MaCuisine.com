@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeType;
 import modele.Data;
+import modele.GestionaireMeubles;
 import modele.Meuble;
 
 import java.io.IOException;
@@ -68,6 +69,24 @@ public class Cuisine extends ScrollPane {
 
         this.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             this.content.requestFocus();
+        });
+        this.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+            Meuble selection = GestionaireMeubles.getSelection();
+            if(selection != null){
+                if(selection.getIsClickedMoveProperty().get()){
+                    selection.isInPlanProperty().set(true);
+                    this.requestFocus();
+                    content.requestFocus();
+                }
+            }
+        });
+        this.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+            Meuble selection = GestionaireMeubles.getSelection();
+            if(selection != null){
+                if(selection.getIsClickedMoveProperty().get()){
+                    selection.isInPlanProperty().set(false);
+                }
+            }
         });
     }
 
