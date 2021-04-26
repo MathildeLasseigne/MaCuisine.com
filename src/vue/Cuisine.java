@@ -77,6 +77,7 @@ public class Cuisine extends ScrollPane {
                     selection.isInPlanProperty().set(true);
                     this.requestFocus();
                     content.requestFocus();
+                    selection.getForme().requestFocus();
                 }
             }
         });

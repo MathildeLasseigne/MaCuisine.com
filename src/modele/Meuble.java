@@ -287,10 +287,10 @@ public class Meuble {
                 forme.setTranslateY(0);
                 grabFormeByFiche();
                 forme.getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                forme.getParent().addEventFilter(MouseEvent.MOUSE_CLICKED, releaseByClic);
+                forme.getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
             } else if(! newValue && oldValue) {
                 forme.getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                forme.getParent().removeEventFilter(MouseEvent.MOUSE_CLICKED, releaseByClic);
+                forme.getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
                 forme.setTranslateX(0); //Reset au cas ou annule
                 forme.setTranslateY(0);
                 dragController.getDraggableProperty().bind(savedDragBind);
@@ -311,35 +311,62 @@ public class Meuble {
      */
     private void setEventHandlersDragAndReleaseByClic(){
         this.dragByClic = event -> {
+            getForme().requestFocus();
             if(this.dragController.getDragChecker() != null){
                 if(this.dragController.getDragChecker().check()){
-                    this.dragController.dragHandler(event);
+                    Platform.runLater(new Runnable() {
+                        @Override public void run() {
+                            dragController.dragHandler(event);
+                        }
+                    });
+
                 }
             } else {
-                this.dragController.dragHandler(event);
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        getDragController().dragHandler(event);
+                    }
+                });
+                //this.dragController.dragHandler(event);
             }
         };
 
         this.releaseByClic = event -> {
+            getForme().requestFocus();
             if(this.dragController.getReleaseChecker() != null){
                 if(this.dragController.getReleaseChecker().check()){
-                    if(this.dragController.releaseHandler(event)){
-                        isClickedMove.set(false);
-                        isInPanier().set(true);
-                    } else {
-                        this.forme.setTranslateX(0);
-                        this.forme.setTranslateY(0);
-                        grabFormeByFiche();
-                    }
+                    Platform.runLater(new Runnable() {
+                        @Override public void run() {
+                            if(getDragController().releaseHandler(event)){
+                                isClickedMove.set(false);
+                                isInPanier().set(true);
+                            } else {
+                                getForme().setTranslateX(0);
+                                getForme().setTranslateY(0);
+                                grabFormeByFiche();
+                            }
+                        }
+                    });
+
                 } else {
-                    this.forme.setTranslateX(0);
-                    this.forme.setTranslateY(0);
-                    grabFormeByFiche();
+                    Platform.runLater(new Runnable() {
+                        @Override public void run() {
+                            getForme().setTranslateX(0);
+                            getForme().setTranslateY(0);
+                            grabFormeByFiche();
+                        }
+                    });
+
                 }
             } else {
-                if(this.dragController.releaseHandler(event)){
-                    isClickedMove.set(false);
-                }
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        if(getDragController().releaseHandler(event)){
+                            isClickedMove.set(false);
+                        }
+                    }
+                });
+
             }
         };
 
