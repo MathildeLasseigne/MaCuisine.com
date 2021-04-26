@@ -196,11 +196,6 @@ public class GestionaireMeubles {
         addCatalogue(m4);
         MeubleModele m5 = new MeubleModele("Meuble5", "MaCuisine.com", 30,30,30);
         addCatalogue(m5);
-        //Location pour tests
-        m1.relocate(50, 50);
-        m2.relocate(300,200);
-        m3.relocate(100,300);
-        m4.relocate(100,300);
     }
 
     /**

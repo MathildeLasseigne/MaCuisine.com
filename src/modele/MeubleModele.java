@@ -215,6 +215,9 @@ public class MeubleModele {
         this.getDragController().resetDrag();
         this.isClickedMove.set(false);
         this.selected.set(false);
+        if(! isInPanier().get()){
+            isInPlanProperty().set(false);
+        }
     }
 
     /**
