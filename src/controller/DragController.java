@@ -342,10 +342,12 @@ public class DragController {
 
     /**
      * Snap the target node back to its last position by setting translateX & Y to 0
+     * and stop the drag movement
      */
-    public void snapToOrigin(){
-        this.target.setTranslateX(0);
-        this.target.setTranslateY(0);
+    public void resetDrag(){
+        cycleStatus = INACTIVE;
+        target.setTranslateX(0);
+        target.setTranslateY(0);
     }
 
 
