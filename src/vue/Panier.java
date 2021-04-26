@@ -1,6 +1,7 @@
 package vue;
 
 import javafx.scene.layout.VBox;
+import modele.Data;
 import modele.MeubleModele;
 
 public class Panier {
@@ -13,6 +14,7 @@ public class Panier {
 
     public Panier(VBox container){
         this.container = container;
+        Data.panneaux.panier = this;
     }
 
     /**

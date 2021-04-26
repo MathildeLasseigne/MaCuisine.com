@@ -2,6 +2,7 @@ package vue;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import modele.Data;
 import modele.MeubleModele;
 
 public class InfoPane {
@@ -19,6 +20,7 @@ public class InfoPane {
     public InfoPane(StackPane infoPane, Pane initPane){
         this.infoPane = infoPane;
         this.defaultPane = initPane;
+        Data.panneaux.infoPane = this;
     }
 
     /**

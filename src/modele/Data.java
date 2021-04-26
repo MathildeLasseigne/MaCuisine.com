@@ -69,15 +69,15 @@ public class Data {
         }
         
         /**La gestion de la vue du panier
-         * <br/>Initialise par le controlleur de l appli**/
+         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
         public Panier panier;
 
         /**La gestion de la vue du catalogue
-         * <br/>Initialise par le controlleur de l appli**/
+         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
         public Catalogue catalogue;
 
         /**La gestion de la vue du panneau information
-         * <br/>Initialise par le controlleur de l appli**/
+         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
         public InfoPane infoPane;
 
         /**

@@ -73,9 +73,9 @@ public class AppliTestController extends Controller {
     public void initialize(){
         container.setCenter(cuisine);
 
-        Data.panneaux.panier = new Panier(panier);
-        Data.panneaux.catalogue = new Catalogue(catalogue);
-        Data.panneaux.infoPane = new InfoPane(infoPane, baseInfoText);
+        new Panier(panier);
+        new Catalogue(catalogue);
+        new InfoPane(infoPane, baseInfoText);
 
         Data.properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {

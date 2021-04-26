@@ -1,6 +1,7 @@
 package vue;
 
 import javafx.scene.layout.VBox;
+import modele.Data;
 import modele.MeubleModele;
 
 public class Catalogue {
@@ -9,6 +10,7 @@ public class Catalogue {
 
     public Catalogue(VBox container){
         this.container = container;
+        Data.panneaux.catalogue = this;
     }
 
 
