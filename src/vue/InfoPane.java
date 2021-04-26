@@ -1,9 +1,8 @@
 package vue;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import modele.Meuble;
+import modele.MeubleModele;
 
 public class InfoPane {
 
@@ -24,10 +23,10 @@ public class InfoPane {
 
     /**
      * Ajoute la fiche d info du meuble au panneau d infos
-     * @param meuble
+     * @param meubleModele le meuble a ajouter
      */
-    public void initCommit(Meuble meuble){
-        this.infoPane.getChildren().add(meuble.getBigFiche());
+    public void initCommit(MeubleModele meubleModele){
+        this.infoPane.getChildren().add(meubleModele.getBigFiche());
         unselect();
     }
 
@@ -42,7 +41,7 @@ public class InfoPane {
      * Affiche le panneau d informations du meuble
      * @param meuble
      */
-    public void select(Meuble meuble){
+    public void select(MeubleModele meuble){
         meuble.getBigFiche().toFront();
     }
 

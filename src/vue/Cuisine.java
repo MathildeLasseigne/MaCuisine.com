@@ -1,6 +1,5 @@
 package vue;
 
-import controller.Controller;
 import controller.ControllerManager;
 import controller.CuisineController;
 import javafx.geometry.Point2D;
@@ -8,16 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.StrokeType;
 import modele.Data;
 import modele.GestionaireMeubles;
-import modele.Meuble;
+import modele.MeubleModele;
 
 import java.io.IOException;
 
@@ -71,7 +67,7 @@ public class Cuisine extends ScrollPane {
             this.content.requestFocus();
         });
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-            Meuble selection = GestionaireMeubles.getSelection();
+            MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
                 if(selection.getIsClickedMoveProperty().get()){
                     selection.isInPlanProperty().set(true);
@@ -82,7 +78,7 @@ public class Cuisine extends ScrollPane {
             }
         });
         this.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-            Meuble selection = GestionaireMeubles.getSelection();
+            MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
                 if(selection.getIsClickedMoveProperty().get()){
                     selection.isInPlanProperty().set(false);
@@ -93,11 +89,11 @@ public class Cuisine extends ScrollPane {
 
     /**
      * Ajoute un meuble dans la cuisine
-     * @param meuble
+     * @param meubleModele
      */
-    public void add(Meuble meuble){
+    public void add(MeubleModele meubleModele){
         //this.getChildren().add(meuble.getForme());
-        this.content.getChildren().add(meuble.getForme());
+        this.content.getChildren().add(meubleModele.getForme());
     }
 
     /**

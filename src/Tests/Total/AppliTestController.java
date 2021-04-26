@@ -3,25 +3,19 @@ package Tests.Total;
 import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextFlow;
 import modele.Data;
 import modele.GestionaireMeubles;
-import modele.Meuble;
+import modele.MeubleModele;
 import vue.Catalogue;
 import vue.Cuisine;
 import vue.InfoPane;
 import vue.Panier;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 
 public class AppliTestController extends Controller {
@@ -107,7 +101,7 @@ public class AppliTestController extends Controller {
 
     @FXML
     public void supprHandler(){
-        Meuble selection = GestionaireMeubles.getSelection();
+        MeubleModele selection = GestionaireMeubles.getSelection();
         if(selection != null){
             selection.isInPanier().set(false);
             selection.isInPlanProperty().set(false);

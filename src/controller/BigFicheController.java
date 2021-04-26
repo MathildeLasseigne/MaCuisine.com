@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import modele.BigFiche;
 import modele.Data;
-import modele.Meuble;
+import modele.MeubleModele;
 
 
 public class BigFicheController extends Controller {
@@ -32,11 +32,11 @@ public class BigFicheController extends Controller {
 
     private BigFiche bigFiche;
 
-    private Meuble meuble;
+    private MeubleModele meuble;
 
     public BigFicheController(BigFiche bigFiche){
         this.bigFiche = bigFiche;
-        this.meuble = bigFiche.getMeuble();
+        this.meuble = bigFiche.getMeubleModele();
         setHandler();
     }
 

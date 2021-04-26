@@ -2,7 +2,6 @@ package modele;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.control.CheckBox;
 import vue.Catalogue;
 import vue.Cuisine;
 import vue.InfoPane;
@@ -59,11 +58,11 @@ public class Data {
         /**
          * Commit le meuble a tous les panneaux
          * @param meuble le meuble a commit
-         * @see Panier#initCommit(Meuble) 
-         * @see Catalogue#initCommit(Meuble) 
-         * @see InfoPane#initCommit(Meuble) 
+         * @see Panier#initCommit(MeubleModele)
+         * @see Catalogue#initCommit(MeubleModele)
+         * @see InfoPane#initCommit(MeubleModele)
          */
-        public void initCommit(Meuble meuble){
+        public void initCommit(MeubleModele meuble){
             this.panier.initCommit(meuble);
             this.catalogue.initCommit(meuble);
             this.infoPane.initCommit(meuble);

@@ -15,15 +15,15 @@ public class GestionaireMeubles {
     private Cuisine cuisine;
 
 
-    private static Meuble selection = null;
+    private static MeubleModele selection = null;
 
     public BooleanProperty isMovable = new SimpleBooleanProperty();
 
     /**Le catalogue des meubles**/
-    private ArrayList<Meuble> catalogue = new ArrayList<>();
+    private ArrayList<MeubleModele> catalogue = new ArrayList<>();
 
     /**Les meubles dans le panier**/
-    private ArrayList<Meuble> panier = new ArrayList<>();
+    private ArrayList<MeubleModele> panier = new ArrayList<>();
 
     /**
      * Le gestionnaire de tous les meubles.
@@ -39,17 +39,17 @@ public class GestionaireMeubles {
     /**
      * Renvoie le meuble actuellement selectionne
      * @return le meuble selectionne
-     * @see GestionaireMeubles#select(Meuble)
+     * @see GestionaireMeubles#select(MeubleModele)
      * @see GestionaireMeubles#unselect()
      */
-    public static Meuble getSelection() {
+    public static MeubleModele getSelection() {
         return selection;
     }
 
     /**
      * Enleve tout meuble de la selection
      * @see GestionaireMeubles#getSelection()
-     * @see GestionaireMeubles#select(Meuble)
+     * @see GestionaireMeubles#select(MeubleModele)
      */
     public static void unselect(){
         if(selection != null){
@@ -61,27 +61,27 @@ public class GestionaireMeubles {
 
     /**
      * Selectionne le meuble
-     * @param meuble le meuble a selectionner la selection
+     * @param meubleModele le meuble a selectionner
      * @see GestionaireMeubles#getSelection()
      * @see GestionaireMeubles#unselect()
      */
-    public static void select(Meuble meuble){
-        if(meuble != null){
+    public static void select(MeubleModele meubleModele){
+        if(meubleModele != null){
             if(selection != null){
-                if(! selection.equals(meuble)){
+                if(! selection.equals(meubleModele)){
                     unselect();
-                    selection = meuble;
-                    meuble.select();
-                    meuble.getForme().toFront();
+                    selection = meubleModele;
+                    meubleModele.select();
+                    meubleModele.getForme().toFront();
                 }
             } else {
                 unselect();
-                selection = meuble;
-                meuble.select();
-                meuble.getForme().toFront();
+                selection = meubleModele;
+                meubleModele.select();
+                meubleModele.getForme().toFront();
             }
         } else {
-            throw new IllegalStateException("Meuble selected must not be null");
+            throw new IllegalStateException("MeubleModel selected must not be null");
         }
     }
 
@@ -90,7 +90,7 @@ public class GestionaireMeubles {
      * @param posMeuble
      * @return
      */
-    public Meuble getMeuble(Point2D posMeuble){
+    public MeubleModele getMeuble(Point2D posMeuble){
         return null;
     }
 
@@ -101,35 +101,35 @@ public class GestionaireMeubles {
     /**
      * Ajoute un meuble au panier.
      * <br/>Tout ajout dans le panier doit se faire a partir du meuble
-     * @param meuble meuble a placer
-     * @see Meuble#isInPanier()
+     * @param meubleModele meuble a placer
+     * @see MeubleModele#isInPanier()
      */
-    private void addToPanier(Meuble meuble){
-        this.panier.add(meuble);
-        meuble.isInPlanProperty().set(true);
-        Data.panneaux.panier.add(meuble);
+    private void addToPanier(MeubleModele meubleModele){
+        this.panier.add(meubleModele);
+        meubleModele.isInPlanProperty().set(true);
+        Data.panneaux.panier.add(meubleModele);
     }
 
     /**
      * Verifie si un meuble est dans le panier
-     * @param meuble
+     * @param meubleModele verifie si le meuble est dans le panier
      * @return
      */
-    public boolean isInPanier(Meuble meuble){
-        return this.panier.contains(meuble);
+    public boolean isInPanier(MeubleModele meubleModele){
+        return this.panier.contains(meubleModele);
     }
 
     /**
      * Enleve un meuble du panier
      * <br/>Tout retrait du le panier doit se faire a partir du meuble
-     * @param meuble meuble a enlever
-     * @see Meuble#isInPanier()
+     * @param meubleModele meuble a enlever
+     * @see MeubleModele#isInPanier()
      */
-    private void removeFromPanier(Meuble meuble){
-        this.panier.remove(meuble);
-        meuble.isInPlanProperty().set(false);
-        meuble.reset();
-        Data.panneaux.panier.remove(meuble);
+    private void removeFromPanier(MeubleModele meubleModele){
+        this.panier.remove(meubleModele);
+        meubleModele.isInPlanProperty().set(false);
+        meubleModele.reset();
+        Data.panneaux.panier.remove(meubleModele);
     }
 
 
@@ -137,16 +137,16 @@ public class GestionaireMeubles {
 
     /**
      * Set les checkers sur le meuble
-     * @param meuble le meuble a initialiser
+     * @param meubleModele le meuble a initialiser
      */
-    private void setChecker(Meuble meuble){
-        DragController mCtrl = meuble.getDragController();
+    private void setChecker(MeubleModele meubleModele){
+        DragController mCtrl = meubleModele.getDragController();
         DragController.SimpleChecker release = new DragController.SimpleChecker() {
             @Override
             public boolean check() {
-                for(Meuble m : panier){
-                    if(! meuble.equals(m)){
-                        if(meuble.intersect(m)){
+                for(MeubleModele m : panier){
+                    if(! meubleModele.equals(m)){
+                        if(meubleModele.intersect(m)){
                             return false;
                         }
                     }
@@ -160,24 +160,24 @@ public class GestionaireMeubles {
 
     /**
      * Ajoute un meuble au catalogue et <b>l'initialise</b>
-     * @param m le meuble a ajouter
+     * @param meubleModele le meuble a ajouter
      */
-    public void addCatalogue(Meuble m){
-        this.catalogue.add(m);
-        this.cuisine.add(m);
-        m.getDragController().setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
-        m.bindIsDraggedPropertyTo(this.isMovable);
-        m.isInPanier().addListener((observable, oldValue, newValue) -> {
+    public void addCatalogue(MeubleModele meubleModele){
+        this.catalogue.add(meubleModele);
+        this.cuisine.add(meubleModele);
+        meubleModele.getDragController().setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
+        meubleModele.bindIsDraggedPropertyTo(this.isMovable);
+        meubleModele.isInPanier().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                addToPanier(m);
+                addToPanier(meubleModele);
             } else {
-                removeFromPanier(m);
+                removeFromPanier(meubleModele);
             }
         });
-        m.getForme().setVisible(false);
-        setChecker(m);
-        Data.panneaux.initCommit(m);
-        m.reset();
+        meubleModele.getForme().setVisible(false);
+        setChecker(meubleModele);
+        Data.panneaux.initCommit(meubleModele);
+        meubleModele.reset();
     }
 
 
@@ -186,15 +186,15 @@ public class GestionaireMeubles {
      */
     private void initCatalogue(){
         //TODO init les meubles et les met dans la vue
-        Meuble m1 = new Meuble("Meuble1", "MaCuisine.com", 100,100,50);
+        MeubleModele m1 = new MeubleModele("Meuble1", "MaCuisine.com", 100,100,50);
         addCatalogue(m1);
-        Meuble m2 = new Meuble("Meuble2", "MaCuisine.com", 100,60,60);
+        MeubleModele m2 = new MeubleModele("Meuble2", "MaCuisine.com", 100,60,60);
         addCatalogue(m2);
-        Meuble m3 = new Meuble("Meuble3", "MaCuisine.com", 100,30,60);
+        MeubleModele m3 = new MeubleModele("Meuble3", "MaCuisine.com", 100,30,60);
         addCatalogue(m3);
-        Meuble m4 = new Meuble("Meuble4", "MaCuisine.com", 100,20,50);
+        MeubleModele m4 = new MeubleModele("Meuble4", "MaCuisine.com", 100,20,50);
         addCatalogue(m4);
-        Meuble m5 = new Meuble("Meuble5", "MaCuisine.com", 30,30,30);
+        MeubleModele m5 = new MeubleModele("Meuble5", "MaCuisine.com", 30,30,30);
         addCatalogue(m5);
         //Location pour tests
         m1.relocate(50, 50);

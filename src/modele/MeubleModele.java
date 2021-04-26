@@ -11,16 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.transform.Transform;
 
-import java.awt.image.BufferedImage;
-
-public class Meuble {
+public class MeubleModele {
 
 /*-------------ID--------------*/
     /**Le nombre total de meubles crees**/
@@ -96,9 +92,9 @@ public class Meuble {
      * @param largeur la largeur du meuble en cm
      * @param hauteur la hauteur du meuble en cm
      * @param description la description du meuble
-     * @see GestionaireMeubles#addCatalogue(Meuble) 
+     * @see GestionaireMeubles#addCatalogue(MeubleModele)
      */
-    public Meuble(String nom, String constructeur, double prix, double largeur, double hauteur, String description){
+    public MeubleModele(String nom, String constructeur, double prix, double largeur, double hauteur, String description){
         identify();
 
         this.LARGEUR = largeur;
@@ -123,9 +119,9 @@ public class Meuble {
      * @param prix le prix du meuble en euros
      * @param largeur la largeur du meuble en cm
      * @param hauteur la hauteur du meuble en cm
-     * @see GestionaireMeubles#addCatalogue(Meuble) 
+     * @see GestionaireMeubles#addCatalogue(MeubleModele)
      */
-    public Meuble(String nom, String constructeur, double prix, double largeur, double hauteur){
+    public MeubleModele(String nom, String constructeur, double prix, double largeur, double hauteur){
         this(nom, constructeur, prix,largeur,hauteur, "Ce meuble n a pas de description."+Data.LoremIpsum);
     }
 
@@ -133,8 +129,8 @@ public class Meuble {
     /*------------------------------------------------------------------------*/
 
     /**Set the identity of the meuble. Unique for each meuble
-     * @see Meuble#nbMeubles
-     * @see Meuble#id**/
+     * @see MeubleModele#nbMeubles
+     * @see MeubleModele#id**/
     private void identify(){
         this.id = nbMeubles++;
     }
@@ -198,7 +194,7 @@ public class Meuble {
      * @param m le meuble a comparer
      * @return le resultat de la comparaison
      */
-    public boolean equals(Meuble m){
+    public boolean equals(MeubleModele m){
         return this.id == m.id;
      }
 
@@ -261,7 +257,7 @@ public class Meuble {
     /*---------------------------Selection Handlers----------------*/
     private void setHandlers(){
         setEventHandlersDragAndReleaseByClic();
-        Meuble self = this;
+        MeubleModele self = this;
         getForme().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -394,7 +390,7 @@ public class Meuble {
     /**
      * Defini l action de saisir la forme de la fiche lorsque le mouvement par clic est active.
      * <br/>Defini les anchor et offset dans le dragController
-     * @see Meuble#isClickedMove
+     * @see MeubleModele#isClickedMove
      */
     private void grabFormeByFiche(){
         Point2D offset = new Point2D(this.LARGEUR/2, this.HAUTEUR/2);
@@ -415,7 +411,7 @@ public class Meuble {
      *     <ul>Si set a false, arrete le mouvement en cours</ul>
      * </li>
      * @return le boolean property
-     * @see Meuble#isClickedMove
+     * @see MeubleModele#isClickedMove
      */
     public BooleanProperty getIsClickedMoveProperty(){
         return isClickedMove;
@@ -468,7 +464,7 @@ public class Meuble {
      * @param m le meuble a comparer
      * @return le resultat de la comparaison
      */
-    public boolean intersect(Meuble m){
+    public boolean intersect(MeubleModele m){
         return getForme().intersects(getForme().sceneToLocal(m.getForme().localToScene(
                 m.getForme().getBoundsInLocal())));
     }
@@ -573,7 +569,7 @@ public class Meuble {
      */
     public class Forme extends Rectangle{
 
-        public Forme(Meuble meuble){
+        public Forme(MeubleModele meuble){
 
         }
 

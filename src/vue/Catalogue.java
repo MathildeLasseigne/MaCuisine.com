@@ -1,8 +1,7 @@
 package vue;
 
-import javafx.scene.Group;
 import javafx.scene.layout.VBox;
-import modele.Meuble;
+import modele.MeubleModele;
 
 public class Catalogue {
 
@@ -15,11 +14,11 @@ public class Catalogue {
 
     /**
      * Ajout initial
-     * @param m
+     * @param meubleModele le meuble a ajouter
      */
-    public void initCommit(Meuble m){
-        m.getLittleFicheCatalogue().setVisible(true);
-        container.getChildren().add(m.getLittleFicheCatalogue());
+    public void initCommit(MeubleModele meubleModele){
+        meubleModele.getLittleFicheCatalogue().setVisible(true);
+        container.getChildren().add(meubleModele.getLittleFicheCatalogue());
     }
 
 }

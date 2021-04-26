@@ -1,7 +1,6 @@
 package modele;
 
 import controller.PetiteFicheController;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
@@ -9,15 +8,15 @@ import java.io.IOException;
 
 public class PetiteFiche extends Pane {
 
-    private Meuble meuble;
+    private MeubleModele meubleModele;
 
     private PetiteFicheController controller;
 
     Parent content;
     String originalContentStyle;
 
-    public PetiteFiche(Meuble meuble) {
-        this.meuble = meuble;
+    public PetiteFiche(MeubleModele meubleModele) {
+        this.meubleModele = meubleModele;
         this.controller = new PetiteFicheController(this);
         //TODO load le fxml et add to children
         Parent ficheContent = null;
@@ -52,8 +51,8 @@ public class PetiteFiche extends Pane {
      * Renvoie le meuble lie a la fiche
      * @return
      */
-    public Meuble getMeuble() {
-        return meuble;
+    public MeubleModele getMeubleModele() {
+        return meubleModele;
     }
 
 }

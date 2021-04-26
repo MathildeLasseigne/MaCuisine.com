@@ -1,9 +1,7 @@
 package vue;
 
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
-import modele.Meuble;
+import modele.MeubleModele;
 
 public class Panier {
 
@@ -19,27 +17,27 @@ public class Panier {
 
     /**
      * Ajout initial
-     * @param m
+     * @param meubleModele le meuble a ajouter
      */
-    public void initCommit(Meuble m){
-        m.getLittleFichePanier().setVisible(false);
-        container.getChildren().add(m.getLittleFichePanier());
+    public void initCommit(MeubleModele meubleModele){
+        meubleModele.getLittleFichePanier().setVisible(false);
+        container.getChildren().add(meubleModele.getLittleFichePanier());
     }
 
     /**
      * Fait apparaitre le meuble dans la liste du panier
-     * @param meuble
+     * @param meubleModele
      */
-    public void add(Meuble meuble){
-        meuble.getLittleFichePanier().setVisible(true);
+    public void add(MeubleModele meubleModele){
+        meubleModele.getLittleFichePanier().setVisible(true);
     }
 
     /**
      * Fait disparaitre le meuble dans la liste du panier
-     * @param meuble
+     * @param meubleModele
      */
-    public void remove(Meuble meuble){
-        meuble.getLittleFichePanier().setVisible(false);
+    public void remove(MeubleModele meubleModele){
+        meubleModele.getLittleFichePanier().setVisible(false);
     }
 
 }

@@ -9,14 +9,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import modele.Data;
 import modele.GestionaireMeubles;
-import modele.Meuble;
+import modele.MeubleModele;
 import modele.PetiteFiche;
 
 
 
 public class PetiteFicheController extends Controller {
 
-    private Meuble meuble;
+    private MeubleModele meuble;
     private PetiteFiche petiteFiche;
 
     @FXML
@@ -39,7 +39,7 @@ public class PetiteFicheController extends Controller {
 
     public PetiteFicheController(PetiteFiche petiteFiche){
         this.petiteFiche = petiteFiche;
-        this.meuble = this.petiteFiche.getMeuble();
+        this.meuble = this.petiteFiche.getMeubleModele();
         setHandlers();
     }
 
@@ -48,7 +48,7 @@ public class PetiteFicheController extends Controller {
         this.petiteFiche.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Meuble oldSelection = GestionaireMeubles.getSelection();
+                MeubleModele oldSelection = GestionaireMeubles.getSelection();
                 if(oldSelection != null){
                     oldSelection.getIsClickedMoveProperty().set(false);
                 }
@@ -61,7 +61,7 @@ public class PetiteFicheController extends Controller {
         });
 
         //Change la bordure de la fiche si le meuble est selectionne
-        this.petiteFiche.getMeuble().isSelectedProperty().addListener((observable, oldValue, newValue) -> {
+        this.petiteFiche.getMeubleModele().isSelectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.petiteFiche.setContentStyle("-fx-border-color: red ; -fx-border-width: 3px ;");
             } else {
