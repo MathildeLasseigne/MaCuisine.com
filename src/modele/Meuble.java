@@ -177,7 +177,7 @@ public class Meuble {
     /**Renvoie la position du meuble
      * @see DragController#getCurrentPos(Node) **/
     public Point2D getPos(){
-        return this.dragController.getCurrentPos(this.forme);
+        return getDragController().getCurrentPos(getForme());
     }
 
     /**Renvoie les dimensions du meuble**/
@@ -216,7 +216,7 @@ public class Meuble {
      * Deselectionne le meuble
      */
     public void unselect(){
-        this.dragController.resetDrag();
+        this.getDragController().resetDrag();
         this.isClickedMove.set(false);
         this.selected.set(false);
     }
@@ -241,9 +241,9 @@ public class Meuble {
      * Reset la position initiale sur le point a gauche-milieu du parent et retire du plan en le rendant invisible
      */
     public void reset(){
-        this.forme.setTranslateX(0);
-        this.forme.setTranslateY(0);
-        this.forme.relocate(0, this.forme.getParent().getBoundsInLocal().getHeight()/2);
+        getForme().setTranslateX(0);
+        getForme().setTranslateY(0);
+        getForme().relocate(0, getForme().getParent().getBoundsInLocal().getHeight()/2);
         this.inPlan.set(false);
     }
 
@@ -262,7 +262,7 @@ public class Meuble {
     private void setHandlers(){
         setEventHandlersDragAndReleaseByClic();
         Meuble self = this;
-        this.forme.setOnMousePressed(new EventHandler<MouseEvent>() {
+        getForme().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 GestionaireMeubles.select(self);
@@ -271,9 +271,9 @@ public class Meuble {
 
         selected.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                forme.setFill(paintSelected);
+                getForme().setFill(paintSelected);
             } else {
-                forme.setFill(paintUsual);
+                getForme().setFill(paintUsual);
             }
         });
 
@@ -281,26 +281,26 @@ public class Meuble {
 
         isClickedMove.addListener((observable, oldValue, newValue) -> {
             if (newValue && ! oldValue) {
-                dragController.getDraggableProperty().unbind();
-                dragController.getDraggableProperty().set(false);
-                forme.setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
-                forme.setTranslateY(0);
+                getDragController().getDraggableProperty().unbind();
+                getDragController().getDraggableProperty().set(false);
+                getForme().setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
+                getForme().setTranslateY(0);
                 grabFormeByFiche();
-                forme.getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                forme.getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
+                getForme().getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
+                getForme().getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
             } else if(! newValue && oldValue) {
-                forme.getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                forme.getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
-                forme.setTranslateX(0); //Reset au cas ou annule
-                forme.setTranslateY(0);
-                dragController.getDraggableProperty().bind(savedDragBind);
+                getForme().getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
+                getForme().getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
+                getForme().setTranslateX(0); //Reset au cas ou annule
+                getForme().setTranslateY(0);
+                getDragController().getDraggableProperty().bind(savedDragBind);
             }
         });
 
         inPlan.addListener((observable, oldValue, newValue) -> {
             Platform.runLater(()->{
-                this.forme.getParent().requestFocus();
-                this.forme.requestFocus();
+                getForme().getParent().requestFocus();
+                getForme().requestFocus();
             });
         });
 
@@ -312,11 +312,11 @@ public class Meuble {
     private void setEventHandlersDragAndReleaseByClic(){
         this.dragByClic = event -> {
             getForme().requestFocus();
-            if(this.dragController.getDragChecker() != null){
-                if(this.dragController.getDragChecker().check()){
+            if(getDragController().getDragChecker() != null){
+                if(getDragController().getDragChecker().check()){
                     Platform.runLater(new Runnable() {
                         @Override public void run() {
-                            dragController.dragHandler(event);
+                            getDragController().dragHandler(event);
                         }
                     });
 
@@ -333,8 +333,8 @@ public class Meuble {
 
         this.releaseByClic = event -> {
             getForme().requestFocus();
-            if(this.dragController.getReleaseChecker() != null){
-                if(this.dragController.getReleaseChecker().check()){
+            if(getDragController().getReleaseChecker() != null){
+                if(getDragController().getReleaseChecker().check()){
                     Platform.runLater(new Runnable() {
                         @Override public void run() {
                             if(getDragController().releaseHandler(event)){
@@ -377,7 +377,7 @@ public class Meuble {
      * @param propertyBindedTo
      */
     public void bindIsDraggedPropertyTo(BooleanProperty propertyBindedTo){
-        dragController.getDraggableProperty().bind(propertyBindedTo);
+        getDragController().getDraggableProperty().bind(propertyBindedTo);
         this.savedDragBind = propertyBindedTo;
     }
 
@@ -398,14 +398,14 @@ public class Meuble {
      */
     private void grabFormeByFiche(){
         Point2D offset = new Point2D(this.LARGEUR/2, this.HAUTEUR/2);
-        dragController.setMouseOffsetFromNode(offset);
+        getDragController().setMouseOffsetFromNode(offset);
 
-        Point2D posInParent = dragController.getCurrentPos(forme);
+        Point2D posInParent = getDragController().getCurrentPos(getForme());
         double anchorInParentX = posInParent.getX() + offset.getX();
         double anchorInParentY = posInParent.getY() + offset.getY();
-        Parent parent = forme.getParent();
+        Parent parent = getForme().getParent();
         Point2D anchorInScene = parent.localToScene(anchorInParentX, anchorInParentY);
-        dragController.setAnchors(anchorInScene);
+        getDragController().setAnchors(anchorInScene);
     }
 
     /**
@@ -450,7 +450,7 @@ public class Meuble {
      * @see javafx.scene.Node#relocate(double, double)
      */
     public void relocate(double x, double y){
-        this.forme.relocate(x,y);
+        getForme().relocate(x,y);
     }
 
     /**
@@ -469,7 +469,7 @@ public class Meuble {
      * @return le resultat de la comparaison
      */
     public boolean intersect(Meuble m){
-        return this.forme.intersects(this.forme.sceneToLocal(m.getForme().localToScene(
+        return getForme().intersects(getForme().sceneToLocal(m.getForme().localToScene(
                 m.getForme().getBoundsInLocal())));
     }
 
@@ -478,7 +478,7 @@ public class Meuble {
      * @param parent le parent du meuble
      */
     public void setParent(Pane parent){
-        parent.getChildren().add(this.forme);
+        parent.getChildren().add(getForme());
     }
 
     /*--------------------------Fiche----------------------------------*/
