@@ -47,8 +47,6 @@ public class AppliTestController extends Controller {
     @FXML
     private BorderPane container;
 
-    @FXML
-    private CheckBox grilleBox;
 
     @FXML
     private ImageView moveImageView;
@@ -56,17 +54,24 @@ public class AppliTestController extends Controller {
     @FXML
     private Button suppr;
 
+    @FXML
+    private ImageView grilleImageView;
+
 
     /*-----------------Pas FXML-----------------------*/
 
 
     /**Les images du button move**/
     private Image moveImage, dontMoveImage;
+    /**Les images du bouton grille**/
+    private Image grilleImage, grilleCrossedImage;
 
     public AppliTestController(Cuisine cuisine){
         this.cuisine = cuisine;
         this.moveImage = new Image(getClass().getResourceAsStream("../../Sprites/move.png"));
         this.dontMoveImage = new Image(getClass().getResourceAsStream("../../Sprites/dont-move.png"));
+        this.grilleImage = new Image(getClass().getResourceAsStream("../../Sprites/hashtag.png"));
+        this.grilleCrossedImage = new Image(getClass().getResourceAsStream("../../Sprites/la-grille.png"));
     }
 
     @FXML
@@ -77,13 +82,19 @@ public class AppliTestController extends Controller {
         Data.panneaux.catalogue = new Catalogue(catalogue);
         Data.panneaux.infoPane = new InfoPane(infoPane, baseInfoText);
 
-        Data.properties.isGrilleVisible.bind(this.grilleBox.selectedProperty());
-
         Data.properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.moveImageView.setImage(this.moveImage);
             } else {
                 this.moveImageView.setImage(this.dontMoveImage);
+            }
+        });
+
+        Data.properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                this.grilleImageView.setImage(this.grilleImage);
+            } else {
+                this.grilleImageView.setImage(this.grilleCrossedImage);
             }
         });
     }
@@ -101,6 +112,11 @@ public class AppliTestController extends Controller {
     @FXML
     public void moveHandler(){
         Data.properties.isMeubleMovable.set(! Data.properties.isMeubleMovable.get());
+    }
+
+    @FXML
+    public void grilleHandler(){
+        Data.properties.isGrilleVisible.set(! Data.properties.isGrilleVisible.get());
     }
 
     /**

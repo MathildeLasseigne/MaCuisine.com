@@ -37,7 +37,7 @@ public class TestAppli extends Application {
         primaryStage.show();
         globalController.setGlobalEventHandler(root);
         GestionaireMeubles meubles = new GestionaireMeubles(cuisine);
-        meubles.initPanierTest(4);
+        //meubles.initPanierTest(4);
     }
 
 
