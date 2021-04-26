@@ -567,4 +567,15 @@ public class Meuble {
     public String getDescription() {
         return description;
     }
+
+    /**
+     * La classe qu un meuble represente dans le plan
+     */
+    public class Forme extends Rectangle{
+
+        public Forme(Meuble meuble){
+
+        }
+
+    }
 }
