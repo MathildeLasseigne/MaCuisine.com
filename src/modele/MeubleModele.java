@@ -702,7 +702,7 @@ public class MeubleModele {
 
         private IntegerProperty idModele = new SimpleIntegerProperty();
         private IntegerProperty idMeuble = new SimpleIntegerProperty();
-        public StringProperty id = new SimpleStringProperty();
+        private StringProperty id = new SimpleStringProperty();
 
 
         /*----------------Etats---------------------------*/
@@ -753,6 +753,15 @@ public class MeubleModele {
             this.idModele.set(MeubleModele.this.id);
             this.idMeuble.set(MeubleModele.this.nbTotalMeuble++);
             this.id.bind(Bindings.concat(idModele,".",idMeuble));
+        }
+
+        /**
+         * Renvoie l id du meuble. Cet id est unique au meuble
+         * @return l id du meuble sous forme de String
+         * @see Meuble#id
+         */
+        public String getId() {
+            return id.get();
         }
 
         /**
