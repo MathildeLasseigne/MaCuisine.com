@@ -103,12 +103,11 @@ public class GestionaireMeubles {
      * Ajoute un meuble au panier.
      * <br/>Tout ajout dans le panier doit se faire a partir du meuble
      * @param meubleModele meuble a placer
-     * @see MeubleModele#isInPanier()
+     * @see MeubleModele#isInPanierProperty()
      * @see MeubleModele#addToPanier()
      */
     private void addToPanier(MeubleModele meubleModele){
         this.panier.add(meubleModele);
-        //meubleModele.isInPlanProperty().set(true);
         Data.panneaux.panier.add(meubleModele);
     }
 
@@ -125,7 +124,7 @@ public class GestionaireMeubles {
      * Enleve un meuble modele du panier
      * <br/>Tout retrait du le panier doit se faire a partir du meuble
      * @param meubleModele meuble a enlever
-     * @see MeubleModele#isInPanier()
+     * @see MeubleModele#isInPanierProperty()
      * @see MeubleModele#removeFromPanier()
      */
     private void removeFromPanier(MeubleModele meubleModele){
@@ -167,7 +166,7 @@ public class GestionaireMeubles {
         //this.cuisine.add(meubleModele);
         meubleModele.setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
         meubleModele.bindIsDraggedPropertyTo(this.isMovable);
-        meubleModele.isInPanier().addListener((observable, oldValue, newValue) -> {
+        meubleModele.isInPanierProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 addToPanier(meubleModele);
             } else {

@@ -24,8 +24,8 @@ public class MeubleModele {
 /*-------------ID--------------*/
     /**Le nombre total de modeles de meuble crees**/
     private static int nbMeublesModele = 0;
-    /**L id du meuble. Est unique**/
-    protected int id;
+    /**L id du meubleModele. Est unique**/
+    private int id;
 
     /**Est ce que le meuble est la selection active**/
     private BooleanProperty selected = new SimpleBooleanProperty(false);
@@ -34,7 +34,7 @@ public class MeubleModele {
      * <br/>Le gestionnaire de meuble y attache un change listener qui l ajoute ou l enleve du panier automatiquement**/
     private BooleanProperty inPanier = new SimpleBooleanProperty(false);
 
-    private BooleanProperty inPlan = new SimpleBooleanProperty(false);
+/*------------Infos du meuble-------------*/
 
     /**Les dimentions du meuble**/
     protected double LARGEUR, HAUTEUR;
@@ -48,19 +48,11 @@ public class MeubleModele {
 
     /*-----------Meubles---------------*/
 
-    /**La forme du meuble dans la cuisine**/
-    private Shape meuble;
-    /**The fill property of the forme while in normal state**/
-    private Paint paintUsual = Color.AQUA;
-    /**The fill property of the forme while in selected state**/
-    private Paint paintSelected = Color.RED;
-
-    private DragController dragController;
-
     /**Le nombre total de meubles crees. utilise pour l id des meubles**/
     private int nbTotalMeuble = 0;
 
-    /**Le nombre de meubles actuellement dans le panier**/
+    /**Le nombre de meubles actuellement dans le panier.
+     * Ne compte pas la selection si elle n est pas dans le panier**/
     public IntegerProperty nbMeuble = new SimpleIntegerProperty(0);
 
     /**Le meuble selectionne. Peut ne pas etre dans le panier**/
@@ -84,18 +76,7 @@ public class MeubleModele {
     /**La sauvegarde de la property a laquelle est liee le dragController**/
     private BooleanProperty savedDragBind;
 
-    /**Defini si le mouvement de la forme se fait a partir de la fiche / avec un clic et pas un drag
-     * <br/> -> Est ce que le meuble est deplace sans press&drag&drop (depuis catalogue ou panier)
-     * <li>
-     *     <ul>Si set a true, declanche automatiquement le debut du mouvement</ul>
-     *     <ul>Si set a false, arrete le mouvement en cours</ul>
-     * </li>
-     */
-    private BooleanProperty isClickedMove = new SimpleBooleanProperty(false);
-
-    private EventHandler<MouseEvent> dragByClic;
-    private EventHandler<MouseEvent> releaseByClic;
-
+    /**Le checker pour les dragController des meubles**/
     private DragController.SimpleChecker releaseChecker = null;
     /**Les bounds des dragController**/
     private Bounds dragBoundary, releaseBoundary = null;
@@ -122,10 +103,6 @@ public class MeubleModele {
         this.prix = prix;
         this.description = description;
         contructFiches();
-        buildForme();
-        this.dragController = new DragController(this.meuble);
-
-        setHandlers();
     }
 
     /**
@@ -180,18 +157,12 @@ public class MeubleModele {
      */
     public Image getImg(){return this.img;}
 
-    /**
-     * Deplace le point vers celui donne
-     * @param p
-     */
-    public void move(Point2D p){
-        //TODO move ? Check its use
-    }
 
-    /**Renvoie la position du meuble
-     * @see DragController#getCurrentPos(Node) **/
+    /**Renvoie la position du meuble selectionne
+     * @see DragController#getCurrentPos(Node)
+     * @see MeubleModele#getMeuble() **/
     public Point2D getPos(){
-        return getDragController().getCurrentPos(getMeuble());
+        return getMeuble().getPos();
     }
 
     /**Renvoie les dimensions du meuble**/
@@ -205,7 +176,7 @@ public class MeubleModele {
      * @see MeubleModele#addToPanier()
      * @see MeubleModele#removeFromPanier()
      */
-    public BooleanProperty isInPanier(){
+    public BooleanProperty isInPanierProperty(){
         return inPanier;
     }
 
@@ -222,7 +193,7 @@ public class MeubleModele {
     /*-------------------Selection----------------------*/
 
     /**
-     * Selectionne le meuble
+     * Selectionne le meuble modele. Ne selectionne aucun meuble specifique
      * @see MeubleModele#unselect()
      */
     public void select(){
@@ -230,8 +201,8 @@ public class MeubleModele {
     }
 
     /**
-     * Selectionne le meuble actuel
-     * @param meuble
+     * Selectionne le meuble donne
+     * @param meuble le meuble a selectionner
      * @see MeubleModele#unselectMeuble()
      * @see MeubleModele#getMeuble()
      */
@@ -250,8 +221,6 @@ public class MeubleModele {
      * @see MeubleModele#unselectMeuble()
      */
     public void unselect(){
-        this.getDragController().resetDrag();
-        this.isClickedMove.set(false);
         this.selected.set(false);
         if(! isEmptyMeubleSelection()){
             unselectMeuble();
@@ -259,18 +228,27 @@ public class MeubleModele {
     }
 
     /**
-     * Deselectionne le meuble selectionne et le supprime si il n est pas dans le panier
+     *
+     *
+     */
+    /**
+     * Deselectionne le meuble selectionne et le supprime si il n est pas dans le panier.
+     * <br/>Si aucun meuble n etait selectionne, rien ne se passe
+     * @return true si il y avait quelque chose a selectionner
      * @see MeubleModele#select(Meuble)
      */
-    public void unselectMeuble(){
-        if(this.selectionMeuble != null){
+    public boolean unselectMeuble(){
+        if(! isEmptyMeubleSelection()){
             if( ! this.selectionMeuble.inPanier.get()){
                 this.selectionMeuble.unbind();
             } else {
+                this.selectionMeuble.getDragController().resetDrag();
                 this.selectionMeuble.selected.set(false);
             }
             this.selectionMeuble = null;
+            return true;
         }
+        return false;
     }
 
     /**
@@ -299,32 +277,31 @@ public class MeubleModele {
         return this.selected;
     }
 
-    /**
-     * Reset la position initiale sur le point a gauche-milieu du parent et retire du plan en le rendant invisible
-     */
-    public void reset(){
-        getMeuble().setTranslateX(0);
-        getMeuble().setTranslateY(0);
-        getMeuble().relocate(0, getMeuble().getParent().getBoundsInLocal().getHeight()/2);
-        this.inPlan.set(false);
-    }
 
     /**
-     * Cree un nouveau meuble qui n est pas dans le panier
+     * Cree un nouveau meuble qui n est pas dans le panier et le selectionne
+     * @see Meuble
+     * @see MeubleModele#getMeuble()
      */
-    private void createMeuble(){
+    public void createMeuble(){
         unselectMeuble();
-        this.selectionMeuble = new Meuble();
+        this.select(new Meuble());
     }
 
     /**
      * Supprime le meuble donne du panier
-     * <br/>A utiliser avec unselect pour gerer le cas ou le meuble est selectionne
+     * <br/>Si le meuble etait selectionne, le deselectionne
      * @param meuble
      * @see MeubleModele#unselectMeuble()
      */
     private void removeMeuble(Meuble meuble){
-        meuble.unbind();
+        if(meuble.selected.get()){
+            if(! unselectMeuble()){
+                meuble.unbind();
+            }
+        } else {
+            meuble.unbind();
+        }
         if(meuble.inPanier.get()){
             meuble.inPanier.set(false);
         }
@@ -334,23 +311,24 @@ public class MeubleModele {
      * Ajoute le meuble modele au panier si il ne l est pas deja, ainsi que son meuble selectionne
      */
     public void addToPanier(){
-        if(! getMeuble().inPanier.get()){
-            getMeuble().inPanier.set(true);
-        }
-        if(! isInPanier().get()){
-            isInPanier().set(true);
+        if(! isEmptyMeubleSelection()){
+            if(! getMeuble().inPanier.get()){
+                getMeuble().inPanier.set(true);
+            }
+            if(! isInPanierProperty().get()){
+                isInPanierProperty().set(true);
+            }
         }
     }
 
     /**
-     * Retire le meuble du panier si il l est
+     * Retire le meuble selectionne du panier si il l est
+     * @see MeubleModele#getMeuble()
      */
     public void removeFromPanier(){
-        if(getMeuble().inPanier.get()){
-            getMeuble().inPanier.set(false);
-        }
+        removeMeuble(getMeuble());
         if(nbMeuble.get() == 0){
-            isInPanier().set(false);
+            isInPanierProperty().set(false);
         }
     }
 
@@ -367,125 +345,12 @@ public class MeubleModele {
 
 
     /*---------------------------Selection Handlers----------------*/
-    private void setHandlers(){
-        setEventHandlersDragAndReleaseByClic();
-        MeubleModele self = this;
-        getMeuble().setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                GestionaireMeubles.select(self);
-            }
-        });
-
-        selected.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                getMeuble().setFill(paintSelected);
-            } else {
-                getMeuble().setFill(paintUsual);
-            }
-        });
-
-        // Cas clic to move
-
-        isClickedMove.addListener((observable, oldValue, newValue) -> {
-            if (newValue && ! oldValue) {
-                getDragController().getDraggableProperty().unbind();
-                getDragController().getDraggableProperty().set(false);
-                getMeuble().setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
-                getMeuble().setTranslateY(0);
-                grabFormeByFiche();
-                getMeuble().getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                getMeuble().getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
-            } else if(! newValue && oldValue) {
-                getMeuble().getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                getMeuble().getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
-                getMeuble().setTranslateX(0); //Reset au cas ou annule
-                getMeuble().setTranslateY(0);
-                getDragController().getDraggableProperty().bind(savedDragBind);
-            }
-        });
-
-        inPlan.addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(()->{
-                getMeuble().getParent().requestFocus();
-                getMeuble().requestFocus();
-            });
-        });
-
-    }
-
-    /**
-     * Defini les handlers pour le drag by clic
-     */
-    private void setEventHandlersDragAndReleaseByClic(){
-        this.dragByClic = event -> {
-            getMeuble().requestFocus();
-            if(getDragController().getDragChecker() != null){
-                if(getDragController().getDragChecker().check()){
-                    Platform.runLater(new Runnable() {
-                        @Override public void run() {
-                            getDragController().dragHandler(event);
-                        }
-                    });
-
-                }
-            } else {
-                Platform.runLater(new Runnable() {
-                    @Override public void run() {
-                        getDragController().dragHandler(event);
-                    }
-                });
-                //this.dragController.dragHandler(event);
-            }
-        };
-
-        this.releaseByClic = event -> {
-            getMeuble().requestFocus();
-            if(getDragController().getReleaseChecker() != null){
-                if(getDragController().getReleaseChecker().check()){
-                    Platform.runLater(new Runnable() {
-                        @Override public void run() {
-                            if(getDragController().releaseHandler(event)){
-                                isClickedMove.set(false);
-                                addToPanier();
-                            } else {
-                                getMeuble().setTranslateX(0);
-                                getMeuble().setTranslateY(0);
-                                grabFormeByFiche();
-                            }
-                        }
-                    });
-
-                } else {
-                    Platform.runLater(new Runnable() {
-                        @Override public void run() {
-                            getMeuble().setTranslateX(0);
-                            getMeuble().setTranslateY(0);
-                            grabFormeByFiche();
-                        }
-                    });
-
-                }
-            } else {
-                Platform.runLater(new Runnable() {
-                    @Override public void run() {
-                        if(getDragController().releaseHandler(event)){
-                            isClickedMove.set(false);
-                        }
-                    }
-                });
-
-            }
-        };
-
-    }
 
     /**
      * Bind dragged property to the one given and save it for move by clic
      * @param propertyBindedTo
      */
     public void bindIsDraggedPropertyTo(BooleanProperty propertyBindedTo){
-        getDragController().getDraggableProperty().bind(propertyBindedTo);
         this.savedDragBind = propertyBindedTo;
     }
 
@@ -501,38 +366,13 @@ public class MeubleModele {
      * Enregistre les boundaries pour les dragController
      * @param dragBoundary
      * @param releaseBoundary
+     * @see DragController#setBoundaries(Bounds, Bounds)
      */
     public void setBoundaries(Bounds dragBoundary, Bounds releaseBoundary){
         this.dragBoundary = dragBoundary;
         this.releaseBoundary = releaseBoundary;
     }
 
-    /*----------------------------Deplacement--------------------------*/
-
-    /**
-     * Renvoie le dragController du meuble
-     * @return
-     */
-    public DragController getDragController() {
-        return dragController;
-    }
-
-    /**
-     * Defini l action de saisir la forme de la fiche lorsque le mouvement par clic est active.
-     * <br/>Defini les anchor et offset dans le dragController
-     * @see MeubleModele#isClickedMove
-     */
-    private void grabFormeByFiche(){
-        Point2D offset = new Point2D(this.LARGEUR/2, this.HAUTEUR/2);
-        getDragController().setMouseOffsetFromNode(offset);
-
-        Point2D posInParent = getDragController().getCurrentPos(getMeuble());
-        double anchorInParentX = posInParent.getX() + offset.getX();
-        double anchorInParentY = posInParent.getY() + offset.getY();
-        Parent parent = getMeuble().getParent();
-        Point2D anchorInScene = parent.localToScene(anchorInParentX, anchorInParentY);
-        getDragController().setAnchors(anchorInScene);
-    }
 
     /**
      * Renvoie le boolean qui defini si un move by clic va commencer du meuble selectionne.
@@ -541,24 +381,15 @@ public class MeubleModele {
      *     <ul>Si set a false, arrete le mouvement en cours</ul>
      * </li>
      * @return le boolean property
-     * @see MeubleModele#isClickedMove
+     * @see Meuble#isClickedMove
+     * @see Meuble#getIsClickedMoveProperty()
      */
     public BooleanProperty getIsClickedMoveProperty(){
         return getMeuble().getIsClickedMoveProperty();
     }
 
-    /*--------------------------Forme-----------------------------*/
+    /*--------------------------Meuble-----------------------------*/
 
-    /**
-     * Cree la forme de la cuisine en fonction de ses dimensions
-     */
-    private void buildForme(){
-        this.meuble = new Rectangle(this.LARGEUR, this.HAUTEUR);
-        this.meuble.setFill(paintUsual);
-        this.meuble.setStroke(Color.BLACK);
-        this.meuble.setStrokeWidth(2);
-        this.meuble.visibleProperty().bindBidirectional(this.inPlan);
-    }
 
 
     /**
@@ -581,9 +412,10 @@ public class MeubleModele {
      * @param x la position x du meuble sur le plan
      * @param y la position y du meuble sur le plan
      * @see javafx.scene.Node#relocate(double, double)
+     * @see MeubleModele#getMeuble()
      */
     public void relocate(double x, double y){
-        getMeuble().getForme().relocate(x,y);
+        getMeuble().relocate(x,y);
     }
 
 
@@ -609,13 +441,6 @@ public class MeubleModele {
         return false;
     }
 
-    /**
-     * Defini la forme du meuble comme enfant du parent donne
-     * @param parent le parent du meuble
-     */
-    public void setParent(Pane parent){
-        parent.getChildren().add(getMeuble());
-    }
 
     /*--------------------------Fiche----------------------------------*/
     /**
@@ -673,6 +498,14 @@ public class MeubleModele {
     }
 
     /**
+     * Calcule le prix total de tous ses meubles enregistres dans son panier
+     * @return le prix total
+     */
+    public double getPrixTotal(){
+        return this.prix * this.nbMeuble.doubleValue();
+    }
+
+    /**
      * Renvoie les dimensions du meuble
      * @return information en tant que String sous forme 0 x 0
      */
@@ -705,7 +538,14 @@ public class MeubleModele {
     }
 
     /**
-     * La classe qu un meuble represente dans le plan
+     * La classe qu un meuble represente dans le plan.
+     * <br/><li>
+     *     <ul>Un meuble a un id unique et ne peux appartenir qu a un seul modele.</ul>
+     *     <ul>Un meuble possede une forme et des methodes de deplacement.</ul>
+     *     <ul>Un meuble est temporaire tant que n est pas dans le panier de son modele</ul>
+     *     <ul>Pour initialiser le deplacement manuel du meuble, utiliser sa property isClickedMove</ul>
+     * </li>
+     * @see MeubleModele
      */
     public class Meuble{
 
@@ -725,14 +565,22 @@ public class MeubleModele {
         /**Est ce que le meuble se trouve dans le panier. Ajoute ou enleve automatiquement le meuble de la liste du modele**/
         private BooleanProperty inPanier = new SimpleBooleanProperty(false);
 
-        /**Verifie si un drag by clic mouvement est en cours**/
+        /**Defini si le mouvement de la forme se fait a partir de la fiche / avec un clic et pas un drag
+         * <br/> -> Est ce que le meuble est deplace sans press&drag&drop (depuis catalogue ou panier)
+         * <br/><li>
+         *     <ul>Si set a true, declanche automatiquement le debut du mouvement</ul>
+         *     <ul>Si set a false, arrete le mouvement en cours</ul>
+         * </li>
+         */
         private BooleanProperty isClickedMove = new SimpleBooleanProperty(false);
 
-        private EventHandler<MouseEvent> dragByClic;
-        private EventHandler<MouseEvent> releaseByClic;
+        /**Les eventHandlers du deplacement par clic**/
+        private EventHandler<MouseEvent> dragByClic, releaseByClic;
 
+        /**La forme du meuble sur le plan**/
         private Shape forme;
 
+        /**Le controlleur des mouvements de la forme**/
         private DragController dragController;
 
         /**The fill property of the forme while in normal state**/
@@ -745,16 +593,17 @@ public class MeubleModele {
         /**
          * Cree un meuble unique correspondant au modele qui l a cree.
          * <br/>Le meuble lie lui meme tous les listeners a partir de ceux enregistres dans le modele
+         * @see MeubleModele
          */
         public Meuble(){
-            MeubleModele.this.nbMeuble.set(MeubleModele.this.nbMeuble.get()+1);
             initId();
             buildForme();
             Data.panneaux.cuisine.add(this);
             reset();
+            setHandlers();
             this.dragController = new DragController(this.getForme());
             initDragController();
-            setHandlers();
+            setEventHandlersDragAndReleaseByClic();
         }
 
         /**
@@ -788,16 +637,17 @@ public class MeubleModele {
 
 
         /**
-         * Retire tous les liens avec d autres proprietes, y compris les parents
+         * Retire tous les liens avec d autres proprietes, y compris les parents.
+         * <br/> Met les properties de deplacement a false
          */
         public void unbind(){
+            getDragController().resetDrag();
             this.inPanier.set(false);
             this.inPanier.unbind();
             this.selected.set(false);
             this.selected.unbind();
             this.isClickedMove.set(false);
             Data.panneaux.cuisine.remove(this);
-            MeubleModele.this.nbMeuble.set(MeubleModele.this.nbMeuble.get()-1);
             getDragController().getDraggableProperty().unbind();
         }
 
@@ -836,6 +686,15 @@ public class MeubleModele {
             return false;
         }
 
+        /**
+         * Deplace la forme du meuble en utilisant la methode relocate de Node
+         * @param x la position x du meuble sur le plan
+         * @param y la position y du meuble sur le plan
+         * @see javafx.scene.Node#relocate(double, double)
+         */
+        public void relocate(double x, double y){
+            getForme().relocate(x, y);
+        }
 
         /*--------------------------Listeners---------------------*/
 
@@ -844,11 +703,15 @@ public class MeubleModele {
          * Link les listeners a tous les elements necessaires.
          */
         private void setHandlers(){
-            setEventHandlersDragAndReleaseByClic();
-            getForme().setOnMousePressed(event -> {
+            /*getForme().setOnMousePressed(event -> {
                 GestionaireMeubles.select(MeubleModele.this);
                 MeubleModele.this.select(Meuble.this);
-            });
+            });*/
+
+            getForme().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                GestionaireMeubles.select(MeubleModele.this);
+                MeubleModele.this.select(Meuble.this);
+            }); //TODO verifier si ca override pas le filter du controller
 
 
             selected.addListener((observable, oldValue, newValue) -> {
@@ -876,30 +739,13 @@ public class MeubleModele {
 
             inPanier.addListener((observable, oldValue, newValue) -> {
                 if (newValue) {
-                    listMeuble.add(this);
-                    nbMeuble.set(nbMeuble.get()+1);
+                    if(listMeuble.add(this)){
+                        nbMeuble.set(nbMeuble.get()+1);
+                    }
                 } else {
-                    listMeuble.remove(this);
-                    nbMeuble.set(nbMeuble.get()-1);
-                }
-            });
-            // Cas clic to move
-
-            isClickedMove.addListener((observable, oldValue, newValue) -> {
-                if (newValue && ! oldValue) {
-                    getDragController().getDraggableProperty().unbind();
-                    getDragController().getDraggableProperty().set(false);
-                    getForme().setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
-                    getForme().setTranslateY(0);
-                    grabFormeByFiche();
-                    getForme().getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                    getForme().getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
-                } else if(! newValue && oldValue) {
-                    getForme().getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
-                    getForme().getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
-                    getForme().setTranslateX(0); //Reset au cas ou annule
-                    getForme().setTranslateY(0);
-                    getDragController().getDraggableProperty().bind(savedDragBind);
+                    if(listMeuble.remove(this)){
+                        nbMeuble.set(nbMeuble.get()-1);
+                    }
                 }
             });
 
@@ -914,6 +760,7 @@ public class MeubleModele {
 
         /**
          * Defini les handlers pour le drag by clic, les enregistre dans la variable globale correspondante
+         * <br/>Defini aussi le listener pour dragBy clic
          */
         private void setEventHandlersDragAndReleaseByClic(){
             this.dragByClic = event -> {
@@ -962,13 +809,32 @@ public class MeubleModele {
                 }
             };
 
+            isClickedMove.addListener((observable, oldValue, newValue) -> {
+                if (newValue && ! oldValue) {
+                    getDragController().getDraggableProperty().unbind();
+                    getDragController().getDraggableProperty().set(false);
+                    getForme().setTranslateX(0); //Reset au cas ou on clique plusieurs fois dessus
+                    getForme().setTranslateY(0);
+                    grabFormeByFiche();
+                    getForme().getParent().addEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
+                    getForme().getParent().addEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
+                } else if(! newValue && oldValue) {
+                    getForme().getParent().removeEventFilter(MouseEvent.MOUSE_MOVED, dragByClic);
+                    getForme().getParent().removeEventFilter(MouseEvent.MOUSE_PRESSED, releaseByClic);
+                    getForme().setTranslateX(0); //Reset au cas ou annule
+                    getForme().setTranslateY(0);
+                    getDragController().getDraggableProperty().bind(savedDragBind);
+                }
+            });
+
+
         }
 
         /**
          * Defini l action de saisir la forme de la fiche lorsque le mouvement par clic est active.
          * <br/>Initialise le drag by clic
          * <br/>Defini les anchor et offset dans le dragController
-         * @see MeubleModele#isClickedMove
+         * @see Meuble#isClickedMove
          */
         private void grabFormeByFiche(){
             Point2D offset = new Point2D(LARGEUR/2, HAUTEUR/2); //Anchor au milieu de la forme
@@ -1021,16 +887,22 @@ public class MeubleModele {
         }
 
         /**
-         * Renvoie le boolean qui defini si un move by clic va commencer.
+         * Renvoie le boolean qui defini si un move by clic va commencer. <br/>
          * <li>
          *     <ul>Si set a true, declanche automatiquement le debut du mouvement</ul>
          *     <ul>Si set a false, arrete le mouvement en cours</ul>
          * </li>
          * @return le boolean property
-         * @see MeubleModele#isClickedMove
+         * @see Meuble#isClickedMove
          */
         public BooleanProperty getIsClickedMoveProperty(){
             return isClickedMove;
+        }
+
+        /**Renvoie la position du meuble
+         * @see DragController#getCurrentPos(Node) **/
+        public Point2D getPos(){
+            return getDragController().getCurrentPos(getForme());
         }
 
         /**
@@ -1048,6 +920,14 @@ public class MeubleModele {
          */
         public Parent getParent(){
             return getForme().getParent();
+        }
+
+        /**
+         * Defini la forme du meuble comme enfant du parent donne
+         * @param parent le parent du meuble
+         */
+        public void setParent(Pane parent){
+            parent.getChildren().add(getForme());
         }
 
         /**
