@@ -147,10 +147,8 @@ public class GestionaireMeubles {
             @Override
             public boolean check() {
                 for(MeubleModele m : panier){
-                    if(! meubleModele.equals(m)){
-                        if(meubleModele.intersect(m)){
-                            return false;
-                        }
+                    if(meubleModele.intersect(m)){
+                        return false;
                     }
                 }
                 return true;

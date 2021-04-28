@@ -223,6 +223,7 @@ public class MeubleModele {
 
     /**
      * Selectionne le meuble
+     * @see MeubleModele#unselect()
      */
     public void select(){
         this.selected.set(true);
@@ -231,6 +232,8 @@ public class MeubleModele {
     /**
      * Selectionne le meuble actuel
      * @param meuble
+     * @see MeubleModele#unselectMeuble()
+     * @see MeubleModele#getMeuble()
      */
     private void select(Meuble meuble){
         unselectMeuble();
@@ -242,19 +245,22 @@ public class MeubleModele {
 
     /**
      * Deselectionne le modele meuble, et supprime le meuble en cours si il n est pas dans le panier
+     * @see MeubleModele#select()
+     * @see MeubleModele#getMeuble()
      * @see MeubleModele#unselectMeuble()
      */
     public void unselect(){
         this.getDragController().resetDrag();
         this.isClickedMove.set(false);
         this.selected.set(false);
-        if(this.selectionMeuble != null){
+        if(! isEmptyMeubleSelection()){
             unselectMeuble();
         }
     }
 
     /**
      * Deselectionne le meuble selectionne et le supprime si il n est pas dans le panier
+     * @see MeubleModele#select(Meuble)
      */
     public void unselectMeuble(){
         if(this.selectionMeuble != null){
@@ -269,7 +275,8 @@ public class MeubleModele {
 
     /**
      * Verifie si la selection de meuble actuelle est == null
-     * @return
+     * @return le boolean de la verification
+     * @see MeubleModele#getMeuble()
      */
     public boolean isEmptyMeubleSelection(){
         return this.selectionMeuble == null;
@@ -556,10 +563,11 @@ public class MeubleModele {
 
     /**
      * Renvoie le meuble selectionne par le modele.
-     * <br/>Si aucun meuble n est selectionne, en cree un nouveau.
-     * Ce nouveau meuble est temporaire tant qu il n a pas ete ajoute au panier
+     * <br/><br/><b>Si aucun meuble n est selectionne, en cree un nouveau.</b>
+     * <i>Ce nouveau meuble est temporaire tant qu il n a pas ete ajoute au panier, selectionner un autre meuble le fera disparaitre</i>
      * @return la forme du meuble
      * @see MeubleModele#isEmptyMeubleSelection()
+     * @see MeubleModele#select(Meuble)
      */
     public Meuble getMeuble() {
         if(this.selectionMeuble == null){
@@ -578,24 +586,27 @@ public class MeubleModele {
         getMeuble().getForme().relocate(x,y);
     }
 
-    /**
-     * Verifie si la position donnee est dans le meuble
-     * @param pos
-     * @return
-     */
-    public boolean isInside(Point2D pos){
-        //TODO isInside meuble
-        return false;
-    }
 
     /**
-     * Verifie si les 2 meubles se superposent
-     * @param m le meuble a comparer
+     * Verifie si l un des meubles du modele se superpose a la selection du meuble donne.
+     * <br/>La liste des meubles dans le panier du modele appelant la methode est comparee
+     * a la selection du modele passe en parametre
+     * <p/>Un meuble ne peux pas etre supperpose a lui meme
+     * @param m le meuble dont la selection doit etre comparee
      * @return le resultat de la comparaison
+     * @see MeubleModele#equals(MeubleModele)
+     * @see Meuble#equals(Meuble)
+     * @see Meuble#intersect(Meuble)
      */
     public boolean intersect(MeubleModele m){
-        return getMeuble().intersects(getMeuble().sceneToLocal(m.getMeuble().localToScene(
-                m.getMeuble().getBoundsInLocal())));
+        if(! m.isEmptyMeubleSelection()){
+            for(Meuble meuble : this.listMeuble){
+                if(meuble.intersect(m.getMeuble())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -807,6 +818,22 @@ public class MeubleModele {
          */
         public boolean equals(Meuble meuble){
             return this.id.isEqualTo(meuble.id).get();
+        }
+
+        /**
+         * Verifie si les bounds des 2 meubles se supperposent.
+         * <br/>Un meuble ne peut pas etre supperpose a lui meme
+         * @param meuble
+         * @return true si les meubles se supperposent, false si le meuble est le meme
+         * @see Meuble#equals(Meuble)
+         * @see Node#intersects(Bounds)
+         */
+        public boolean intersect(Meuble meuble){
+            if(! this.equals(meuble)){
+                return getForme().intersects(getForme().sceneToLocal(meuble.getForme().localToScene(
+                        meuble.getForme().getBoundsInLocal())));
+            }
+            return false;
         }
 
 
