@@ -28,6 +28,9 @@ public class Data {
             "In lacinia commodo quam ut dapibus. Sed vel felis sapien. Nulla rutrum lectus eget est semper consequat. In felis urna, efficitur vitae ultricies id, viverra eu neque. Donec nec aliquet nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Suspendisse vitae tincidunt magna. Praesent vestibulum tortor quis mattis sodales. Nulla finibus leo arcu, auctor ultrices est feugiat at. ";
 
 
+    /**Le gestionnaire de meuble**/
+    public static GestionaireMeubles gestionaireMeubles = null;
+
     public static class Properties {
 
         public Properties(){

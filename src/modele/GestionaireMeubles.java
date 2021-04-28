@@ -33,6 +33,7 @@ public class GestionaireMeubles {
         this.cuisine = cuisine;
         initCatalogue();
         this.isMovable.bind(Data.properties.isMeubleMovable);
+        Data.gestionaireMeubles = this;
     }
 
 
@@ -50,6 +51,7 @@ public class GestionaireMeubles {
      * Enleve tout meuble de la selection
      * @see GestionaireMeubles#getSelection()
      * @see GestionaireMeubles#select(MeubleModele)
+     * @see MeubleModele#unselect()
      */
     public static void unselect(){
         if(selection != null){
@@ -64,6 +66,7 @@ public class GestionaireMeubles {
      * @param meubleModele le meuble a selectionner
      * @see GestionaireMeubles#getSelection()
      * @see GestionaireMeubles#unselect()
+     * @see MeubleModele#select()
      */
     public static void select(MeubleModele meubleModele){
         if(meubleModele != null){
@@ -72,13 +75,11 @@ public class GestionaireMeubles {
                     unselect();
                     selection = meubleModele;
                     meubleModele.select();
-                    meubleModele.getForme().toFront();
                 }
             } else {
                 unselect();
                 selection = meubleModele;
                 meubleModele.select();
-                meubleModele.getForme().toFront();
             }
         } else {
             throw new IllegalStateException("MeubleModel selected must not be null");
@@ -103,10 +104,11 @@ public class GestionaireMeubles {
      * <br/>Tout ajout dans le panier doit se faire a partir du meuble
      * @param meubleModele meuble a placer
      * @see MeubleModele#isInPanier()
+     * @see MeubleModele#addToPanier()
      */
     private void addToPanier(MeubleModele meubleModele){
         this.panier.add(meubleModele);
-        meubleModele.isInPlanProperty().set(true);
+        //meubleModele.isInPlanProperty().set(true);
         Data.panneaux.panier.add(meubleModele);
     }
 
@@ -120,15 +122,16 @@ public class GestionaireMeubles {
     }
 
     /**
-     * Enleve un meuble du panier
+     * Enleve un meuble modele du panier
      * <br/>Tout retrait du le panier doit se faire a partir du meuble
      * @param meubleModele meuble a enlever
      * @see MeubleModele#isInPanier()
+     * @see MeubleModele#removeFromPanier()
      */
     private void removeFromPanier(MeubleModele meubleModele){
         this.panier.remove(meubleModele);
-        meubleModele.isInPlanProperty().set(false);
-        meubleModele.reset();
+        //meubleModele.isInPlanProperty().set(false);
+        //meubleModele.reset();
         Data.panneaux.panier.remove(meubleModele);
     }
 
@@ -140,7 +143,6 @@ public class GestionaireMeubles {
      * @param meubleModele le meuble a initialiser
      */
     private void setChecker(MeubleModele meubleModele){
-        DragController mCtrl = meubleModele.getDragController();
         DragController.SimpleChecker release = new DragController.SimpleChecker() {
             @Override
             public boolean check() {
@@ -154,7 +156,7 @@ public class GestionaireMeubles {
                 return true;
             }
         };
-        mCtrl.setReleaseChecker(release);
+        meubleModele.setChecker(release);
     }
     /*--------------Catalogue----------------*/
 
@@ -164,8 +166,8 @@ public class GestionaireMeubles {
      */
     public void addCatalogue(MeubleModele meubleModele){
         this.catalogue.add(meubleModele);
-        this.cuisine.add(meubleModele);
-        meubleModele.getDragController().setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
+        //this.cuisine.add(meubleModele);
+        meubleModele.setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
         meubleModele.bindIsDraggedPropertyTo(this.isMovable);
         meubleModele.isInPanier().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -174,10 +176,9 @@ public class GestionaireMeubles {
                 removeFromPanier(meubleModele);
             }
         });
-        meubleModele.getForme().setVisible(false);
         setChecker(meubleModele);
         Data.panneaux.initCommit(meubleModele);
-        meubleModele.reset();
+        //meubleModele.reset();
     }
 
 
@@ -209,7 +210,7 @@ public class GestionaireMeubles {
             itMax = this.catalogue.size()-1;
         }
         for(int i = 0; i<= itMax; i++){
-            this.catalogue.get(i).isInPanier().set(true);
+            this.catalogue.get(i).addToPanier();
         }
     }
 
