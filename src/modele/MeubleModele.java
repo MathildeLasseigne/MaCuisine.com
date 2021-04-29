@@ -717,6 +717,8 @@ public class MeubleModele {
                     if(! getMeuble().equals(this)){
                         MeubleModele.this.select(Meuble.this);
                     }
+                } else {
+                    MeubleModele.this.select(Meuble.this);
                 }
             });
 
