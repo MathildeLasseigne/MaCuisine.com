@@ -216,6 +216,7 @@ public class MeubleModele {
 
     /**
      * Deselectionne le modele meuble, et supprime le meuble en cours si il n est pas dans le panier
+     * <br/>Interompt tout mouvement en cours
      * @see MeubleModele#select()
      * @see MeubleModele#getMeuble()
      * @see MeubleModele#unselectMeuble()
@@ -705,16 +706,13 @@ public class MeubleModele {
         private void setHandlers(){
             getForme().setOnMousePressed(event -> {
                 GestionaireMeubles.select(MeubleModele.this);
-                MeubleModele.this.select(Meuble.this);
+                if(! isEmptyMeubleSelection()){
+                    if(! getMeuble().equals(this)){
+                        MeubleModele.this.select(Meuble.this);
+                    }
+                }
             });
 
-            /*getForme().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                GestionaireMeubles.select(MeubleModele.this);
-                MeubleModele.this.select(Meuble.this);
-            }); //TODO verifier si ca override pas le filter du controller
-
-
-             */
 
             selected.addListener((observable, oldValue, newValue) -> {
                 if (newValue) {
