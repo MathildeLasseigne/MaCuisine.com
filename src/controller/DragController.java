@@ -337,7 +337,7 @@ public class DragController {
 
     /**
      * Snap the target node back to its last position by setting translateX & Y to 0
-     * and stop the drag movement
+     * <b>and stop the drag movement</b>
      */
     public void resetDrag(){
         cycleStatus = INACTIVE;
