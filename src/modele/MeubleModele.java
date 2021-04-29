@@ -600,7 +600,7 @@ public class MeubleModele {
             initId();
             buildForme();
             Data.panneaux.cuisine.add(this);
-            reset();
+            reset(true);
             setHandlers();
             this.dragController = new DragController(this.getForme());
             initDragController();
@@ -653,13 +653,20 @@ public class MeubleModele {
         }
 
         /**
-         * Reset la position initiale sur le point a gauche-milieu du parent et retire du plan en le rendant invisible
+         *
          */
-        public void reset(){
+        /**
+         * Reset la position initiale sur le point a gauche-milieu du parent et modifie sa visibilite
+         * @param modVisible true si modifie sa visibilite pour la mettre a false par inPlan
+         * @see Meuble#inPlanProperty()
+         */
+        public void reset(boolean modVisible){
             getForme().setTranslateX(0);
             getForme().setTranslateY(0);
             getForme().relocate(0, getForme().getParent().getBoundsInLocal().getHeight()/2);
-            this.inPlan.set(false);
+            if(modVisible){
+                this.inPlan.set(false);
+            }
         }
 
         /**
@@ -765,12 +772,9 @@ public class MeubleModele {
                 getForme().requestFocus();
                 if(getDragController().getDragChecker() != null){
                     if(getDragController().getDragChecker().check()){
-                        //Platform.runLater(() -> getDragController().dragHandler(event));
                         getDragController().dragHandler(event);
-
                     }
                 } else {
-                    //Platform.runLater(() -> getDragController().dragHandler(event));
                     getDragController().dragHandler(event);
                 }
             };
@@ -783,7 +787,7 @@ public class MeubleModele {
                             isClickedMove.set(false);
                             addToPanier();
                         } else {
-                            getForme().setTranslateX(0);
+                            getForme().setTranslateX(0);//Ne pas suppr, probleme de grab sinon
                             getForme().setTranslateY(0);
                             grabFormeByFiche();
                         }
@@ -831,7 +835,7 @@ public class MeubleModele {
          * @see Meuble#isClickedMove
          */
         private void grabFormeByFiche(){
-            reset();
+            //reset(false);
             Point2D offset = new Point2D(LARGEUR/2, HAUTEUR/2); //Anchor au milieu de la forme
             getDragController().setMouseOffsetFromNode(offset);
 
