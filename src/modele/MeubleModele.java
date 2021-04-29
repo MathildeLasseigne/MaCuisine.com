@@ -383,6 +383,7 @@ public class MeubleModele {
      * @return le boolean property
      * @see Meuble#isClickedMove
      * @see Meuble#getIsClickedMoveProperty()
+     * @see MeubleModele#getMeuble()
      */
     public BooleanProperty getIsClickedMoveProperty(){
         return getMeuble().getIsClickedMoveProperty();
@@ -447,8 +448,8 @@ public class MeubleModele {
      * Construit les 2 fiches du meuble
      */
     public void contructFiches(){
-        this.fichePanier = new PetiteFiche(this);
-        this.ficheCatalogue = new PetiteFiche(this);
+        this.fichePanier = new PetiteFiche(this, Data.Origine.Panier);
+        this.ficheCatalogue = new PetiteFiche(this, Data.Origine.Catalogue);
         //Si il est visible = false, le parent va se reorganiser
         this.fichePanier.managedProperty().bind(this.fichePanier.visibleProperty());
         this.ficheCatalogue.managedProperty().bind(this.ficheCatalogue.visibleProperty());

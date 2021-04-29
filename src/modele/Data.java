@@ -12,6 +12,11 @@ import vue.Panier;
  */
 public class Data {
 
+    /**
+     * Les differents panneaux de l appli
+     */
+    public enum Origine {Catalogue, Panier, Plan};
+
 
     /**La liste des properties, notament celles utilisees par la tools Bar**/
     public static Properties properties = new Properties();
