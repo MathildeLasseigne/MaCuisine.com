@@ -35,6 +35,12 @@ public class PetiteFicheController extends Controller {
     @FXML
     private Label prixText;
 
+    @FXML
+    private Label nbMeubleMultiplicateur;
+
+    @FXML
+    private Label nbMeuble;
+
     public PetiteFicheController(PetiteFiche petiteFiche){
         this.petiteFiche = petiteFiche;
         this.meubleModele = this.petiteFiche.getMeubleModele();
@@ -63,7 +69,7 @@ public class PetiteFicheController extends Controller {
         //Change la bordure de la fiche si le meuble est selectionne
         this.petiteFiche.getMeubleModele().isSelectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                this.petiteFiche.setContentStyle("-fx-border-color: red ; -fx-border-width: 3px ;");
+                this.petiteFiche.setContentStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             } else {
                 this.petiteFiche.setContentStyle("-fx-border-color: black ; -fx-border-width: 2px ;");
             }
@@ -79,6 +85,11 @@ public class PetiteFicheController extends Controller {
             image.setImage(img);
         }
         setDescription();
+
+        if(this.petiteFiche.getOrigine() == Data.Origine.Panier){
+            this.nbMeubleMultiplicateur.setText("x");
+            this.nbMeuble.textProperty().bind(meubleModele.nbMeuble.asString());
+        }
     }
 
     /**
