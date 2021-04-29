@@ -205,12 +205,7 @@ public class DragController {
                 Point2D oldPos = getCurrentPos(target);
 
                 target.relocate(p.getX() - mouseOffsetFromNodeZeroX-1,p.getY() - mouseOffsetFromNodeZeroY-1);
-                Bounds newBounds = target.getBoundsInParent();
-                if( ! this.releaseBoundary.contains(newBounds)){
-                    target.relocate(oldPos.getX()-1, oldPos.getY()-1);
-                } else {
                     succes = true;
-                }
             }
         } else {
             Parent parent = this.target.getParent();

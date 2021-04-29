@@ -704,16 +704,18 @@ public class MeubleModele {
          * Link les listeners a tous les elements necessaires.
          */
         private void setHandlers(){
-            /*getForme().setOnMousePressed(event -> {
+            getForme().setOnMousePressed(event -> {
                 GestionaireMeubles.select(MeubleModele.this);
                 MeubleModele.this.select(Meuble.this);
-            });*/
+            });
 
-            getForme().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            /*getForme().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
                 GestionaireMeubles.select(MeubleModele.this);
                 MeubleModele.this.select(Meuble.this);
             }); //TODO verifier si ca override pas le filter du controller
 
+
+             */
 
             selected.addListener((observable, oldValue, newValue) -> {
                 if (newValue) {
@@ -751,10 +753,8 @@ public class MeubleModele {
             });
 
             inPlan.addListener((observable, oldValue, newValue) -> {
-                Platform.runLater(()->{
-                    getForme().getParent().requestFocus();
-                    getForme().requestFocus();
-                });
+                getForme().getParent().requestFocus();
+                getForme().requestFocus();
             });
 
         }
@@ -768,12 +768,13 @@ public class MeubleModele {
                 getForme().requestFocus();
                 if(getDragController().getDragChecker() != null){
                     if(getDragController().getDragChecker().check()){
-                        Platform.runLater(() -> getDragController().dragHandler(event));
+                        //Platform.runLater(() -> getDragController().dragHandler(event));
+                        getDragController().dragHandler(event);
 
                     }
                 } else {
-                    Platform.runLater(() -> getDragController().dragHandler(event));
-                    //this.dragController.dragHandler(event);
+                    //Platform.runLater(() -> getDragController().dragHandler(event));
+                    getDragController().dragHandler(event);
                 }
             };
 
@@ -781,31 +782,26 @@ public class MeubleModele {
                 getForme().requestFocus();
                 if(getDragController().getReleaseChecker() != null){
                     if(getDragController().getReleaseChecker().check()){
-                        Platform.runLater(() -> {
-                            if(getDragController().releaseHandler(event)){
-                                isClickedMove.set(false);
-                                addToPanier();
-                            } else {
-                                getForme().setTranslateX(0);
-                                getForme().setTranslateY(0);
-                                grabFormeByFiche();
-                            }
-                        });
-
-                    } else {
-                        Platform.runLater(() -> {
+                        if(getDragController().releaseHandler(event)){
+                            isClickedMove.set(false);
+                            addToPanier();
+                        } else {
                             getForme().setTranslateX(0);
                             getForme().setTranslateY(0);
                             grabFormeByFiche();
-                        });
+                        }
+
+                    } else {
+                        getForme().setTranslateX(0);
+                        getForme().setTranslateY(0);
+                        grabFormeByFiche();
 
                     }
                 } else {
-                    Platform.runLater(() -> {
-                        if(getDragController().releaseHandler(event)){
-                            isClickedMove.set(false);
-                        }
-                    });
+                    if(getDragController().releaseHandler(event)){
+                        isClickedMove.set(false);
+                        addToPanier();
+                    }
 
                 }
             };
@@ -838,6 +834,8 @@ public class MeubleModele {
          * @see Meuble#isClickedMove
          */
         private void grabFormeByFiche(){
+            reset();
+            inPlanProperty().set(true);
             Point2D offset = new Point2D(LARGEUR/2, HAUTEUR/2); //Anchor au milieu de la forme
             getDragController().setMouseOffsetFromNode(offset);
 
@@ -937,6 +935,13 @@ public class MeubleModele {
          */
         public void requestFocus(){
             getForme().requestFocus();
+        }
+
+        @Override
+        public String toString() {
+            return "Meuble{" +
+                    "id=" + id +
+                    '}';
         }
     }
 }

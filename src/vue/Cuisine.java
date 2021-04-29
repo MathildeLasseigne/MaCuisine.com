@@ -70,19 +70,23 @@ public class Cuisine extends ScrollPane {
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
             MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
-                if(selection.getIsClickedMoveProperty().get()){
-                    selection.isInPlanProperty().set(true);
-                    this.requestFocus();
-                    content.requestFocus();
-                    selection.getMeuble().requestFocus();
+                if(! selection.isEmptyMeubleSelection()){
+                    if(selection.getIsClickedMoveProperty().get()){
+                        selection.isInPlanProperty().set(true);
+                        this.requestFocus();
+                        content.requestFocus();
+                        selection.getMeuble().requestFocus();
+                    }
                 }
             }
         });
         this.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
             MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
-                if(selection.getIsClickedMoveProperty().get()){
-                    selection.isInPlanProperty().set(false);
+                if(! selection.isEmptyMeubleSelection()){
+                    if(selection.getIsClickedMoveProperty().get()){
+                        selection.isInPlanProperty().set(false);
+                    }
                 }
             }
         });
