@@ -104,7 +104,6 @@ public class AppliTestController extends Controller {
         MeubleModele selection = GestionaireMeubles.getSelection();
         if(selection != null){
             selection.removeFromPanier();
-            selection.isInPlanProperty().set(false);
         }
     }
 

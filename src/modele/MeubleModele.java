@@ -296,13 +296,10 @@ public class MeubleModele {
      */
     private void removeMeuble(Meuble meuble){
         if(meuble.selected.get()){
-            if(! unselectMeuble()){
-                meuble.unbind();
-            }
-        } else {
-            meuble.unbind();
+            unselectMeuble();
         }
         if(meuble.inPanier.get()){
+            meuble.unbind();
             meuble.inPanier.set(false);
         }
     }
@@ -326,7 +323,9 @@ public class MeubleModele {
      * @see MeubleModele#getMeuble()
      */
     public void removeFromPanier(){
-        removeMeuble(getMeuble());
+        if(! this.isEmptyMeubleSelection()){
+            removeMeuble(getMeuble());
+        }
         if(nbMeuble.get() == 0){
             isInPanierProperty().set(false);
         }
@@ -648,8 +647,8 @@ public class MeubleModele {
             this.selected.set(false);
             this.selected.unbind();
             this.isClickedMove.set(false);
-            Data.panneaux.cuisine.remove(this);
             getDragController().getDraggableProperty().unbind();
+            Data.panneaux.cuisine.remove(this);
         }
 
         /**
@@ -835,7 +834,6 @@ public class MeubleModele {
          */
         private void grabFormeByFiche(){
             reset();
-            inPlanProperty().set(true);
             Point2D offset = new Point2D(LARGEUR/2, HAUTEUR/2); //Anchor au milieu de la forme
             getDragController().setMouseOffsetFromNode(offset);
 
@@ -940,7 +938,7 @@ public class MeubleModele {
         @Override
         public String toString() {
             return "Meuble{" +
-                    "id=" + id +
+                    "id=" + id.get() +
                     '}';
         }
     }
