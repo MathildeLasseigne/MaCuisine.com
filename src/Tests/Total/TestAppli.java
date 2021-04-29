@@ -5,6 +5,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import modele.GestionaireMeubles;
@@ -34,6 +38,8 @@ public class TestAppli extends Application {
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../../Sprites/plan.png")));
         primaryStage.show();
         globalController.setGlobalEventHandler(root);
         GestionaireMeubles meubles = new GestionaireMeubles(cuisine);
