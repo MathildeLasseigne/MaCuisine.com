@@ -5,6 +5,7 @@ import controller.DragController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
+import org.jetbrains.annotations.TestOnly;
 import vue.Cuisine;
 
 import java.util.ArrayList;
@@ -201,6 +202,7 @@ public class GestionaireMeubles {
      * <br/>A utiliser uniquement pour les tests
      * @param nb le nombre d elements a prendre dans le catalogue
      */
+    @TestOnly
     public void initPanierTest(int nb){
         int itMax = nb -1;
         if(nb > this.catalogue.size()){
