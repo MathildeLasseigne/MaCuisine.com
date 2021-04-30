@@ -1,6 +1,5 @@
 package modele;
 
-import controller.ControllerManager;
 import controller.DragController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -18,7 +17,7 @@ public class GestionaireMeubles {
     private Cuisine cuisine;
 
 
-    private static MeubleModele selection = null;
+    private MeubleModele selection = null;
 
     public BooleanProperty isMovable = new SimpleBooleanProperty();
 
@@ -48,7 +47,7 @@ public class GestionaireMeubles {
      * @see GestionaireMeubles#select(MeubleModele)
      * @see GestionaireMeubles#unselect()
      */
-    public static MeubleModele getSelection() {
+    public MeubleModele getSelection() {
         return selection;
     }
 
@@ -58,7 +57,7 @@ public class GestionaireMeubles {
      * @see GestionaireMeubles#select(MeubleModele)
      * @see MeubleModele#unselect()
      */
-    public static void unselect(){
+    public void unselect(){
         if(selection != null){
             selection.unselect();
             selection = null;
@@ -73,7 +72,7 @@ public class GestionaireMeubles {
      * @see GestionaireMeubles#unselect()
      * @see MeubleModele#select()
      */
-    public static void select(MeubleModele meubleModele){
+    public void select(MeubleModele meubleModele){
         if(meubleModele != null){
             if(selection != null){
                 if(! selection.equals(meubleModele)){
@@ -179,7 +178,7 @@ public class GestionaireMeubles {
     public void addCatalogue(MeubleModele meubleModele){
         this.catalogue.add(meubleModele);
         //this.cuisine.add(meubleModele);
-        meubleModele.setBoundaries(this.cuisine.getBoundsInLocal(), ControllerManager.cuisineController.getPlanBoundsInCuisine());
+        meubleModele.setBoundaries(this.cuisine.getBoundsInLocal(), this.cuisine.getController().getPlanBoundsInCuisine());
         meubleModele.bindIsDraggedPropertyTo(this.isMovable);
         meubleModele.isInPanierProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {

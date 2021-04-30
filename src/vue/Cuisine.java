@@ -1,6 +1,5 @@
 package vue;
 
-import controller.ControllerManager;
 import controller.CuisineController;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
@@ -11,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Shape;
 import modele.Data;
 import modele.GestionaireMeubles;
 import modele.MeubleModele;
@@ -44,7 +42,6 @@ public class Cuisine extends ScrollPane {
 
 
         this.controller = new CuisineController(this);
-        ControllerManager.cuisineController = this.controller;
         Parent contentContainer = null;
         try {
             contentContainer = this.controller.loadFXMLWithController(getClass().getResource("CuisinePlan.fxml"));
@@ -68,7 +65,7 @@ public class Cuisine extends ScrollPane {
             this.content.requestFocus();
         });
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-            MeubleModele selection = GestionaireMeubles.getSelection();
+            MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
             if(selection != null){
                 if(! selection.isEmptyMeubleSelection()){
                     if(selection.getIsClickedMoveProperty().get()){
@@ -81,7 +78,7 @@ public class Cuisine extends ScrollPane {
             }
         });
         this.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-            MeubleModele selection = GestionaireMeubles.getSelection();
+            MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
             if(selection != null){
                 if(! selection.isEmptyMeubleSelection()){
                     if(selection.getIsClickedMoveProperty().get()){
@@ -165,4 +162,11 @@ public class Cuisine extends ScrollPane {
         }
     }
 
+    /**
+     * Renvoie le controller de la cuisine
+     * @return
+     */
+    public CuisineController getController() {
+        return controller;
+    }
 }

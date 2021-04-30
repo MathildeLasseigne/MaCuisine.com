@@ -727,7 +727,7 @@ public class MeubleModele {
          */
         private void setHandlers(){
             getForme().setOnMousePressed(event -> {
-                GestionaireMeubles.select(MeubleModele.this);
+                Data.getCurrentSession().gestionaireMeubles.select(MeubleModele.this);
                 if(! isEmptyMeubleSelection()){
                     if(! getMeuble().equals(this)){
                         MeubleModele.this.select(Meuble.this);

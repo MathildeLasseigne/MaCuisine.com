@@ -139,12 +139,12 @@ public class AppliTestController extends FXMLController {
 
     @FXML
     public void cancelSelectionHandler(){
-        GestionaireMeubles.unselect();
+        Data.getCurrentSession().gestionaireMeubles.unselect();
     }
 
     @FXML
     public void supprHandler(){
-        MeubleModele selection = GestionaireMeubles.getSelection();
+        MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
         if(selection != null){
             selection.removeFromPanier();
         }

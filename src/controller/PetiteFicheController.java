@@ -50,7 +50,7 @@ public class PetiteFicheController extends FXMLController {
 
     private void setHandlers(){
         this.petiteFiche.setOnMouseClicked(event -> {
-            MeubleModele oldSelection = GestionaireMeubles.getSelection();
+            MeubleModele oldSelection = Data.getCurrentSession().gestionaireMeubles.getSelection();
             if(oldSelection != null){
                 if(! oldSelection.isEmptyMeubleSelection()){
                     oldSelection.getIsClickedMoveProperty().set(false);
@@ -63,7 +63,7 @@ public class PetiteFicheController extends FXMLController {
             Data.getCurrentSession().panneaux.cuisine.requestFocus();
             meubleModele.getMeuble().getParent().requestFocus();
             meubleModele.getMeuble().requestFocus();
-            GestionaireMeubles.select(meubleModele);
+            Data.getCurrentSession().gestionaireMeubles.select(meubleModele);
         });
 
         //Change la bordure de la fiche si le meuble est selectionne

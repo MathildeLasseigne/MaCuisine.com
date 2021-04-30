@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import modele.Data;
 import modele.GestionaireMeubles;
 import modele.MeubleModele;
 
@@ -65,7 +66,7 @@ public class LeftPannelController extends FXMLController {
 
     @FXML
     public void cancelSelectionHandler(){
-        GestionaireMeubles.unselect();
+        Data.getCurrentSession().gestionaireMeubles.unselect();
     }
 
     /**
