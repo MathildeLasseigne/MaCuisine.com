@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent rightPanelRoot = FXMLLoader.load(getClass().getResource("RightPanel.fxml"));
+        Parent rightPanelRoot = FXMLLoader.load(getClass().getResource("LeftPanel.fxml"));
         Scene rightPanel = new Scene(rightPanelRoot);
         //origin/master
         Parent maCuisineRoot = FXMLLoader.load(getClass().getResource("MaCuisine.fxml"));

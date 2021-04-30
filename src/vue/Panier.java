@@ -4,16 +4,20 @@ import javafx.scene.layout.VBox;
 import modele.Data;
 import modele.MeubleModele;
 
+import java.util.HashMap;
+
 public class Panier {
 
 
     /**
      * Le panier dans l application
      */
-    private VBox container;
+    //private VBox container;
+    private HashMap<MeubleModele.Type, VBox> listTypes;
 
-    public Panier(VBox container){
-        this.container = container;
+    public Panier(HashMap<MeubleModele.Type, VBox> listTypes){
+        //this.container = container;
+        this.listTypes = listTypes;
         Data.panneaux.panier = this;
     }
 
@@ -23,7 +27,7 @@ public class Panier {
      */
     public void initCommit(MeubleModele meubleModele){
         meubleModele.getLittleFichePanier().setVisible(false);
-        container.getChildren().add(meubleModele.getLittleFichePanier());
+        listTypes.get(meubleModele.getType()).getChildren().add(meubleModele.getLittleFichePanier());
     }
 
     /**

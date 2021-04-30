@@ -17,6 +17,8 @@ import vue.Cuisine;
 import vue.InfoPane;
 import vue.Panier;
 
+import java.util.HashMap;
+
 
 public class AppliTestController extends Controller {
 
@@ -42,6 +44,24 @@ public class AppliTestController extends Controller {
     @FXML
     private BorderPane container;
 
+    @FXML
+    private AnchorPane anchorPanier;
+
+    @FXML
+    private AnchorPane anchorCatalogue;
+
+    /**Vbox pour chaque type de meuble du panier**/
+
+    @FXML
+    private VBox panierMeublesVbox;
+    private VBox panierTablesVbox;
+    private VBox panierChaisesVbox;
+    private VBox
+
+
+    /**Vbox pour chaque type de meuble du catalogue**/
+
+
 
     @FXML
     private ImageView moveImageView;
@@ -61,6 +81,9 @@ public class AppliTestController extends Controller {
     /**Les images du bouton grille**/
     private Image grilleImage, grilleCrossedImage;
 
+    HashMap<MeubleModele.Type, VBox> panierVBox = new HashMap<>();
+    HashMap<MeubleModele.Type, VBox> catalogueVBox = new HashMap<>();
+
     public AppliTestController(Cuisine cuisine){
         this.cuisine = cuisine;
         this.moveImage = new Image(getClass().getResourceAsStream("../../Sprites/move.png"));
@@ -73,9 +96,10 @@ public class AppliTestController extends Controller {
     public void initialize(){
         container.setCenter(cuisine);
 
-        new Panier(panier);
-        new Catalogue(catalogue);
+        new Panier(panierVBox);
+        new Catalogue(catalogueVBox);
         new InfoPane(infoPane, baseInfoText);
+        new AnchorPane(anchorCatalogue, anchorPanier);
 
         Data.properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -129,6 +153,15 @@ public class AppliTestController extends Controller {
                 ev.consume();
             }
         });
+    }
+
+    /**
+     * Crée des hashmap pour les types de meubles
+     */
+    public void createHashmap() {
+        this.panierVBox.put("Meubles", panierMeublesVbox);
+        //Récupérer
+        panierVBox.get("Meubles");
     }
 
 }

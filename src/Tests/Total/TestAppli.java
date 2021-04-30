@@ -23,7 +23,7 @@ public class TestAppli extends Application {
         Cuisine cuisine = new Cuisine(300,400);
 
         AppliTestController globalController = new AppliTestController(cuisine);
-        BorderPane root = (BorderPane) globalController.loadFXMLWithController(getClass().getResource("AppliTest3.fxml"));
+        BorderPane root = (BorderPane) globalController.loadFXMLWithController(getClass().getResource("AppliTest4.fxml"));
 
         Rectangle dimEcran = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
