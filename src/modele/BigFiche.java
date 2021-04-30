@@ -5,8 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class BigFiche extends Pane {
+public class BigFiche extends Pane implements Serializable {
 
     private MeubleModele meubleModele;
 

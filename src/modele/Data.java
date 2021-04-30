@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
 import vue.*;
 
+import java.io.Serializable;
+
 /**
  * Reuni la liste des booleans representant les options que l utilisateur peut afficher
  */
@@ -59,7 +61,7 @@ public class Data {
             "In lacinia commodo quam ut dapibus. Sed vel felis sapien. Nulla rutrum lectus eget est semper consequat. In felis urna, efficitur vitae ultricies id, viverra eu neque. Donec nec aliquet nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Suspendisse vitae tincidunt magna. Praesent vestibulum tortor quis mattis sodales. Nulla finibus leo arcu, auctor ultrices est feugiat at. ";
 
 
-    public static class Session {
+    public static class Session  implements Serializable {
 
         private Point2D dimensionsCuisine = null;
 
@@ -89,7 +91,7 @@ public class Data {
             this.gestionaireMeubles = new GestionaireMeubles(panneaux.cuisine);
         }
 
-        public static class Properties {
+        public static class Properties implements Serializable {
 
             /**
              * Les properties de la session actuelle
@@ -113,7 +115,7 @@ public class Data {
 
         }
 
-        public class Panneaux {
+        public class Panneaux implements Serializable {
 
             /**
              * Instancie la session actuelle

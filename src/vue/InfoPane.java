@@ -8,8 +8,9 @@ import modele.Data;
 import modele.MeubleModele;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class InfoPane {
+public class InfoPane implements Serializable {
 
     private Pane container;
 

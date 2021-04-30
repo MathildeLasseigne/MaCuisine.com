@@ -4,9 +4,10 @@ import javafx.scene.layout.VBox;
 import modele.Data;
 import modele.MeubleModele;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Catalogue {
+public class Catalogue implements Serializable {
 
     private VBox container;
     private HashMap<MeubleModele.Type, VBox> listTypes;

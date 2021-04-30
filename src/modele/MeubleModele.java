@@ -17,13 +17,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MeubleModele {
+public class MeubleModele implements Serializable {
 
 
     /**Types de meubles**/
-    public enum Type {Meubles, Tables, Chaises, Gros_electromenagers, Petits_electromenagers, Plomberie}
+    public enum Type implements Serializable{Meubles, Tables, Chaises, Gros_electromenagers, Petits_electromenagers, Plomberie}
 
 /*-------------ID--------------*/
     /**Le nombre total de modeles de meuble crees**/
@@ -563,7 +564,7 @@ public class MeubleModele {
      * </li>
      * @see MeubleModele
      */
-    public class Meuble{
+    public class Meuble implements Serializable{
 
         /*---------------ID----------------*/
 

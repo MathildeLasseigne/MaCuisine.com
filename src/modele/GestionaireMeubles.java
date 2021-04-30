@@ -9,9 +9,10 @@ import javafx.geometry.Point2D;
 import org.jetbrains.annotations.TestOnly;
 import vue.Cuisine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GestionaireMeubles {
+public class GestionaireMeubles implements Serializable {
 
     /**La cuisine sur laquelle sont affiches tous les meubles**/
     private Cuisine cuisine;

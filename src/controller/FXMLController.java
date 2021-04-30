@@ -4,12 +4,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 
 /**
  * Abstract class containing methods for FXML controllers
  */
-public abstract class FXMLController {
+public abstract class FXMLController implements Serializable {
 
     /**
      * The FXMLLoader used if Controller linked to fxml file with <i>loadFXMLWithController</i>

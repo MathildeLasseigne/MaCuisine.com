@@ -15,8 +15,9 @@ import modele.GestionaireMeubles;
 import modele.MeubleModele;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Cuisine extends ScrollPane {
+public class Cuisine extends ScrollPane implements Serializable {
 
     /**Les dimensions du pane**/
     public Point2D size;

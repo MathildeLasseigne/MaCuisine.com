@@ -4,9 +4,10 @@ import javafx.scene.layout.VBox;
 import modele.Data;
 import modele.MeubleModele;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Panier {
+public class Panier implements Serializable {
 
 
     /**

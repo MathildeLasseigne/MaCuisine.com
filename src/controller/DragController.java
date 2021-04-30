@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+
+import java.io.Serializable;
 //import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,7 +22,7 @@ import javafx.scene.shape.Circle;
  * @see <a href="https://edencoding.com/drag-shapes-javafx/">Original class</a>
  * @author mathilde
  */
-public class DragController {
+public class DragController implements Serializable {
 
     /**The target node to drag**/
     private final Node target;
@@ -520,7 +522,7 @@ public class DragController {
      * A class to do a check on a condition.
      * <br/>Useful to give a check order from an external class
      */
-    public abstract static class SimpleChecker{
+    public abstract static class SimpleChecker implements Serializable{
 
         /**Create a simple checker to do a check on a condition.**/
         public SimpleChecker(){

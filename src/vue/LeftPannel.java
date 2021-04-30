@@ -6,8 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class LeftPannel {
+public class LeftPannel implements Serializable {
 
     private Pane leftPannel;
 
