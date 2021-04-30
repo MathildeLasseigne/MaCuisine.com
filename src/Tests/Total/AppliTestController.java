@@ -107,7 +107,7 @@ public class AppliTestController extends Controller {
         new Panier(panierVBox);
         new Catalogue(catalogueVBox);
         new InfoPane(infoPane, baseInfoText);
-        new AnchorPane(anchorCatalogue, anchorPanier);
+        //new AnchorPane(anchorCatalogue, anchorPanier);
 
         Data.properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
