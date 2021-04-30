@@ -3,6 +3,7 @@ package controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -58,6 +59,14 @@ public class SelectionController extends Controller{
     public double getHAUTEUR(){
         //return Double.valueOf(this.HAUTEUR.getText());
         return (double) this.HAUTEUR.getTextFormatter().getValue();
+    }
+
+    /**
+     * Renvoie les dimensions de la cuisine saisis par l utilisateur
+     * @return les dimensions sous forme de Point2D
+     */
+    public Point2D getDimensions(){
+        return new Point2D(getLARGEUR(), getHAUTEUR());
     }
 
     /**
