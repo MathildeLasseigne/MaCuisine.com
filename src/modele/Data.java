@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import vue.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Reuni la liste des booleans representant les options que l utilisateur peut afficher
@@ -61,7 +62,45 @@ public class Data {
             "In lacinia commodo quam ut dapibus. Sed vel felis sapien. Nulla rutrum lectus eget est semper consequat. In felis urna, efficitur vitae ultricies id, viverra eu neque. Donec nec aliquet nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Suspendisse vitae tincidunt magna. Praesent vestibulum tortor quis mattis sodales. Nulla finibus leo arcu, auctor ultrices est feugiat at. ";
 
 
+
+
+
+
+
+
+    /*---------------------------Session-----------------------------------*/
+
+
+
+
     public static class Session  implements Serializable {
+
+        private ArrayList<MeubleModele> MeubleModeleCatalogue = initMeubleModeleCatalogue();
+
+        /**
+         * Renvoie le catalogue des modeles de meuble
+         * @return
+         */
+        private ArrayList<MeubleModele> initMeubleModeleCatalogue(){
+            ArrayList<MeubleModele> catalogue = new ArrayList<>();
+            catalogue.add(new MeubleModele("Meuble1", "MaCuisine.com", MeubleModele.Type.Meubles,100,100,50));
+            catalogue.add(new MeubleModele("Meuble2", "MaCuisine.com", MeubleModele.Type.Meubles,100,60,60));
+            catalogue.add(new MeubleModele("Meuble3", "MaCuisine.com", MeubleModele.Type.Meubles,100,30,60));
+            catalogue.add(new MeubleModele("Meuble4", "MaCuisine.com", MeubleModele.Type.Meubles,100,20,50));
+            catalogue.add(new MeubleModele("Meuble5", "MaCuisine.com", MeubleModele.Type.Meubles,30,30,30));
+            catalogue.add(new MeubleModele("Meuble6", "MaCuisine.com", MeubleModele.Type.Meubles,40,40,40));
+
+
+            return catalogue;
+        }
+
+        /**
+         * Renvoie le catalogue des modeles de meubles
+         * @return
+         */
+        public ArrayList<MeubleModele> getMeubleModeleCatalogue() {
+            return MeubleModeleCatalogue;
+        }
 
         private Point2D dimensionsCuisine = null;
 
