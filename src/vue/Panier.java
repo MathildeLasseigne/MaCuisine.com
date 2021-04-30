@@ -12,7 +12,7 @@ public class Panier {
     /**
      * Le panier dans l application
      */
-    //private VBox container;
+    private VBox container;
     private HashMap<MeubleModele.Type, VBox> listTypes;
 
     public Panier(HashMap<MeubleModele.Type, VBox> listTypes){
@@ -26,8 +26,8 @@ public class Panier {
      * @param meubleModele le meuble a ajouter
      */
     public void initCommit(MeubleModele meubleModele){
-        meubleModele.getLittleFichePanier().setVisible(false);
         listTypes.get(meubleModele.getType()).getChildren().add(meubleModele.getLittleFichePanier());
+        meubleModele.getLittleFichePanier().setVisible(false);
     }
 
     /**
