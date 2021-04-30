@@ -57,8 +57,8 @@ public class AppliTestController extends Controller {
     private VBox panierTablesVbox;
     private VBox panierChaisesVbox;
     private VBox panierGElectroVbox;
-    private VBox panierPElectroVBox;
-    private VBox panierPlomberieVBox;
+    private VBox panierPElectroVbox;
+    private VBox panierPlomberieVbox;
 
 
     /**Vbox pour chaque type de meuble du catalogue**/
@@ -68,8 +68,8 @@ public class AppliTestController extends Controller {
     private VBox catalogueTablesVbox;
     private VBox catalogueChaisesVbox;
     private VBox catalogueGElectroVbox;
-    private VBox cataloguePElectroVBox;
-    private VBox cataloguePlomberieVBox;
+    private VBox cataloguePElectroVbox;
+    private VBox cataloguePlomberieVbox;
 
     @FXML
     private ImageView moveImageView;
@@ -169,8 +169,33 @@ public class AppliTestController extends Controller {
     public void linkMeublesVbox() {
         /**Pour le panier**/
         this.panierVBox.put(MeubleModele.Type.Meubles, panierMeublesVbox);
+        this.panierVBox.put(MeubleModele.Type.Tables, panierTablesVbox);
+        this.panierVBox.put(MeubleModele.Type.Chaises, panierChaisesVbox);
+        this.panierVBox.put(MeubleModele.Type.Petits_electromenagers, panierPElectroVbox);
+        this.panierVBox.put(MeubleModele.Type.Gros_electromenagers, panierGElectroVbox);
+        this.panierVBox.put(MeubleModele.Type.Plomberie, panierPlomberieVbox);
         /**Récupérer pour le panier**/
-        panierVBox.get("Meubles");
+        panierVBox.get(MeubleModele.Type.Meubles);
+        panierVBox.get(MeubleModele.Type.Tables);
+        panierVBox.get(MeubleModele.Type.Chaises);
+        panierVBox.get(MeubleModele.Type.Petits_electromenagers);
+        panierVBox.get(MeubleModele.Type.Gros_electromenagers);
+        panierVBox.get(MeubleModele.Type.Plomberie);
+
+        /**Pour le catalogue**/
+        this.catalogueVBox.put(MeubleModele.Type.Meubles, catalogueMeublesVbox);
+        this.catalogueVBox.put(MeubleModele.Type.Tables, catalogueTablesVbox);
+        this.catalogueVBox.put(MeubleModele.Type.Chaises, catalogueChaisesVbox);
+        this.catalogueVBox.put(MeubleModele.Type.Petits_electromenagers, cataloguePElectroVbox);
+        this.catalogueVBox.put(MeubleModele.Type.Gros_electromenagers, catalogueGElectroVbox);
+        this.catalogueVBox.put(MeubleModele.Type.Plomberie, cataloguePlomberieVbox);
+        /**Récupérer pour le catalogue**/
+        catalogueVBox.get(MeubleModele.Type.Meubles);
+        catalogueVBox.get(MeubleModele.Type.Tables);
+        catalogueVBox.get(MeubleModele.Type.Chaises);
+        catalogueVBox.get(MeubleModele.Type.Petits_electromenagers);
+        catalogueVBox.get(MeubleModele.Type.Gros_electromenagers);
+        catalogueVBox.get(MeubleModele.Type.Plomberie);
     }
 
 }
