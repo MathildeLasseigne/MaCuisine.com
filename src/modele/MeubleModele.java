@@ -40,8 +40,12 @@ public class MeubleModele {
 
     private String nom;
     private String constructeur;
+    private Type type;
     private double prix;
     private String description;
+
+    /**Types de meubles**/
+    public enum Type {Meubles, Tables, Chaises, Gros_electromenagers, Petits_electromenagers, Plomberie}
 
 /*-----------Forme---------------*/
 
@@ -94,13 +98,14 @@ public class MeubleModele {
      * @param description la description du meuble
      * @see GestionaireMeubles#addCatalogue(MeubleModele)
      */
-    public MeubleModele(String nom, String constructeur, double prix, double largeur, double hauteur, String description){
+    public MeubleModele(String nom, String constructeur, Type type, double prix, double largeur, double hauteur, String description){
         identify();
 
         this.LARGEUR = largeur;
         this.HAUTEUR = hauteur;
         this.nom = nom;
         this.constructeur = constructeur;
+        this.type = type;
         this.prix = prix;
         this.description = description;
         contructFiches();
@@ -121,8 +126,8 @@ public class MeubleModele {
      * @param hauteur la hauteur du meuble en cm
      * @see GestionaireMeubles#addCatalogue(MeubleModele)
      */
-    public MeubleModele(String nom, String constructeur, double prix, double largeur, double hauteur){
-        this(nom, constructeur, prix,largeur,hauteur, "Ce meuble n a pas de description."+Data.LoremIpsum);
+    public MeubleModele(String nom, String constructeur, Type type, double prix, double largeur, double hauteur){
+        this(nom, constructeur, type, prix,largeur,hauteur, "Ce meuble n a pas de description."+Data.LoremIpsum);
     }
 
 
