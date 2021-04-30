@@ -54,10 +54,15 @@ public class AppliTestController extends Controller {
 
     @FXML
     private VBox panierMeublesVbox;
+    @FXML
     private VBox panierTablesVbox;
+    @FXML
     private VBox panierChaisesVbox;
+    @FXML
     private VBox panierGElectroVbox;
+    @FXML
     private VBox panierPElectroVbox;
+    @FXML
     private VBox panierPlomberieVbox;
 
 
@@ -65,10 +70,15 @@ public class AppliTestController extends Controller {
 
     @FXML
     private VBox catalogueMeublesVbox;
+    @FXML
     private VBox catalogueTablesVbox;
+    @FXML
     private VBox catalogueChaisesVbox;
+    @FXML
     private VBox catalogueGElectroVbox;
+    @FXML
     private VBox cataloguePElectroVbox;
+    @FXML
     private VBox cataloguePlomberieVbox;
 
     @FXML
@@ -103,7 +113,7 @@ public class AppliTestController extends Controller {
     @FXML
     public void initialize(){
         container.setCenter(cuisine);
-
+        this.linkMeublesVbox();
         new Panier(panierVBox);
         new Catalogue(catalogueVBox);
         new InfoPane(infoPane, baseInfoText);
@@ -189,6 +199,7 @@ public class AppliTestController extends Controller {
         this.catalogueVBox.put(MeubleModele.Type.Petits_electromenagers, cataloguePElectroVbox);
         this.catalogueVBox.put(MeubleModele.Type.Gros_electromenagers, catalogueGElectroVbox);
         this.catalogueVBox.put(MeubleModele.Type.Plomberie, cataloguePlomberieVbox);
+
         /**Récupérer pour le catalogue**/
         catalogueVBox.get(MeubleModele.Type.Meubles);
         catalogueVBox.get(MeubleModele.Type.Tables);
