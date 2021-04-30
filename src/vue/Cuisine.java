@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 import modele.Data;
 import modele.GestionaireMeubles;
 import modele.MeubleModele;
@@ -69,19 +70,23 @@ public class Cuisine extends ScrollPane {
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
             MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
-                if(selection.getIsClickedMoveProperty().get()){
-                    selection.isInPlanProperty().set(true);
-                    this.requestFocus();
-                    content.requestFocus();
-                    selection.getForme().requestFocus();
+                if(! selection.isEmptyMeubleSelection()){
+                    if(selection.getIsClickedMoveProperty().get()){
+                        selection.isInPlanProperty().set(true);
+                        this.requestFocus();
+                        content.requestFocus();
+                        selection.getMeuble().requestFocus();
+                    }
                 }
             }
         });
         this.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
             MeubleModele selection = GestionaireMeubles.getSelection();
             if(selection != null){
-                if(selection.getIsClickedMoveProperty().get()){
-                    selection.isInPlanProperty().set(false);
+                if(! selection.isEmptyMeubleSelection()){
+                    if(selection.getIsClickedMoveProperty().get()){
+                        selection.isInPlanProperty().set(false);
+                    }
                 }
             }
         });
@@ -90,10 +95,28 @@ public class Cuisine extends ScrollPane {
     /**
      * Ajoute un meuble dans la cuisine
      * @param meubleModele
-     */
+     *//*
     public void add(MeubleModele meubleModele){
         //this.getChildren().add(meuble.getForme());
         this.content.getChildren().add(meubleModele.getForme());
+    }
+*/
+
+    /**
+     * Ajoute un meuble dans la cuisine
+     * @param meuble
+     */
+    public void add(MeubleModele.Meuble meuble){
+        //this.getChildren().add(meuble.getForme());
+        this.content.getChildren().add(meuble.getForme());
+    }
+
+    /**
+     * Retire le meuble de la cuisine
+     * @param meuble
+     */
+    public void remove(MeubleModele.Meuble meuble){
+        this.content.getChildren().remove(meuble.getForme());
     }
 
     /**

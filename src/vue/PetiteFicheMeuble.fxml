@@ -9,67 +9,81 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="ficheContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+      <VBox fx:id="ficheContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: beige;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane style="-fx-border-color: black; -fx-background-color: white;">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <ImageView fx:id="image" fitHeight="50.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <image>
-                        <Image url="@../Sprites/cuisine-americaine.png" />
-                     </image>
-                  </ImageView>
+                  <AnchorPane style="-fx-border-color: black; -fx-background-color: white;">
+                     <children>
+                        <ImageView fx:id="image" fitHeight="50.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../Sprites/cuisine-americaine.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="113.0" spacing="5.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-width: 2px;">
+                     <children>
+                        <Label fx:id="nameLabel" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Nom">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="marqueLabel" text="Marque">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
                </children>
-            </AnchorPane>
-            <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="113.0" spacing="5.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-width: 2px;">
-               <children>
-                  <Label fx:id="nameLabel" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Nom">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="marqueLabel" text="Marque">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
+               <VBox.margin>
                   <Insets />
-               </HBox.margin>
+               </VBox.margin>
+            </HBox>
+            <VBox>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="dimensionLabel" text="Dimensions :" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dimensionsText" text="0x0" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Prix :" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="prixText" text="0€" />
+                     </children>
+                  </HBox>
+               </children>
             </VBox>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <VBox>
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <Label fx:id="dimensionLabel" text="Dimensions :" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="dimensionsText" text="0x0" textAlignment="CENTER" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <Label text="Prix :" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="prixText" text="0€" />
-               </children>
-            </HBox>
-         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </VBox>
+      <HBox spacing="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="nbMeubleMultiplicateur" />
+            <Label fx:id="nbMeuble" />
+         </children>
+         <padding>
+            <Insets right="5.0" />
+         </padding>
+      </HBox>
    </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
-</VBox>
+</AnchorPane>

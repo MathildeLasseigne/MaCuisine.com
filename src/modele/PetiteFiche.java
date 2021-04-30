@@ -12,10 +12,13 @@ public class PetiteFiche extends Pane {
 
     private PetiteFicheController controller;
 
+    private Data.Origine origine = null;
+
     Parent content;
     String originalContentStyle;
 
-    public PetiteFiche(MeubleModele meubleModele) {
+    public PetiteFiche(MeubleModele meubleModele, Data.Origine origine) {
+        this.origine = origine;
         this.meubleModele = meubleModele;
         this.controller = new PetiteFicheController(this);
         //TODO load le fxml et add to children
@@ -55,4 +58,12 @@ public class PetiteFiche extends Pane {
         return meubleModele;
     }
 
+
+    /**
+     * Renvoie l origine de la fiche (Panier, Catalogue, Plan)
+     * @return
+     */
+    public Data.Origine getOrigine() {
+        return origine;
+    }
 }
