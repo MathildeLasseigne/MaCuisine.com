@@ -32,8 +32,6 @@ public class SelectionController extends FXMLController {
     @FXML
     private TextField HAUTEUR;
 
-    @FXML
-    private Button appliquerButton;
 
     /**
      * Verifie si la cuisine a ete creee a l instant ou non

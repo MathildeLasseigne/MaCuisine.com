@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
@@ -30,11 +31,12 @@ public class DialogTest extends Application {
 
         //Setting the title
         dialog.setTitle("Dialog");
-        ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
+        ButtonType type = new ButtonType("Appliquer", ButtonData.OK_DONE);
         //Setting the content of the dialog
         //dialog.setContentText("This is a sample dialog");
         //dialog.setGraphic(selectionGraphic);
-        dialog.getDialogPane().setContent(selectionGraphic);
+        //dialog.getDialogPane().setContent(selectionGraphic);
+        dialog.setDialogPane((DialogPane) selectionGraphic);
         //Adding buttons to the dialog pane
         dialog.getDialogPane().getButtonTypes().add(type);
         //Setting the label
