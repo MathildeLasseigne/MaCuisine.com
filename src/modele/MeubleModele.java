@@ -614,7 +614,7 @@ public class MeubleModele {
         public Meuble(){
             initId();
             buildForme();
-            Data.panneaux.cuisine.add(this);
+            Data.getCurrentSession().panneaux.cuisine.add(this);
             reset(true);
             setHandlers();
             this.dragController = new DragController(this.getForme());
@@ -664,7 +664,7 @@ public class MeubleModele {
             this.selected.unbind();
             this.isClickedMove.set(false);
             getDragController().getDraggableProperty().unbind();
-            Data.panneaux.cuisine.remove(this);
+            Data.getCurrentSession().panneaux.cuisine.remove(this);
         }
 
         /**

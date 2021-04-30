@@ -86,7 +86,7 @@ public class CuisineController extends Controller{
      * Rend le dessin de la grille automatique
      */
     private void setChangeGrille(){
-        Data.properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
+        Data.getCurrentSession().properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
             this.cuisine.draw(this.gc);
         });
     }

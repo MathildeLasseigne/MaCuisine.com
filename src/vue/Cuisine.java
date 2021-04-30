@@ -62,7 +62,7 @@ public class Cuisine extends ScrollPane {
         this.content = (Pane) contentContainer;
         this.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         this.setMinSize(USE_COMPUTED_SIZE,USE_COMPUTED_SIZE);
-        Data.panneaux.cuisine = this;
+        Data.getCurrentSession().panneaux.cuisine = this;
 
         this.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             this.content.requestFocus();
@@ -144,7 +144,7 @@ public class Cuisine extends ScrollPane {
      * @param gc le contexte graphique du plan
      */
     public void drawGrille(GraphicsContext gc){
-        if(Data.properties.isGrilleVisible.get()){
+        if(Data.getCurrentSession().properties.isGrilleVisible.get()){
             //TODO grilles with grilleInsets
             gc.setLineWidth(1);
             gc.setStroke(Color.BURLYWOOD);

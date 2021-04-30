@@ -67,9 +67,9 @@ public class BigFicheController extends Controller {
     private void setHandler(){
         this.meuble.isSelectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                Data.panneaux.infoPane.select(meuble);
+                Data.getCurrentSession().panneaux.infoPane.select(meuble);
             } else {
-                Data.panneaux.infoPane.unselect();
+                Data.getCurrentSession().panneaux.infoPane.unselect();
             }
         });
     }

@@ -60,7 +60,7 @@ public class PetiteFicheController extends Controller {
                 meubleModele.createMeuble();
                 meubleModele.getIsClickedMoveProperty().set(true);
             }
-            Data.panneaux.cuisine.requestFocus();
+            Data.getCurrentSession().panneaux.cuisine.requestFocus();
             meubleModele.getMeuble().getParent().requestFocus();
             meubleModele.getMeuble().requestFocus();
             GestionaireMeubles.select(meubleModele);

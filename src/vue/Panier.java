@@ -18,7 +18,7 @@ public class Panier {
     public Panier(HashMap<MeubleModele.Type, VBox> listTypes){
         //this.container = container;
         this.listTypes = listTypes;
-        Data.panneaux.panier = this;
+        Data.getCurrentSession().panneaux.panier = this;
     }
 
     /**

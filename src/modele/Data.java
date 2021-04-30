@@ -17,14 +17,29 @@ public class Data {
      */
     public enum Origine {Catalogue, Panier, Plan};
 
-
-    /**La liste des properties, notament celles utilisees par la tools Bar**/
-    public static Properties properties = new Properties();
+    private static Session currentSession = new Session();
 
     /**
-     * La liste de tous les panes de l appli utilisables
+     * Renvoie la session en cours
+     * @return
      */
-    public static Panneaux panneaux = new Panneaux();
+    public static Session getCurrentSession() {
+        if(currentSession != null){
+            return currentSession;
+        } else {
+            loadSession(new Session());
+            return getCurrentSession();
+        }
+    }
+
+    /**
+     * Enregistre la session donnee comme la session actuelle
+     * @param session
+     */
+    public static void loadSession(Session session){
+        currentSession = session;
+    }
+
 
 
     /**String de test. Les 2 premiers paragraphes de lorem ipsum**/
@@ -33,66 +48,101 @@ public class Data {
             "In lacinia commodo quam ut dapibus. Sed vel felis sapien. Nulla rutrum lectus eget est semper consequat. In felis urna, efficitur vitae ultricies id, viverra eu neque. Donec nec aliquet nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Suspendisse vitae tincidunt magna. Praesent vestibulum tortor quis mattis sodales. Nulla finibus leo arcu, auctor ultrices est feugiat at. ";
 
 
-    /**Le gestionnaire de meuble**/
-    public static GestionaireMeubles gestionaireMeubles = null;
+    public static class Session {
 
-    public static class Properties {
 
-        public Properties(){
+        /**La liste des properties, notament celles utilisees par la tools Bar**/
+        public Properties properties = new Properties();
+
+        /**
+         * La liste de tous les panes de l appli utilisables
+         */
+        public Panneaux panneaux = new Panneaux();
+
+
+        /**Le gestionnaire de meuble**/
+        public static GestionaireMeubles gestionaireMeubles = null;
+
+        public Session(){
 
         }
 
-        /**
-         * Defini si la grille est visible.
-         * <br/>Initialise par le CuisineController
-         */
-        public BooleanProperty isGrilleVisible = new SimpleBooleanProperty(false);
+        public static class Properties {
 
-        /**
-         * Defini si il est possible de deplacer les meubles dans le plan.
-         * <br/>Initialise par le CuisineController
-         */
-        public BooleanProperty isMeubleMovable = new SimpleBooleanProperty(true);
+            public Properties(){
+
+            }
+
+            /**
+             * Defini si la grille est visible.
+             * <br/>Initialise par le CuisineController
+             */
+            public BooleanProperty isGrilleVisible = new SimpleBooleanProperty(false);
+
+            /**
+             * Defini si il est possible de deplacer les meubles dans le plan.
+             * <br/>Initialise par le CuisineController
+             */
+            public BooleanProperty isMeubleMovable = new SimpleBooleanProperty(true);
 
 
+        }
+
+        public static class Panneaux {
+
+            public Panneaux(){
+                this.infoPane = new InfoPane();
+            }
+
+            /**
+             * Commit le meuble a tous les panneaux
+             * @param meuble le meuble a commit
+             * @see Panier#initCommit(MeubleModele)
+             * @see Catalogue#initCommit(MeubleModele)
+             * @see InfoPane#initCommit(MeubleModele)
+             */
+            public void initCommit(MeubleModele meuble){
+                this.getPanier().initCommit(meuble);
+                this.getCatalogue().initCommit(meuble);
+                this.infoPane.initCommit(meuble);
+            }
+
+            /**La gestion de la vue du panier
+             * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
+            public Panier panier;
+
+            /**La gestion de la vue du catalogue
+             * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
+            public Catalogue catalogue;
+
+            /**La gestion de la vue du panneau information
+             * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
+            public InfoPane infoPane;
+
+            /**
+             * La cuisine au milieu de l appli
+             */
+            public Cuisine cuisine;
+
+            /**
+             * La gestion de la vue du panier
+             * @return
+             */
+            public Panier getPanier() {
+                return panier;
+            }
+
+            /**
+             * La gestion de la vue du catalogue
+             * @return
+             */
+            public Catalogue getCatalogue() {
+                return catalogue;
+            }
+        }
     }
 
-    public static class Panneaux {
 
-        public Panneaux(){
 
-        }
-
-        /**
-         * Commit le meuble a tous les panneaux
-         * @param meuble le meuble a commit
-         * @see Panier#initCommit(MeubleModele)
-         * @see Catalogue#initCommit(MeubleModele)
-         * @see InfoPane#initCommit(MeubleModele)
-         */
-        public void initCommit(MeubleModele meuble){
-            this.panier.initCommit(meuble);
-            this.catalogue.initCommit(meuble);
-            this.infoPane.initCommit(meuble);
-        }
-        
-        /**La gestion de la vue du panier
-         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
-        public Panier panier;
-
-        /**La gestion de la vue du catalogue
-         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
-        public Catalogue catalogue;
-
-        /**La gestion de la vue du panneau information
-         * <br/>Initialise par le controlleur de l appli, mais s ajoute lui meme**/
-        public InfoPane infoPane;
-
-        /**
-         * La cuisine au milieu de l appli
-         */
-        public Cuisine cuisine;
-
-    }
 
 }

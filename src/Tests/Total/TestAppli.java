@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import modele.Data;
 import modele.GestionaireMeubles;
 import vue.Cuisine;
 
@@ -23,6 +24,8 @@ public class TestAppli extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         primaryStage.setTitle("Test Appli");
+
+        Data.getCurrentSession();
 
         Cuisine cuisine = new Cuisine(300,400);
 

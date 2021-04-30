@@ -116,10 +116,11 @@ public class AppliTestController extends Controller {
         this.linkMeublesVbox();
         new Panier(panierVBox);
         new Catalogue(catalogueVBox);
-        new InfoPane(infoPane, baseInfoText);
+        container.setRight(Data.getCurrentSession().panneaux.infoPane.getInfoPane());
+        //new InfoPane(infoPane, baseInfoText);
         //new AnchorPane(anchorCatalogue, anchorPanier);
 
-        Data.properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
+        Data.getCurrentSession().properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.moveImageView.setImage(this.moveImage);
             } else {
@@ -127,7 +128,7 @@ public class AppliTestController extends Controller {
             }
         });
 
-        Data.properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
+        Data.getCurrentSession().properties.isGrilleVisible.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.grilleImageView.setImage(this.grilleImage);
             } else {
@@ -151,12 +152,12 @@ public class AppliTestController extends Controller {
 
     @FXML
     public void moveHandler(){
-        Data.properties.isMeubleMovable.set(! Data.properties.isMeubleMovable.get());
+        Data.getCurrentSession().properties.isMeubleMovable.set(! Data.getCurrentSession().properties.isMeubleMovable.get());
     }
 
     @FXML
     public void grilleHandler(){
-        Data.properties.isGrilleVisible.set(! Data.properties.isGrilleVisible.get());
+        Data.getCurrentSession().properties.isGrilleVisible.set(! Data.getCurrentSession().properties.isGrilleVisible.get());
     }
 
     /**

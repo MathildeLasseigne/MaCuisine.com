@@ -1,26 +1,44 @@
 package vue;
 
+import controller.InfoPaneController;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import modele.Data;
 import modele.MeubleModele;
 
+import java.io.IOException;
+
 public class InfoPane {
+
+    private Pane container;
 
     private StackPane infoPane;
 
     private Pane defaultPane;
 
+    private InfoPaneController ctrl;
+
     /**
      * Defini le panneau d informations sous la forme d un stackPane.
-     * @param infoPane le contener du panneau
-     * @param initPane le premier panneau enregistre, celui par default
      * @see StackPane
      */
-    public InfoPane(StackPane infoPane, Pane initPane){
-        this.infoPane = infoPane;
-        this.defaultPane = initPane;
-        Data.panneaux.infoPane = this;
+    public InfoPane(){
+
+        this.ctrl = new InfoPaneController();
+        Parent p = null;
+        try {
+            p = this.ctrl.loadFXMLWithController(getClass().getResource("InfoPane.fxml"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        this.container = (Pane) p;
+
+
+
+        this.infoPane = this.ctrl.getInfoPane();
+        this.defaultPane = this.ctrl.getBaseInfoText();
+        //Data.getCurrentSession().panneaux.infoPane = this;
     }
 
     /**
@@ -45,6 +63,14 @@ public class InfoPane {
      */
     public void select(MeubleModele meuble){
         meuble.getBigFiche().toFront();
+    }
+
+    /**
+     * Renvoie la pane complete de l infoPane.
+     * @return
+     */
+    public Pane getInfoPane(){
+        return this.container;
     }
 
 }

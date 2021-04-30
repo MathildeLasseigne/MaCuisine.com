@@ -33,8 +33,8 @@ public class GestionaireMeubles {
     public GestionaireMeubles(Cuisine cuisine){
         this.cuisine = cuisine;
         initCatalogue();
-        this.isMovable.bind(Data.properties.isMeubleMovable);
-        Data.gestionaireMeubles = this;
+        this.isMovable.bind(Data.getCurrentSession().properties.isMeubleMovable);
+        Data.getCurrentSession().gestionaireMeubles = this;
     }
 
 
@@ -109,7 +109,7 @@ public class GestionaireMeubles {
      */
     private void addToPanier(MeubleModele meubleModele){
         this.panier.add(meubleModele);
-        Data.panneaux.panier.add(meubleModele);
+        Data.getCurrentSession().panneaux.getPanier().add(meubleModele);
     }
 
     /**
@@ -132,7 +132,7 @@ public class GestionaireMeubles {
         this.panier.remove(meubleModele);
         //meubleModele.isInPlanProperty().set(false);
         //meubleModele.reset();
-        Data.panneaux.panier.remove(meubleModele);
+        Data.getCurrentSession().panneaux.getPanier().remove(meubleModele);
     }
 
 
@@ -175,7 +175,7 @@ public class GestionaireMeubles {
             }
         });
         setChecker(meubleModele);
-        Data.panneaux.initCommit(meubleModele);
+        Data.getCurrentSession().panneaux.initCommit(meubleModele);
         //meubleModele.reset();
     }
 
