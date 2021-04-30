@@ -168,6 +168,18 @@ public class MeubleModele {
     public Image getImg(){return this.img;}
 
     /**
+     * Définit un type pour le meuble
+     * @param type
+     */
+    public void setType(Type type) { this.type = type; }
+
+    /**
+     * Renvoie le type du meuble.
+     * @return le type du meuble
+     */
+    public Type getType() {return this.type;}
+
+    /**
      * Deplace le point vers celui donne
      * @param p
      */
