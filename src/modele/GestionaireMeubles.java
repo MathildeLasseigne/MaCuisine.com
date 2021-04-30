@@ -185,16 +185,18 @@ public class GestionaireMeubles {
      */
     private void initCatalogue(){
         //TODO init les meubles et les met dans la vue
-        MeubleModele m1 = new MeubleModele("Meuble1", "MaCuisine.com", 100,100,50);
+        MeubleModele m1 = new MeubleModele("Meuble1", "MaCuisine.com", MeubleModele.Type.Meubles,100,100,50);
         addCatalogue(m1);
-        MeubleModele m2 = new MeubleModele("Meuble2", "MaCuisine.com", 100,60,60);
+        MeubleModele m2 = new MeubleModele("Meuble2", "MaCuisine.com", MeubleModele.Type.Meubles,100,60,60);
         addCatalogue(m2);
-        MeubleModele m3 = new MeubleModele("Meuble3", "MaCuisine.com", 100,30,60);
+        MeubleModele m3 = new MeubleModele("Meuble3", "MaCuisine.com", MeubleModele.Type.Meubles,100,30,60);
         addCatalogue(m3);
-        MeubleModele m4 = new MeubleModele("Meuble4", "MaCuisine.com", 100,20,50);
+        MeubleModele m4 = new MeubleModele("Meuble4", "MaCuisine.com", MeubleModele.Type.Meubles,100,20,50);
         addCatalogue(m4);
-        MeubleModele m5 = new MeubleModele("Meuble5", "MaCuisine.com", 30,30,30);
+        MeubleModele m5 = new MeubleModele("Meuble5", "MaCuisine.com", MeubleModele.Type.Meubles,30,30,30);
         addCatalogue(m5);
+        MeubleModele m6 = new MeubleModele("Meuble6", "MaCuisine.com", MeubleModele.Type.Meubles,40,40,40);
+        addCatalogue(m6);
     }
 
     /**

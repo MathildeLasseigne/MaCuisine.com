@@ -2,7 +2,6 @@ package controller;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -10,7 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 /**
  * Encapsulate the drag responsibility of a node in a class.
@@ -367,7 +366,7 @@ public class DragController {
      * @see DragController#dragHandler(MouseEvent)
      * @see DragController#releaseHandler(MouseEvent)
      */
-    public void setAnchors(@NotNull Point2D anchor){
+    public void setAnchors(Point2D anchor){
         this.anchorX = anchor.getX();
         this.anchorY = anchor.getY();
         target.getLayoutY();

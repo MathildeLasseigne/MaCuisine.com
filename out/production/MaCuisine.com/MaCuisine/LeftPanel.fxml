@@ -20,7 +20,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="400.0" minWidth="280.0" style="-fx-border-color: gray;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="400.0" minWidth="230.0" style="-fx-border-color: gray;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Panier">
             <content>
