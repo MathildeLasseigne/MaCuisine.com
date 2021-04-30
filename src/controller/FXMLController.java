@@ -9,11 +9,11 @@ import java.net.URL;
 /**
  * Abstract class containing methods for FXML controllers
  */
-public abstract class Controller {
+public abstract class FXMLController {
 
     /**
      * The FXMLLoader used if Controller linked to fxml file with <i>loadFXMLWithController</i>
-     * @see Controller#loadFXMLWithController(URL)
+     * @see FXMLController#loadFXMLWithController(URL)
      */
     protected FXMLLoader fxmlLoader;
 
@@ -23,8 +23,8 @@ public abstract class Controller {
      * @param fxmlPath path to fxml file
      * @return the fxml file content as Parent
      * @throws IOException
-     * @see Controller#loadFXMLWithController(URL, Controller)
-     * @see Controller#fxmlLoader
+     * @see FXMLController#loadFXMLWithController(URL, FXMLController)
+     * @see FXMLController#fxmlLoader
      */
     public Parent loadFXMLWithController(URL fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(fxmlPath);
@@ -39,14 +39,14 @@ public abstract class Controller {
     /**
      * Load the fxml with an instanciated Controller
      * @param fxmlPath path to fxml file
-     * @param controller the instanciated Controller
+     * @param FXMLController the instanciated Controller
      * @return the fxml file content as Parent
      * @throws IOException
-     * @see Controller#loadFXMLWithController(URL)
+     * @see FXMLController#loadFXMLWithController(URL)
      */
-    public static Parent loadFXMLWithController(URL fxmlPath, Controller controller) throws IOException {
+    public static Parent loadFXMLWithController(URL fxmlPath, FXMLController FXMLController) throws IOException {
         FXMLLoader loader = new FXMLLoader(fxmlPath);
-        loader.setController(controller);
+        loader.setController(FXMLController);
         Parent fxmlContent = null;
         fxmlContent = loader.load();
         return fxmlContent;

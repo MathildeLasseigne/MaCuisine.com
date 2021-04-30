@@ -3,7 +3,9 @@ package modele;
 import controller.ControllerManager;
 import controller.DragController;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import org.jetbrains.annotations.TestOnly;
 import vue.Cuisine;
@@ -25,6 +27,8 @@ public class GestionaireMeubles {
 
     /**Les meubles dans le panier**/
     private ArrayList<MeubleModele> panier = new ArrayList<>();
+
+    private DoubleProperty totalPricePanier = new SimpleDoubleProperty(0);
 
     /**
      * Le gestionnaire de tous les meubles.
@@ -136,6 +140,16 @@ public class GestionaireMeubles {
     }
 
 
+    /**
+     * Met a jour le prix total du panier
+     */
+    public void updateTotalPricePanier(){
+        double price = 0;
+        for(MeubleModele m : panier){
+            price += m.getPrixTotal();
+        }
+        this.totalPricePanierProperty().set(price);
+    }
 
 
     /**
@@ -173,6 +187,7 @@ public class GestionaireMeubles {
             } else {
                 removeFromPanier(meubleModele);
             }
+            updateTotalPricePanier();
         });
         setChecker(meubleModele);
         Data.getCurrentSession().panneaux.initCommit(meubleModele);
@@ -215,4 +230,11 @@ public class GestionaireMeubles {
         }
     }
 
+    /**
+     * Renvoie le cout total du panier
+     * @return
+     */
+    public DoubleProperty totalPricePanierProperty() {
+        return totalPricePanier;
+    }
 }

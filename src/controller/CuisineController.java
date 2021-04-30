@@ -1,16 +1,11 @@
 package controller;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import modele.Data;
 import modele.GestionaireMeubles;
 import vue.Cuisine;
@@ -18,7 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.geometry.Point2D;
 
-public class CuisineController extends Controller{
+public class CuisineController extends FXMLController {
 
     Cuisine cuisine;
 

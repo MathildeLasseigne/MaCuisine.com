@@ -14,7 +14,7 @@ public class Catalogue {
     public Catalogue(HashMap<MeubleModele.Type, VBox> listTypes){
         //this.container = container;
         this.listTypes = listTypes;
-        Data.getCurrentSession().panneaux.catalogue = this;
+        //Data.getCurrentSession().panneaux.catalogue = this;
     }
 
 

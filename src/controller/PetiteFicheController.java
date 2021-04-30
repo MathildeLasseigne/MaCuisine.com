@@ -12,7 +12,7 @@ import modele.PetiteFiche;
 
 
 
-public class PetiteFicheController extends Controller {
+public class PetiteFicheController extends FXMLController {
 
     private MeubleModele meubleModele;
     private PetiteFiche petiteFiche;

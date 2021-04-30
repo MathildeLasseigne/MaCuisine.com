@@ -1,6 +1,6 @@
 package Tests.Total;
 
-import controller.Controller;
+import controller.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,13 +14,12 @@ import modele.GestionaireMeubles;
 import modele.MeubleModele;
 import vue.Catalogue;
 import vue.Cuisine;
-import vue.InfoPane;
 import vue.Panier;
 
 import java.util.HashMap;
 
 
-public class AppliTestController extends Controller {
+public class AppliTestController extends FXMLController {
 
 
     private Cuisine cuisine;
@@ -113,10 +112,11 @@ public class AppliTestController extends Controller {
     @FXML
     public void initialize(){
         container.setCenter(cuisine);
-        this.linkMeublesVbox();
-        new Panier(panierVBox);
-        new Catalogue(catalogueVBox);
+        //this.linkMeublesVbox();
+        //new Panier(panierVBox);
+        //new Catalogue(catalogueVBox);
         container.setRight(Data.getCurrentSession().panneaux.infoPane.getInfoPane());
+        container.setLeft(Data.getCurrentSession().panneaux.leftPannel.getLeftPannel());
         //new InfoPane(infoPane, baseInfoText);
         //new AnchorPane(anchorCatalogue, anchorPanier);
 

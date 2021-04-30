@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class InfoPaneController extends Controller{
+public class InfoPaneController extends FXMLController {
 
     @FXML
     private StackPane infoPane;

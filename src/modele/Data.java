@@ -2,10 +2,7 @@ package modele;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import vue.Catalogue;
-import vue.Cuisine;
-import vue.InfoPane;
-import vue.Panier;
+import vue.*;
 
 /**
  * Reuni la liste des booleans representant les options que l utilisateur peut afficher
@@ -92,6 +89,9 @@ public class Data {
 
             public Panneaux(){
                 this.infoPane = new InfoPane();
+                this.leftPannel = new LeftPannel();
+                this.catalogue = leftPannel.getCatatalogue();
+                this.panier = leftPannel.getPanier();
             }
 
             /**
@@ -123,6 +123,8 @@ public class Data {
              * La cuisine au milieu de l appli
              */
             public Cuisine cuisine;
+
+            public LeftPannel leftPannel;
 
             /**
              * La gestion de la vue du panier

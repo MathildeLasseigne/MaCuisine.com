@@ -10,7 +10,7 @@ import modele.Data;
 import modele.MeubleModele;
 
 
-public class BigFicheController extends Controller {
+public class BigFicheController extends FXMLController {
 
     @FXML
     private ImageView image;

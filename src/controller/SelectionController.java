@@ -13,7 +13,7 @@ import javafx.util.StringConverter;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class SelectionController extends Controller{
+public class SelectionController extends FXMLController {
 
 
 
