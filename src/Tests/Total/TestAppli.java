@@ -1,6 +1,7 @@
 package Tests.Total;
 
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -19,11 +20,9 @@ public class TestAppli extends Application {
 
         primaryStage.setTitle("Test Appli");
 
-        Data.getCurrentSession();
+        Data.createNewSession(new Point2D(300,400));
 
-        Cuisine cuisine = new Cuisine(300,400);
-
-        AppliTestController globalController = new AppliTestController(cuisine);
+        AppliTestController globalController = new AppliTestController(Data.getCurrentSession().panneaux.cuisine);
         BorderPane root = (BorderPane) globalController.loadFXMLWithController(getClass().getResource("AppliTest4.fxml"));
 
         Rectangle dimEcran = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -39,8 +38,8 @@ public class TestAppli extends Application {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../../Sprites/plan.png")));
         primaryStage.show();
         globalController.setGlobalEventHandler(root);
-        GestionaireMeubles meubles = new GestionaireMeubles(cuisine);
-        meubles.initPanierTest(4);
+        //Data.getCurrentSession().createGestionnaireMeubles();
+        //meubles.initPanierTest(4);
     }
 
 

@@ -1,7 +1,9 @@
 package modele;
 
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Point2D;
 import vue.*;
 
 /**
@@ -14,17 +16,18 @@ public class Data {
      */
     public enum Origine {Catalogue, Panier, Plan};
 
-    private static Session currentSession = new Session();
+    private static Session currentSession = null;
 
     /**
-     * Renvoie la session en cours
+     * Renvoie la session en cours.
+     * <br/>Si aucune session n est en cours, cree une nouvelle session avec une cuisine de 300*300
      * @return
      */
     public static Session getCurrentSession() {
         if(currentSession != null){
             return currentSession;
         } else {
-            loadSession(new Session());
+            createNewSession(new Point2D(300,300));
             return getCurrentSession();
         }
     }
@@ -37,6 +40,17 @@ public class Data {
         currentSession = session;
     }
 
+    /**
+     * Cree une nouvelle session
+     * @param dimensionsCuisine
+     */
+    public static void createNewSession(Point2D dimensionsCuisine){
+        Session s = new Session(dimensionsCuisine);
+        loadSession(s);
+        s.panneaux.setCuisine();
+        Platform.runLater(()->{s.createGestionnaireMeubles();});
+    }
+
 
 
     /**String de test. Les 2 premiers paragraphes de lorem ipsum**/
@@ -47,25 +61,39 @@ public class Data {
 
     public static class Session {
 
+        private Point2D dimensionsCuisine = null;
 
         /**La liste des properties, notament celles utilisees par la tools Bar**/
-        public Properties properties = new Properties();
+        public Properties properties;
 
         /**
          * La liste de tous les panes de l appli utilisables
          */
-        public Panneaux panneaux = new Panneaux();
+        public Panneaux panneaux;
 
 
         /**Le gestionnaire de meuble**/
-        public static GestionaireMeubles gestionaireMeubles = null;
+        public GestionaireMeubles gestionaireMeubles = null;
 
-        public Session(){
+        public Session(Point2D dimensionsCuisine){
+            this.dimensionsCuisine = dimensionsCuisine;
+            this.properties = new Properties();
+            this.panneaux = new Panneaux();
 
+        }
+
+        /**
+         * Cree un nouveau gestionnaire de meubles, a invoquer apres .show
+         */
+        public void createGestionnaireMeubles(){
+            this.gestionaireMeubles = new GestionaireMeubles(panneaux.cuisine);
         }
 
         public static class Properties {
 
+            /**
+             * Les properties de la session actuelle
+             */
             public Properties(){
 
             }
@@ -85,8 +113,11 @@ public class Data {
 
         }
 
-        public static class Panneaux {
+        public class Panneaux {
 
+            /**
+             * Instancie la session actuelle
+             */
             public Panneaux(){
                 this.infoPane = new InfoPane();
                 this.leftPannel = new LeftPannel();
@@ -140,6 +171,10 @@ public class Data {
              */
             public Catalogue getCatalogue() {
                 return catalogue;
+            }
+
+            protected void setCuisine() {
+                this.cuisine = new Cuisine(dimensionsCuisine.getX(),dimensionsCuisine.getY());
             }
         }
     }

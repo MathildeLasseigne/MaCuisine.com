@@ -62,7 +62,7 @@ public class Cuisine extends ScrollPane {
         this.content = (Pane) contentContainer;
         this.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         this.setMinSize(USE_COMPUTED_SIZE,USE_COMPUTED_SIZE);
-        Data.getCurrentSession().panneaux.cuisine = this;
+        //Data.getCurrentSession().panneaux.cuisine = this;
 
         this.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             this.content.requestFocus();
