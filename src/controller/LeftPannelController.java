@@ -90,7 +90,7 @@ public class LeftPannelController extends FXMLController {
      * @param totalPrice
      */
     public void bindTotalPrice(DoubleProperty totalPrice){
-        this.totalprice.textProperty().bind(totalPrice.asString());
+        this.totalprice.textProperty().bind(totalPrice.asString().concat("€"));
     }
 
     /**

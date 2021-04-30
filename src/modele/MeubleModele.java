@@ -772,6 +772,7 @@ public class MeubleModele implements Serializable {
                         nbMeuble.set(nbMeuble.get()-1);
                     }
                 }
+                Data.getCurrentSession().gestionaireMeubles.updateTotalPricePanier();
             });
 
             inPlan.addListener((observable, oldValue, newValue) -> {

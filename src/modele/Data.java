@@ -89,6 +89,7 @@ public class Data {
          */
         public void createGestionnaireMeubles(){
             this.gestionaireMeubles = new GestionaireMeubles(panneaux.cuisine);
+            this.panneaux.leftPannel.getCtrl().bindTotalPrice(this.gestionaireMeubles.totalPricePanierProperty());
         }
 
         public static class Properties implements Serializable {

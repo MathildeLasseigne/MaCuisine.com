@@ -59,4 +59,12 @@ public class LeftPannel implements Serializable {
     public Catalogue getCatatalogue() {
         return catatalogue;
     }
+
+    /**
+     * Renvoie le controlleur du leftPanel
+     * @return
+     */
+    public LeftPannelController getCtrl() {
+        return ctrl;
+    }
 }
