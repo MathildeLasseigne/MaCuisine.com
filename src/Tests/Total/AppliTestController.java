@@ -56,12 +56,20 @@ public class AppliTestController extends Controller {
     private VBox panierMeublesVbox;
     private VBox panierTablesVbox;
     private VBox panierChaisesVbox;
-    private VBox
+    private VBox panierGElectroVbox;
+    private VBox panierPElectroVBox;
+    private VBox panierPlomberieVBox;
 
 
     /**Vbox pour chaque type de meuble du catalogue**/
 
-
+    @FXML
+    private VBox catalogueMeublesVbox;
+    private VBox catalogueTablesVbox;
+    private VBox catalogueChaisesVbox;
+    private VBox catalogueGElectroVbox;
+    private VBox cataloguePElectroVBox;
+    private VBox cataloguePlomberieVBox;
 
     @FXML
     private ImageView moveImageView;
@@ -75,14 +83,14 @@ public class AppliTestController extends Controller {
 
     /*-----------------Pas FXML-----------------------*/
 
+    /**Hashmap des types de meubles et de leur VBox associé**/
+    private HashMap<MeubleModele.Type, VBox> panierVBox = new HashMap<>();
+    private HashMap<MeubleModele.Type, VBox> catalogueVBox = new HashMap<>();
 
     /**Les images du button move**/
     private Image moveImage, dontMoveImage;
     /**Les images du bouton grille**/
     private Image grilleImage, grilleCrossedImage;
-
-    HashMap<MeubleModele.Type, VBox> panierVBox = new HashMap<>();
-    HashMap<MeubleModele.Type, VBox> catalogueVBox = new HashMap<>();
 
     public AppliTestController(Cuisine cuisine){
         this.cuisine = cuisine;
@@ -156,11 +164,12 @@ public class AppliTestController extends Controller {
     }
 
     /**
-     * Crée des hashmap pour les types de meubles
+     * Relie les meubles à leur VBox associé dans les deux hashmap de catalogue et panier
      */
-    public void createHashmap() {
-        this.panierVBox.put("Meubles", panierMeublesVbox);
-        //Récupérer
+    public void linkMeublesVbox() {
+        /**Pour le panier**/
+        this.panierVBox.put(MeubleModele.Type.Meubles, panierMeublesVbox);
+        /**Récupérer pour le panier**/
         panierVBox.get("Meubles");
     }
 

@@ -11,7 +11,6 @@ public class Catalogue {
     private VBox container;
     private HashMap<MeubleModele.Type, VBox> listTypes;
 
-    //TODO : Remplacer par Hashmap
     public Catalogue(HashMap<MeubleModele.Type, VBox> listTypes){
         //this.container = container;
         this.listTypes = listTypes;
