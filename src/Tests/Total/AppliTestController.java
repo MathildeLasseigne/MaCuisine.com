@@ -101,8 +101,8 @@ public class AppliTestController extends FXMLController {
     /**Les images du bouton grille**/
     private Image grilleImage, grilleCrossedImage;
 
-    public AppliTestController(Cuisine cuisine){
-        this.cuisine = cuisine;
+    public AppliTestController(){
+        //this.cuisine = cuisine;
         this.moveImage = new Image(getClass().getResourceAsStream("../../Sprites/move.png"));
         this.dontMoveImage = new Image(getClass().getResourceAsStream("../../Sprites/dont-move.png"));
         this.grilleImage = new Image(getClass().getResourceAsStream("../../Sprites/hashtag.png"));
@@ -111,15 +111,16 @@ public class AppliTestController extends FXMLController {
 
     @FXML
     public void initialize(){
-        container.setCenter(cuisine);
-        //this.linkMeublesVbox();
-        //new Panier(panierVBox);
-        //new Catalogue(catalogueVBox);
+       //loadSession();
+    }
+
+    /**
+     * Load the current session into the application
+     */
+    public void loadSession(){
+        container.setCenter(Data.getCurrentSession().panneaux.cuisine);
         container.setRight(Data.getCurrentSession().panneaux.infoPane.getInfoPane());
         container.setLeft(Data.getCurrentSession().panneaux.leftPannel.getLeftPannel());
-        //new InfoPane(infoPane, baseInfoText);
-        //new AnchorPane(anchorCatalogue, anchorPanier);
-
         Data.getCurrentSession().properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.moveImageView.setImage(this.moveImage);

@@ -20,13 +20,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class DialogTest extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Creating a dialog
         Dialog<String> dialog = new Dialog<String>();
-        SelectionController dialogCtrl = new SelectionController();
+        SelectionController dialogCtrl = new SelectionController(stage);
         Node selectionGraphic = dialogCtrl.loadFXMLWithController(getClass().getResource("../../vue/SelectionCuisine.fxml"));
 
         //Setting the title

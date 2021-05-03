@@ -2,19 +2,29 @@ package controller;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
+import modele.Data;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 public class SelectionController extends FXMLController {
 
+
+    private Window owner;
 
 
     @FXML
@@ -33,19 +43,37 @@ public class SelectionController extends FXMLController {
     private TextField HAUTEUR;
 
 
+    private File fileSelection = null;
+
+
+    private StringProperty filePathProperty = new SimpleStringProperty("Selectionnez/un/fichier");
+
     /**
      * Verifie si la cuisine a ete creee a l instant ou non
      */
     private BooleanProperty isNewCuisine = new SimpleBooleanProperty(true);
 
-    public SelectionController(){
-
+    /**
+     * Cree le controlleur de la fenetre de selection
+     * @param owner souvent primaryStage
+     */
+    public SelectionController(Window owner){
+        this.owner = owner;
     }
 
     @FXML
     public void initialize(){
         this.LARGEUR.setTextFormatter(getDoubleFormater());
         this.HAUTEUR.setTextFormatter(getDoubleFormater());
+        this.filePath.textProperty().bind(this.filePathProperty);
+        searchFile.setOnAction((actionEvent)->{
+            try {
+                searchFileAction();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        cancelFile.setOnAction((actionEvent)->{cancelFileAction();});
     }
 
 
@@ -70,8 +98,39 @@ public class SelectionController extends FXMLController {
     /**
      * Cree une session dans data en fonction de la maniere dont la cuisine a ete creee
      */
-    public void createSession(){
+    public void loadSession(){
+        if(this.fileSelection == null){
+            Data.createNewSession(getDimensions());
+        } else {
+            System.out.println("Selectionner un fichier");
+        }
+    }
 
+    /**
+     * L action du button search File
+     */
+    public void searchFileAction() throws IOException {
+        cancelFileAction();
+        FileChooser filechooser = new FileChooser();
+        filechooser.setTitle("Open File");
+        filechooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        this.fileSelection = filechooser.showOpenDialog(owner);
+        if(this.fileSelection != null){
+            this.filePath.setTextFill(Color.BLACK);
+            this.filePathProperty.set(this.fileSelection.getCanonicalPath());
+        } else {
+            this.filePath.setTextFill(Color.RED);
+            this.filePathProperty.set("Ce fichier n a pas pu etre recupere");
+        }
+    }
+
+    /**
+     * L action d annuler la selection de file
+     */
+    public void cancelFileAction(){
+        this.filePath.setTextFill(Color.BLACK);
+        this.fileSelection = null;
+        this.filePathProperty.set("Selectionnez/un/fichier");
     }
 
 
