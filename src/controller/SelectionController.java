@@ -17,7 +17,9 @@ import javafx.util.StringConverter;
 import modele.Data;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -103,6 +105,12 @@ public class SelectionController extends FXMLController {
             Data.createNewSession(getDimensions());
         } else {
             System.out.println("Selectionner un fichier");
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.fileSelection))) {
+                Data.Session session = (Data.Session) in.readObject() ;
+                Data.loadSession(session);
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
         }
     }
 

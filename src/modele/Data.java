@@ -4,8 +4,13 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import vue.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -62,9 +67,24 @@ public class Data {
             "In lacinia commodo quam ut dapibus. Sed vel felis sapien. Nulla rutrum lectus eget est semper consequat. In felis urna, efficitur vitae ultricies id, viverra eu neque. Donec nec aliquet nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Suspendisse vitae tincidunt magna. Praesent vestibulum tortor quis mattis sodales. Nulla finibus leo arcu, auctor ultrices est feugiat at. ";
 
 
+    /**
+     * Sauvegarde la session a l aide d un fileChooser
+     * @param primaryStage
+     */
+    public static void saveSession(Stage primaryStage){
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        File file = chooser.showSaveDialog(primaryStage);
+        if (file != null) {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                out.writeObject(getCurrentSession());
+                out.flush();
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
 
-
-
+    }
 
 
 

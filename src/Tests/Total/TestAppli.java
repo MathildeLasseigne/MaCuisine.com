@@ -41,7 +41,7 @@ public class TestAppli extends Application {
 
         //Data.createNewSession(new Point2D(300,400));
 
-        AppliTestController globalController = new AppliTestController();
+        AppliTestController globalController = new AppliTestController(primaryStage);
         BorderPane root = (BorderPane) globalController.loadFXMLWithController(getClass().getResource("AppliTest4.fxml"));
 
         Rectangle dimEcran = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

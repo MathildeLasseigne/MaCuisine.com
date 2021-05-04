@@ -2,13 +2,17 @@ package Tests.Total;
 
 import controller.FXMLController;
 import javafx.fxml.FXML;
+import javafx.print.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
 import modele.Data;
 import modele.GestionaireMeubles;
 import modele.MeubleModele;
@@ -89,6 +93,12 @@ public class AppliTestController extends FXMLController {
     @FXML
     private ImageView grilleImageView;
 
+    @FXML
+    private MenuItem sauvegarder;
+
+    @FXML
+    private MenuItem imprimer;
+
 
     /*-----------------Pas FXML-----------------------*/
 
@@ -101,7 +111,10 @@ public class AppliTestController extends FXMLController {
     /**Les images du bouton grille**/
     private Image grilleImage, grilleCrossedImage;
 
-    public AppliTestController(){
+    private Stage primarystage;
+
+    public AppliTestController(Stage primaryStage){
+        this.primarystage = primaryStage;
         //this.cuisine = cuisine;
         this.moveImage = new Image(getClass().getResourceAsStream("../../Sprites/move.png"));
         this.dontMoveImage = new Image(getClass().getResourceAsStream("../../Sprites/dont-move.png"));
@@ -112,6 +125,8 @@ public class AppliTestController extends FXMLController {
     @FXML
     public void initialize(){
        //loadSession();
+        sauvegarder.setOnAction((actionEvent)->{Data.saveSession(primarystage);});
+        imprimer.setOnAction((actionEvent)->{printCuisine();});
     }
 
     /**
@@ -159,6 +174,45 @@ public class AppliTestController extends FXMLController {
     @FXML
     public void grilleHandler(){
         Data.getCurrentSession().properties.isGrilleVisible.set(! Data.getCurrentSession().properties.isGrilleVisible.get());
+    }
+
+
+    @FXML
+    public void printCuisine(){
+        PrinterJob job = PrinterJob.createPrinterJob();
+        Cuisine root = (Cuisine) container.getCenter();
+
+        if(job != null && job.showPrintDialog(root.getScene().getWindow())){
+            Printer printer = job.getPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.HARDWARE_MINIMUM);
+
+            //root.getTop().setVisible(false);
+            //root.getTop().setManaged(false);
+
+            double width = root.getWidth();
+            double height = root.getHeight();
+
+            PrintResolution resolution = job.getJobSettings().getPrintResolution();
+
+            width /= resolution.getFeedResolution();
+
+            height /= resolution.getCrossFeedResolution();
+
+            double scaleX = pageLayout.getPrintableWidth()/width/600;
+            double scaleY = pageLayout.getPrintableHeight()/height/600;
+
+            Scale scale = new Scale(scaleX, scaleY);
+
+            root.getTransforms().add(scale);
+
+            boolean success = job.printPage(pageLayout, root);
+            if(success){
+                job.endJob();
+            }
+            root.getTransforms().remove(scale);
+        }
+        //root.getTop().setManaged(true);
+        //root.getTop().setVisible(true);
     }
 
     /**
