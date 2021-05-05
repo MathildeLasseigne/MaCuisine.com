@@ -4,10 +4,12 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import vue.*;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Reuni la liste des booleans representant les options que l utilisateur peut afficher
  */
-public class Data {
+public class Data<rotationPas> {
 
     /**
      * Les differents panneaux de l appli
@@ -25,6 +27,8 @@ public class Data {
     public enum Origine {Catalogue, Panier, Plan};
 
     private static Session currentSession = null;
+
+    public final static int rotationPas = 10;
 
     /**
      * Renvoie la session en cours.
@@ -103,14 +107,32 @@ public class Data {
          */
         private ArrayList<MeubleModele> initMeubleModeleCatalogue(){
             ArrayList<MeubleModele> catalogue = new ArrayList<>();
-            catalogue.add(new MeubleModele("Table 1", "MaCuisine.com", MeubleModele.Type.Tables,29,110,67));
-            catalogue.add(new MeubleModele("Table 2", "MaCuisine.com", MeubleModele.Type.Tables,100,60,60));
-            catalogue.add(new MeubleModele("Table 3", "MaCuisine.com", MeubleModele.Type.Tables,499,160,95));
-            catalogue.add(new MeubleModele("Table 4", "MaCuisine.com", MeubleModele.Type.Tables,599,240,105));
-            catalogue.add(new MeubleModele("Table 5", "MaCuisine.com", MeubleModele.Type.Tables,39,74,60));
-            catalogue.add(new MeubleModele("Table 6", "MaCuisine.com", MeubleModele.Type.Tables,49,90,50));
-            catalogue.add(new MeubleModele("Meuble", "MaCuisine.com", MeubleModele.Type.Meubles,99,147,147));
-            catalogue.add(new MeubleModele("Chaise", "MaCuisine.com", MeubleModele.Type.Meubles,59,51,58));
+            // Création meubles
+            MeubleModele Table1 = new MeubleModele("Table 1", "MaCuisine.com", MeubleModele.Type.Tables,29,110,67);
+            MeubleModele Table2 = new MeubleModele("Table 2", "MaCuisine.com", MeubleModele.Type.Tables,100,60,60);
+            MeubleModele Table3 = new MeubleModele("Table 3", "MaCuisine.com", MeubleModele.Type.Tables,499,160,95);
+            MeubleModele Table4 = new MeubleModele("Table 4", "MaCuisine.com", MeubleModele.Type.Tables,599,240,105);
+            MeubleModele Table5 = new MeubleModele("Table 5", "MaCuisine.com", MeubleModele.Type.Tables,39,74,60);
+            MeubleModele Table6 = new MeubleModele("Table 6", "MaCuisine.com", MeubleModele.Type.Tables,49,90,50);
+            MeubleModele Meuble = new MeubleModele("Meuble", "MaCuisine.com", MeubleModele.Type.Meubles,99,147,147);
+            MeubleModele Chaise = new MeubleModele("Chaise", "MaCuisine.com", MeubleModele.Type.Meubles,59,51,58);
+            // Images meubles
+            Table1.setImg(new Image(getClass().getResourceAsStream("../Sprites/table1.png")));
+            Table2.setImg(new Image(getClass().getResourceAsStream("../Sprites/table2.png")));
+            Table3.setImg(new Image(getClass().getResourceAsStream("../Sprites/table3.png")));
+            Table4.setImg(new Image(getClass().getResourceAsStream("../Sprites/table4.png")));
+            Table5.setImg(new Image(getClass().getResourceAsStream("../Sprites/table5.png")));
+            Table6.setImg(new Image(getClass().getResourceAsStream("../Sprites/table6.png")));
+            Meuble.setImg(new Image(getClass().getResourceAsStream("../Sprites/meuble.png")));
+            Chaise.setImg(new Image(getClass().getResourceAsStream("../Sprites/chaise.png")));
+            // add catalogue
+            catalogue.add(Table2);
+            catalogue.add(Table3);
+            catalogue.add(Table4);
+            catalogue.add(Table5);
+            catalogue.add(Table6);
+            catalogue.add(Meuble);
+            catalogue.add(Chaise);
 
 
             return catalogue;

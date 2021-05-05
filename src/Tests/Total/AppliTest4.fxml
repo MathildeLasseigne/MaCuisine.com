@@ -37,6 +37,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                   <items>
+                        <MenuItem fx:id="imprimer1" mnemonicParsing="false" text="Nouveau" />
+                        <MenuItem fx:id="imprimer2" mnemonicParsing="false" text="Ouvrir" />
                     <MenuItem fx:id="sauvegarder" mnemonicParsing="false" text="Sauvegarder" />
                         <MenuItem fx:id="imprimer" mnemonicParsing="false" text="Imprimer" />
                   </items>
