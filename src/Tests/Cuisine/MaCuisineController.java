@@ -1,4 +1,4 @@
-package MaCuisine;
+package Tests.Cuisine;
 
 public class MaCuisineController {
 }

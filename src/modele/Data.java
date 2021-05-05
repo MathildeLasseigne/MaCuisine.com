@@ -108,15 +108,21 @@ public class Data<rotationPas> {
         private ArrayList<MeubleModele> initMeubleModeleCatalogue(){
             ArrayList<MeubleModele> catalogue = new ArrayList<>();
             // Création meubles
-            MeubleModele Table1 = new MeubleModele("Table 1", "MaCuisine.com", MeubleModele.Type.Tables,29,110,67);
-            MeubleModele Table2 = new MeubleModele("Table 2", "MaCuisine.com", MeubleModele.Type.Tables,100,60,60);
-            MeubleModele Table3 = new MeubleModele("Table 3", "MaCuisine.com", MeubleModele.Type.Tables,499,160,95);
-            MeubleModele Table4 = new MeubleModele("Table 4", "MaCuisine.com", MeubleModele.Type.Tables,599,240,105);
-            MeubleModele Table5 = new MeubleModele("Table 5", "MaCuisine.com", MeubleModele.Type.Tables,39,74,60);
-            MeubleModele Table6 = new MeubleModele("Table 6", "MaCuisine.com", MeubleModele.Type.Tables,49,90,50);
-            MeubleModele Meuble = new MeubleModele("Meuble", "MaCuisine.com", MeubleModele.Type.Meubles,99,147,147);
-            MeubleModele Chaise = new MeubleModele("Chaise", "MaCuisine.com", MeubleModele.Type.Meubles,59,51,58);
+            MeubleModele Table1 = new MeubleModele("Table acier noir", "MaCuisine.com", MeubleModele.Type.Tables,29,110,67);
+            MeubleModele Table2 = new MeubleModele("Petite table ronde", "MaCuisine.com", MeubleModele.Type.Tables,100,60,60);
+            MeubleModele Table3 = new MeubleModele("Table 4pers. blanche", "MaCuisine.com", MeubleModele.Type.Tables,499,160,95);
+            MeubleModele Table4 = new MeubleModele("Table 8pers. noire", "MaCuisine.com", MeubleModele.Type.Tables,599,240,105);
+            MeubleModele Table5 = new MeubleModele("Table murale blanche", "MaCuisine.com", MeubleModele.Type.Tables,39,74,60);
+            MeubleModele Table6 = new MeubleModele("Table murale noire", "MaCuisine.com", MeubleModele.Type.Tables,49,90,50);
+            MeubleModele Meuble = new MeubleModele("Grandes étagères", "MaCuisine.com", MeubleModele.Type.Meubles,99,147,147);
+            MeubleModele Chaise = new MeubleModele("Chaise blanche cuir", "MaCuisine.com", MeubleModele.Type.Chaises,59,30,30);
+            //MeubleModele Machine_A_Laver = new MeubleModele("Machine à laver Bosch", "Bosch", MeubleModele.Type.Petits_electromenagers,499,100,100);
+            //MeubleModele Plan_de_travail = new MeubleModele("Plan de travail avec évier", "MaCuisine.com", MeubleModele.Type.Gros_electromenagers,130,200,60);
             // Images meubles
+            //Image i = new Image(getClass().getResourceAsStream("../Sprites/table1.png"));
+            //if (i == null) {
+            //    System.out.println("Erreur");
+            //}
             Table1.setImg(new Image(getClass().getResourceAsStream("../Sprites/table1.png")));
             Table2.setImg(new Image(getClass().getResourceAsStream("../Sprites/table2.png")));
             Table3.setImg(new Image(getClass().getResourceAsStream("../Sprites/table3.png")));
@@ -126,6 +132,7 @@ public class Data<rotationPas> {
             Meuble.setImg(new Image(getClass().getResourceAsStream("../Sprites/meuble.png")));
             Chaise.setImg(new Image(getClass().getResourceAsStream("../Sprites/chaise.png")));
             // add catalogue
+            catalogue.add(Table1);
             catalogue.add(Table2);
             catalogue.add(Table3);
             catalogue.add(Table4);
@@ -133,8 +140,8 @@ public class Data<rotationPas> {
             catalogue.add(Table6);
             catalogue.add(Meuble);
             catalogue.add(Chaise);
-
-
+            //catalogue.add(Machine_A_Laver);
+            //catalogue.add(Plan_de_travail);
             return catalogue;
         }
 

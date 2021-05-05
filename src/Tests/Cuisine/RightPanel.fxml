@@ -37,7 +37,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter.png" />
+                                          <Image url="@../../Sprites/filter.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -46,7 +46,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter2.png" />
+                                          <Image url="@../../Sprites/filter2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -206,7 +206,7 @@
                            <children>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Sprites/price.png" />
+                                    <Image url="@../../Sprites/price.png" />
                                  </image>
                               </ImageView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix total :" wrappingWidth="73.236328125" />
@@ -232,7 +232,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter2.png" />
+                                          <Image url="@../../Sprites/filter2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -241,7 +241,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter.png" />
+                                          <Image url="@../../Sprites/filter.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -260,7 +260,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter.png" />
+                                          <Image url="@../../Sprites/filter.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -269,7 +269,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Sprites/filter2.png" />
+                                          <Image url="@../../Sprites/filter2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -281,7 +281,7 @@
                            <children>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Sprites/search.png" />
+                                    <Image url="@../../Sprites/search.png" />
                                  </image>
                               </ImageView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher" />

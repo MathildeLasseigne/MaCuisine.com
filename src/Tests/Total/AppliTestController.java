@@ -89,7 +89,10 @@ public class AppliTestController extends FXMLController {
     private Button suppr;
 
     @FXML
-    private Button rotate;
+    private Button rotateRight;
+
+    @FXML
+    private Button rotateLeft;
 
     @FXML
     private ImageView grilleImageView;
@@ -128,7 +131,8 @@ public class AppliTestController extends FXMLController {
        //loadSession();
         sauvegarder.setOnAction((actionEvent)->{Data.saveSession(primarystage);});
         imprimer.setOnAction((actionEvent)->{printCuisine();});
-        rotate.setOnAction((actionEvent)->{rotateHandler();});
+        //rotateRight.setOnAction((actionEvent)->{rotateRightHandler();});
+        //rotateLeft.setOnAction((actionEvent)->{rotateLeftHandler();});
     }
 
     /**
@@ -179,13 +183,29 @@ public class AppliTestController extends FXMLController {
     }
 
     @FXML
-    public void rotateHandler(){
+    public void rotateRightHandler(){
         if(Data.getCurrentSession().properties.isMeubleMovable.get()) {
             MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
             Rotate rotate = new Rotate();
             rotate.setPivotX(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
             rotate.setPivotY(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
             rotate.setAngle(Data.rotationPas);
+            if (selection != null) {
+                if (!selection.isEmptyMeubleSelection()) {
+                    selection.getMeuble().getForme().getTransforms().add(rotate);
+                }
+            }
+        }
+    }
+
+    @FXML
+    public void rotateLeftHandler(){
+        if(Data.getCurrentSession().properties.isMeubleMovable.get()) {
+            MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
+            Rotate rotate = new Rotate();
+            rotate.setPivotX(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
+            rotate.setPivotY(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
+            rotate.setAngle(-Data.rotationPas);
             if (selection != null) {
                 if (!selection.isEmptyMeubleSelection()) {
                     selection.getMeuble().getForme().getTransforms().add(rotate);
