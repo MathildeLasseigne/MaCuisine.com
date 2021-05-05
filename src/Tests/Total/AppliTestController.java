@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import modele.Data;
@@ -88,6 +89,9 @@ public class AppliTestController extends FXMLController {
     private Button suppr;
 
     @FXML
+    private Button rotate;
+
+    @FXML
     private ImageView grilleImageView;
 
     @FXML
@@ -124,6 +128,7 @@ public class AppliTestController extends FXMLController {
        //loadSession();
         sauvegarder.setOnAction((actionEvent)->{Data.saveSession(primarystage);});
         imprimer.setOnAction((actionEvent)->{printCuisine();});
+        rotate.setOnAction((actionEvent)->{rotateHandler();});
     }
 
     /**
@@ -171,6 +176,22 @@ public class AppliTestController extends FXMLController {
     @FXML
     public void grilleHandler(){
         Data.getCurrentSession().properties.isGrilleVisible.set(! Data.getCurrentSession().properties.isGrilleVisible.get());
+    }
+
+    @FXML
+    public void rotateHandler(){
+        if(Data.getCurrentSession().properties.isMeubleMovable.get()) {
+            MeubleModele selection = Data.getCurrentSession().gestionaireMeubles.getSelection();
+            Rotate rotate = new Rotate();
+            rotate.setPivotX(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
+            rotate.setPivotY(selection.getMeuble().getForme().getBoundsInLocal().getCenterX());
+            rotate.setAngle(Data.rotationPas);
+            if (selection != null) {
+                if (!selection.isEmptyMeubleSelection()) {
+                    selection.getMeuble().getForme().getTransforms().add(rotate);
+                }
+            }
+        }
     }
 
 
@@ -223,6 +244,7 @@ public class AppliTestController extends FXMLController {
                 ev.consume();
             }
         });
+
     }
 
     /**

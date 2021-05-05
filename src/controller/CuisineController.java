@@ -95,9 +95,6 @@ public class CuisineController extends FXMLController {
     @FXML
     public CheckBox moveBox;
 
-
-
-
     public Point2D getPosMouse(MouseEvent e){
         return new Point2D(e.getX(), e.getY());
     }

@@ -107,6 +107,15 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Button fx:id="rotate" maxWidth="30.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#rotateHandler" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Sprites/rotate.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />

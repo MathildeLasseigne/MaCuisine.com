@@ -37,6 +37,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                   <items>
+                        <MenuItem fx:id="imprimer1" mnemonicParsing="false" text="Nouveau" />
+                        <MenuItem fx:id="imprimer2" mnemonicParsing="false" text="Ouvrir" />
                     <MenuItem fx:id="sauvegarder" mnemonicParsing="false" text="Sauvegarder" />
                         <MenuItem fx:id="imprimer" mnemonicParsing="false" text="Imprimer" />
                   </items>
@@ -101,6 +103,15 @@
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../Sprites/poubelle.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="rotate" maxWidth="30.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#rotateHandler" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Sprites/rotate.png" />
                                  </image>
                               </ImageView>
                            </graphic>
