@@ -10,7 +10,7 @@ import modele.MeubleModele;
 
 import java.util.HashMap;
 
-public class LeftPannelController extends FXMLController {
+public class LeftPanelController extends FXMLController {
 
 
     /**Vbox pour chaque type de meuble du panier**/
@@ -54,7 +54,7 @@ public class LeftPannelController extends FXMLController {
     private HashMap<MeubleModele.Type, VBox> catalogueVBox = new HashMap<>();
 
 
-    public LeftPannelController(){
+    public LeftPanelController(){
 
     }
 

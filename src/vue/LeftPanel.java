@@ -1,26 +1,25 @@
 package vue;
 
-import controller.InfoPaneController;
-import controller.LeftPannelController;
+import controller.LeftPanelController;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.io.Serializable;
 
-public class LeftPannel implements Serializable {
+public class LeftPanel implements Serializable {
 
     private Pane leftPannel;
 
-    private LeftPannelController ctrl;
+    private LeftPanelController ctrl;
 
     private Catalogue catatalogue;
 
     private Panier panier;
 
 
-    public LeftPannel(){
-        this.ctrl = new LeftPannelController();
+    public LeftPanel(){
+        this.ctrl = new LeftPanelController();
         Parent p = null;
         try {
             p = this.ctrl.loadFXMLWithController(getClass().getResource("LeftPanel.fxml"));
@@ -64,7 +63,7 @@ public class LeftPannel implements Serializable {
      * Renvoie le controlleur du leftPanel
      * @return
      */
-    public LeftPannelController getCtrl() {
+    public LeftPanelController getCtrl() {
         return ctrl;
     }
 }

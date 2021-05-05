@@ -1,7 +1,6 @@
 package modele;
 
 import controller.DragController;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
@@ -74,7 +73,7 @@ public class MeubleModele implements Serializable {
     /**La petite fiche utilisee dans le panier**/
     private PetiteFiche fichePanier;
     /**La fiche ou est inscrite toutes les infos**/
-    private BigFiche infoFiche;
+    private GrandeFiche infoFiche;
 
 
 
@@ -463,7 +462,7 @@ public class MeubleModele implements Serializable {
         this.ficheCatalogue.managedProperty().bind(this.ficheCatalogue.visibleProperty());
 
         //Big fiche/info fiche
-        this.infoFiche = new BigFiche(this);
+        this.infoFiche = new GrandeFiche(this);
     }
 
     /**
@@ -483,7 +482,7 @@ public class MeubleModele implements Serializable {
     /**
      * Renvoie la grande fiche du meuble avec sa description
      */
-    public  BigFiche getBigFiche(){
+    public GrandeFiche getBigFiche(){
         return this.infoFiche;
     }
 

@@ -5,12 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import modele.BigFiche;
+import modele.GrandeFiche;
 import modele.Data;
 import modele.MeubleModele;
 
 
-public class BigFicheController extends FXMLController {
+public class GrandeFicheController extends FXMLController {
 
     @FXML
     private ImageView image;
@@ -30,13 +30,13 @@ public class BigFicheController extends FXMLController {
     @FXML
     private Text description;
 
-    private BigFiche bigFiche;
+    private GrandeFiche grandeFiche;
 
     private MeubleModele meuble;
 
-    public BigFicheController(BigFiche bigFiche){
-        this.bigFiche = bigFiche;
-        this.meuble = bigFiche.getMeubleModele();
+    public GrandeFicheController(GrandeFiche grandeFiche){
+        this.grandeFiche = grandeFiche;
+        this.meuble = grandeFiche.getMeubleModele();
         setHandler();
     }
 

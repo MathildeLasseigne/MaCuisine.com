@@ -6,7 +6,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
-import org.jetbrains.annotations.TestOnly;
+//import org.jetbrains.annotations.TestOnly;
 import vue.Cuisine;
 
 import java.io.Serializable;
@@ -209,7 +209,7 @@ public class GestionaireMeubles implements Serializable {
      * <br/>A utiliser uniquement pour les tests
      * @param nb le nombre d elements a prendre dans le catalogue
      */
-    @TestOnly
+    //@TestOnly
     public void initPanierTest(int nb){
         int itMax = nb -1;
         if(nb > this.catalogue.size()){

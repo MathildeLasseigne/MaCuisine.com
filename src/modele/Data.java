@@ -148,7 +148,7 @@ public class Data {
          */
         public void createGestionnaireMeubles(){
             this.gestionaireMeubles = new GestionaireMeubles(panneaux.cuisine);
-            this.panneaux.leftPannel.getCtrl().bindTotalPrice(this.gestionaireMeubles.totalPricePanierProperty());
+            this.panneaux.leftPanel.getCtrl().bindTotalPrice(this.gestionaireMeubles.totalPricePanierProperty());
         }
 
         public static class Properties implements Serializable {
@@ -182,9 +182,9 @@ public class Data {
              */
             public Panneaux(){
                 this.infoPane = new InfoPane();
-                this.leftPannel = new LeftPannel();
-                this.catalogue = leftPannel.getCatatalogue();
-                this.panier = leftPannel.getPanier();
+                this.leftPanel = new LeftPanel();
+                this.catalogue = leftPanel.getCatatalogue();
+                this.panier = leftPanel.getPanier();
             }
 
             /**
@@ -217,7 +217,7 @@ public class Data {
              */
             public Cuisine cuisine;
 
-            public LeftPannel leftPannel;
+            public LeftPanel leftPanel;
 
             /**
              * La gestion de la vue du panier

@@ -1,24 +1,24 @@
 package modele;
 
-import controller.BigFicheController;
+import controller.GrandeFicheController;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.io.Serializable;
 
-public class BigFiche extends Pane implements Serializable {
+public class GrandeFiche extends Pane implements Serializable {
 
     private MeubleModele meubleModele;
 
-    private BigFicheController controller;
+    private GrandeFicheController controller;
 
-    public BigFiche(MeubleModele meubleModele){
+    public GrandeFiche(MeubleModele meubleModele){
         this.meubleModele = meubleModele;
-        this.controller = new BigFicheController(this);
+        this.controller = new GrandeFicheController(this);
         Parent ficheContent = null;
         try{
-            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("../vue/BigFiche.fxml"));
+            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("../vue/GrandeFiche.fxml"));
 
         } catch (IOException e){
             e.printStackTrace();

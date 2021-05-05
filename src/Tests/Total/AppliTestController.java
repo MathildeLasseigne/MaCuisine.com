@@ -14,11 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import modele.Data;
-import modele.GestionaireMeubles;
 import modele.MeubleModele;
-import vue.Catalogue;
 import vue.Cuisine;
-import vue.Panier;
 
 import java.util.HashMap;
 
@@ -135,7 +132,7 @@ public class AppliTestController extends FXMLController {
     public void loadSession(){
         container.setCenter(Data.getCurrentSession().panneaux.cuisine);
         container.setRight(Data.getCurrentSession().panneaux.infoPane.getInfoPane());
-        container.setLeft(Data.getCurrentSession().panneaux.leftPannel.getLeftPannel());
+        container.setLeft(Data.getCurrentSession().panneaux.leftPanel.getLeftPannel());
         Data.getCurrentSession().properties.isMeubleMovable.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.moveImageView.setImage(this.moveImage);
