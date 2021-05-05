@@ -124,13 +124,48 @@ public class Data {
 
         private Point2D dimensionsCuisine = null;
 
+        /**Le facteur multiplicateur de la taille de la cuisine**/
+        private double facteurSize = 1;
+
+        /**
+         * Rend le point multiplie par le facteur de dimension de la session
+         * @param sizePoint
+         * @return
+         */
+        public double adjustSize(double sizePoint){
+            return sizePoint*facteurSize;
+        }
+
+        /**
+         * Rend le point multiplie par le facteur de dimension de la session
+         * @param size
+         * @return
+         */
+        public Point2D adjustSize(Point2D size){
+            return size.multiply(facteurSize);
+        }
+
+        /**
+         * Calcul le facteur de dimension en fonction de la dimension max de la cuisine
+         * @return
+         */
+        private void setFacteurSize() {
+            if(dimensionsCuisine.getX()>dimensionsCuisine.getY()){
+                facteurSize = 640/dimensionsCuisine.getX();
+            } else {
+                facteurSize = 460/dimensionsCuisine.getY();
+            }
+        }
+
         /**La liste des properties, notament celles utilisees par la tools Bar**/
         public Properties properties;
+
 
         /**
          * La liste de tous les panes de l appli utilisables
          */
         public Panneaux panneaux;
+
 
 
         /**Le gestionnaire de meuble**/
@@ -140,6 +175,7 @@ public class Data {
             this.dimensionsCuisine = dimensionsCuisine;
             this.properties = new Properties();
             this.panneaux = new Panneaux();
+            setFacteurSize();
 
         }
 
@@ -236,7 +272,8 @@ public class Data {
             }
 
             protected void setCuisine() {
-                this.cuisine = new Cuisine(dimensionsCuisine.getX(),dimensionsCuisine.getY());
+                this.cuisine = new Cuisine(adjustSize(dimensionsCuisine.getX()),adjustSize(dimensionsCuisine.getY()));
+
             }
         }
     }

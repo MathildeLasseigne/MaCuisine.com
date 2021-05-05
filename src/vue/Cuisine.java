@@ -88,6 +88,7 @@ public class Cuisine extends ScrollPane implements Serializable {
                 }
             }
         });
+        setGrilleInsets(Data.getCurrentSession().adjustSize(10));
     }
 
     /**
@@ -143,7 +144,6 @@ public class Cuisine extends ScrollPane implements Serializable {
      */
     public void drawGrille(GraphicsContext gc){
         if(Data.getCurrentSession().properties.isGrilleVisible.get()){
-            //TODO grilles with grilleInsets
             gc.setLineWidth(1);
             gc.setStroke(Color.BURLYWOOD);
             double currentPosX = this.grilleInsets;
@@ -161,6 +161,10 @@ public class Cuisine extends ScrollPane implements Serializable {
             //gc.setFill(Color.GREEN);
             //gc.fillOval(50,50,50,50);
         }
+    }
+
+    public void setGrilleInsets(double grilleInsets) {
+        this.grilleInsets = grilleInsets;
     }
 
     /**
