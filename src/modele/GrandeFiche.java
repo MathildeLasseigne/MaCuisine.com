@@ -18,7 +18,7 @@ public class GrandeFiche extends Pane implements Serializable {
         this.controller = new GrandeFicheController(this);
         Parent ficheContent = null;
         try{
-            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("../vue/GrandeFiche.fxml"));
+            ficheContent = this.controller.loadFXMLWithController(getClass().getResource("../vue/GrandeFicheMeuble.fxml"));
 
         } catch (IOException e){
             e.printStackTrace();

@@ -103,12 +103,14 @@ public class Data {
          */
         private ArrayList<MeubleModele> initMeubleModeleCatalogue(){
             ArrayList<MeubleModele> catalogue = new ArrayList<>();
-            catalogue.add(new MeubleModele("Meuble1", "MaCuisine.com", MeubleModele.Type.Meubles,100,100,50));
-            catalogue.add(new MeubleModele("Meuble2", "MaCuisine.com", MeubleModele.Type.Meubles,100,60,60));
-            catalogue.add(new MeubleModele("Meuble3", "MaCuisine.com", MeubleModele.Type.Meubles,100,30,60));
-            catalogue.add(new MeubleModele("Meuble4", "MaCuisine.com", MeubleModele.Type.Meubles,100,20,50));
-            catalogue.add(new MeubleModele("Meuble5", "MaCuisine.com", MeubleModele.Type.Meubles,30,30,30));
-            catalogue.add(new MeubleModele("Meuble6", "MaCuisine.com", MeubleModele.Type.Meubles,40,40,40));
+            catalogue.add(new MeubleModele("Table 1", "MaCuisine.com", MeubleModele.Type.Tables,29,110,67));
+            catalogue.add(new MeubleModele("Table 2", "MaCuisine.com", MeubleModele.Type.Tables,100,60,60));
+            catalogue.add(new MeubleModele("Table 3", "MaCuisine.com", MeubleModele.Type.Tables,499,160,95));
+            catalogue.add(new MeubleModele("Table 4", "MaCuisine.com", MeubleModele.Type.Tables,599,240,105));
+            catalogue.add(new MeubleModele("Table 5", "MaCuisine.com", MeubleModele.Type.Tables,39,74,60));
+            catalogue.add(new MeubleModele("Table 6", "MaCuisine.com", MeubleModele.Type.Tables,49,90,50));
+            catalogue.add(new MeubleModele("Meuble", "MaCuisine.com", MeubleModele.Type.Meubles,99,147,147));
+            catalogue.add(new MeubleModele("Chaise", "MaCuisine.com", MeubleModele.Type.Meubles,59,51,58));
 
 
             return catalogue;
