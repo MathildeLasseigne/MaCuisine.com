@@ -645,10 +645,10 @@ public class MeubleModele implements Serializable {
          * Cree la forme de la cuisine en fonction de ses dimensions
          */
         private void buildForme(){
-            this.forme = new Rectangle(MeubleModele.this.LARGEUR, MeubleModele.this.HAUTEUR);
+            this.forme = new Rectangle(Data.getCurrentSession().adjustSize(MeubleModele.this.LARGEUR), Data.getCurrentSession().adjustSize(MeubleModele.this.HAUTEUR));
             this.forme.setFill(paintUsual);
             this.forme.setStroke(Color.BLACK);
-            this.forme.setStrokeWidth(2);
+            this.forme.setStrokeWidth(1);
             this.forme.visibleProperty().bindBidirectional(this.inPlan);
         }
 
@@ -855,7 +855,7 @@ public class MeubleModele implements Serializable {
          */
         private void grabFormeByFiche(){
             //reset(false);
-            Point2D offset = new Point2D(LARGEUR/2, HAUTEUR/2); //Anchor au milieu de la forme
+            Point2D offset = new Point2D(Data.getCurrentSession().adjustSize(LARGEUR)/2, Data.getCurrentSession().adjustSize(HAUTEUR)/2); //Anchor au milieu de la forme
             getDragController().setMouseOffsetFromNode(offset);
 
             Point2D posInParent = getDragController().getCurrentPos(getForme());
