@@ -22,7 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        primaryStage.setTitle("Test Appli");
+        primaryStage.setTitle("MaCuisine 2D - Constructeur de cuisine");
 
         //Création de la cuisine
         javafx.scene.control.Dialog<String> dialog = new Dialog<String>();
