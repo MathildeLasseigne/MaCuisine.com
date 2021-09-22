@@ -33,7 +33,7 @@ public abstract class FXMLController implements Serializable {
         loader.setController(this);
         Parent fxmlContent = null;
         fxmlContent = loader.load();
-        this.fxmlLoader = fxmlLoader;
+        this.fxmlLoader = loader;
         return fxmlContent;
     }
 
